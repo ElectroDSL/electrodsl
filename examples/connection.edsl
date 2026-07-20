@@ -1,0 +1,26 @@
+EDSL 0.1
+
+
+PROJECT "Motor Control" {
+
+
+CIRCUIT "Power" {
+
+
+COMPONENT Q1: Contactor {
+
+}
+
+
+COMPONENT M1: Motor {
+
+}
+
+
+CONNECT Q1.L1 -> M1.A1;
+
+
+}
+
+
+}

@@ -1,0 +1,15 @@
+{
+  "name": "electrodsl",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ElectroDSL - Open Standard for Electrical Schematics",
+  "packageManager": "pnpm",
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.0",
+    "typescript": "5.7.3"
+  }
+}

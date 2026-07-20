@@ -1,0 +1,11 @@
+project TestCircuit {
+
+  circuit Main {
+
+    resistor R1 {
+      resistance = 1000
+    }
+
+  }
+
+}
