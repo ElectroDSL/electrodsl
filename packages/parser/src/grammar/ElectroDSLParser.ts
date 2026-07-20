@@ -16,6 +16,7 @@ import {
     Colon,
     Equals,
     Connect,
+    Net,
     Dot,
     Arrow,
     Semicolon,
@@ -113,6 +114,11 @@ ALT:()=>this.SUBRULE(this.component)
 
 {
 ALT:()=>this.SUBRULE(this.connection)
+
+},
+
+{
+ALT:()=>this.SUBRULE(this.net)
 }
 
 ]);
@@ -198,6 +204,19 @@ this.CONSUME(Semicolon);
 
 
 });
+
+public net = this.RULE(
+"net",
+()=>{
+
+this.CONSUME(Net);
+
+this.CONSUME(Identifier);
+
+this.OPTION(()=>this.CONSUME(Semicolon));
+
+}
+);
 
 
 }

@@ -1,0 +1,5 @@
+{
+  "type": "Motor",
+  "pins": ["L1", "L2", "L3", "PE"],
+  "symbol": "motor"
+}

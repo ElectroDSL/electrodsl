@@ -29,6 +29,9 @@ importers:
       '@electrodsl/parser':
         specifier: workspace:*
         version: link:../parser
+      '@electrodsl/renderer-svg':
+        specifier: workspace:*
+        version: link:../renderer-svg
       '@electrodsl/validator':
         specifier: workspace:*
         version: link:../validator
@@ -42,6 +45,8 @@ importers:
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+
+  packages/library: {}
 
   packages/parser:
     dependencies:

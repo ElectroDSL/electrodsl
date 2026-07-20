@@ -1,44 +1,41 @@
 
-<svg
-xmlns="http://www.w3.org/2000/svg"
-width="800"
-height="600">
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="240" viewBox="0 0 840 240">
+<style>
+    .edsl-symbol-line, .edsl-wire { fill: none; stroke: #111; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .edsl-symbol-shape { fill: #fff; stroke: #111; stroke-width: 2; }
+    .edsl-terminal { fill: #111; }
+    .edsl-symbol-text { fill: #111; font: 14px sans-serif; }
+    .edsl-component-label { fill: #111; font: 14px sans-serif; font-weight: 600; }
+    .edsl-pin-label { fill: #555; font: 11px sans-serif; }
+</style>
 
+<path d="M 120 80 H 240" class="edsl-wire" data-from="Q1.L1" data-to="M1.A1" />
+<text x="120" y="72" text-anchor="start" class="edsl-pin-label">L1</text>
+<text x="240" y="72" text-anchor="end" class="edsl-pin-label">A1</text>
 
-<rect
-x="100"
-y="40"
-width="120"
-height="40"
-fill="white"
-stroke="black"/>
+<g class="edsl-component" data-component-id="Q1">
 
-<text
-x="110"
-y="65"
-font-size="14">
+<g class="edsl-symbol edsl-contactor">
+    <line x1="40" y1="80" x2="60" y2="80" class="edsl-symbol-line" />
+    <rect x="60" y="56" width="40" height="48" rx="3" class="edsl-symbol-shape" />
+    <line x1="68" y1="68" x2="92" y2="92" class="edsl-symbol-line" />
+    <line x1="100" y1="80" x2="120" y2="80" class="edsl-symbol-line" />
+    <circle cx="40" cy="80" r="3" class="edsl-terminal" />
+    <circle cx="120" cy="80" r="3" class="edsl-terminal" />
+</g>
+    <text x="80" y="140" text-anchor="middle" class="edsl-component-label">Q1</text>
+</g>
 
-Q1
+<g class="edsl-component" data-component-id="M1">
 
-</text>
-
-
-<rect
-x="100"
-y="120"
-width="120"
-height="40"
-fill="white"
-stroke="black"/>
-
-<text
-x="110"
-y="145"
-font-size="14">
-
-M1
-
-</text>
-
-
+<g class="edsl-symbol edsl-motor">
+    <line x1="240" y1="80" x2="254" y2="80" class="edsl-symbol-line" />
+    <circle cx="280" cy="80" r="26" class="edsl-symbol-shape" />
+    <text x="280" y="86" text-anchor="middle" class="edsl-symbol-text">M</text>
+    <line x1="306" y1="80" x2="320" y2="80" class="edsl-symbol-line" />
+    <circle cx="240" cy="80" r="3" class="edsl-terminal" />
+    <circle cx="320" cy="80" r="3" class="edsl-terminal" />
+</g>
+    <text x="280" y="140" text-anchor="middle" class="edsl-component-label">M1</text>
+</g>
 </svg>

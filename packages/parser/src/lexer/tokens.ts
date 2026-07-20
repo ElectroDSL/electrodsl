@@ -100,6 +100,14 @@ pattern:/CONNECT/
 
 });
 
+export const Net = createToken({
+
+name:"Net",
+
+pattern:/NET/
+
+});
+
 export const allTokens = [
 
     WhiteSpace,
@@ -110,6 +118,7 @@ export const allTokens = [
     Project,
     Circuit,
     Component,
+    Net,
 
     StringLiteral,
     Connect,

@@ -24,5 +24,7 @@ PROJECT "Motor" {
         expect(ast.project.circuits[0].components).toHaveLength(1);
         expect(ast.project.circuits[0].components[0].id).toBe("Q1");
         expect(ast.project.circuits[0].components[0].componentType).toBe("Contactor");
+        expect(ast.project.circuits[0].components[0].type).toBe("Contactor");
+        expect(ast.project.circuits[0].components[0].pins).toEqual([]);
     });
 });

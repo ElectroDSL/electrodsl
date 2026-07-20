@@ -1,6 +1,7 @@
 export * from "./enums/NodeKind.js";
 
 export * from "./nodes/AstNode.js";
+export * from "./nodes/Position.js";
 export * from "./nodes/DocumentNode.js";
 export * from "./nodes/ProjectNode.js";
 export * from "./nodes/CircuitNode.js";
@@ -8,3 +9,7 @@ export * from "./nodes/ComponentNode.js";
 export * from "./nodes/PropertyNode.js";
 export * from "./nodes/ConnectionNode.js";
 export * from "./nodes/PinRefNode.js";
+export * from "./nodes/PinNode.js";
+export * from "./nodes/TerminalNode.js";
+export * from "./nodes/WireNode.js";
+export * from "./nodes/NetNode.js";

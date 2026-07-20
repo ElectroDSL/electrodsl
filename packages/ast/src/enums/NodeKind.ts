@@ -12,6 +12,12 @@ export enum NodeKind {
 
     Connection = "Connection",
 
-    Net = "Net"
+    Net = "Net",
+
+    Pin = "Pin",
+
+    Terminal = "Terminal",
+
+    Wire = "Wire"
 
 }

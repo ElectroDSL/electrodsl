@@ -1,0 +1,111 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="240" viewBox="0 0 840 240">
+<style>
+    .edsl-symbol-line, .edsl-wire { fill: none; stroke: #111; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .edsl-symbol-shape { fill: #fff; stroke: #111; stroke-width: 2; }
+    .edsl-terminal { fill: #111; }
+    .edsl-symbol-text { fill: #111; font: 14px sans-serif; }
+    .edsl-component-label { fill: #111; font: 14px sans-serif; font-weight: 600; }
+    .edsl-pin-label { fill: #555; font: 11px sans-serif; }
+    .edsl-pin {fill: black;}
+</style>
+
+<path d="M 120 80 H 240" class="edsl-wire" data-from="Q1.L1" data-to="M1.A1" />
+<text x="120" y="72" text-anchor="start" class="edsl-pin-label">L1</text>
+<text x="240" y="72" text-anchor="end" class="edsl-pin-label">A1</text>
+
+<g class="edsl-component" data-component-id="Q1">
+
+
+<rect
+    x="80"
+    y="80"
+    width="80"
+    height="60"
+    fill="white"
+    stroke="black"
+/>
+
+
+<circle
+    cx="72"
+    cy="100"
+    r="3"
+    class="edsl-pin"/>
+
+<text
+    x="78"
+    y="96"
+    class="edsl-pin-label">
+L1
+</text>
+<circle
+    cx="128"
+    cy="100"
+    r="3"
+    class="edsl-pin"/>
+
+<text
+    x="134"
+    y="96"
+    class="edsl-pin-label">
+A1
+</text>
+
+<text
+    x="80"
+    y="140"
+    text-anchor="middle"
+    class="edsl-component-label">
+Q1
+</text>
+
+</g>
+
+<g class="edsl-component" data-component-id="M1">
+
+
+<circle
+    cx="320"
+    cy="110"
+    r="30"
+    fill="white"
+    stroke="black"
+/>
+
+
+<circle
+    cx="272"
+    cy="100"
+    r="3"
+    class="edsl-pin"/>
+
+<text
+    x="278"
+    y="96"
+    class="edsl-pin-label">
+L1
+</text>
+<circle
+    cx="328"
+    cy="100"
+    r="3"
+    class="edsl-pin"/>
+
+<text
+    x="334"
+    y="96"
+    class="edsl-pin-label">
+A1
+</text>
+
+<text
+    x="280"
+    y="140"
+    text-anchor="middle"
+    class="edsl-component-label">
+M1
+</text>
+
+</g>
+</svg>

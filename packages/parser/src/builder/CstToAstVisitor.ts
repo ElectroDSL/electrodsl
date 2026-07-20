@@ -1,171 +1,202 @@
 import {
-createCstNodeVisitor
+    createCstNodeVisitor
 } from "chevrotain";
 
 
 import {
-parser
+    parser
 } from "../grammar/ElectroDSLParser.js";
 
 
 import {
-NodeKind
+    NodeKind
 } from "@electrodsl/ast";
 
 
 const BaseVisitor =
-parser.getBaseCstVisitorConstructor();
+    parser.getBaseCstVisitorConstructor();
 
 
 
 export class AstBuilderVisitor
-extends BaseVisitor {
+    extends BaseVisitor {
 
 
-constructor(){
+    constructor() {
 
-super();
+        super();
 
-this.validateVisitor();
+        this.validateVisitor();
 
-}
+    }
 
-document(ctx:any){
-
-
-
-
-    return this.visit(ctx.project[0]);
-
-}
-
-project(ctx:any){
+    document(ctx: any) {
 
 
 
-const name =
-ctx.StringLiteral[0]
-.image
-.replaceAll('"',"");
 
+        return this.visit(ctx.project[0]);
 
-return {
+    }
 
-kind:NodeKind.Document,
-
-version:"0.1",
-
-project:{
-
-kind:NodeKind.Project,
-
-name,
-
-circuits:
-ctx.circuit?.map(
-(c:any)=>this.visit(c)
-) ?? []
-
-}
-
-};
-
-
-}
+    project(ctx: any) {
 
 
 
-circuit(ctx:any){
-
-    return {
-
-        kind: NodeKind.Circuit,
-
-        name:
+        const name =
             ctx.StringLiteral[0]
                 .image
-                .replaceAll('"', ""),
+                .replaceAll('"', "");
 
-        components:
-            ctx.component?.map(
-                (c:any) => this.visit(c)
-            ) ?? [],
 
-        connections:
-    ctx.connection?.map(
-        (c:any)=>this.visit(c)
-    ) ?? []
+        return {
 
-    };
+            kind: NodeKind.Document,
 
-}
+            version: "0.1",
 
-component(ctx:any){
+            project: {
 
-    return {
+                kind: NodeKind.Project,
 
-        kind: NodeKind.Component,
+                name,
 
-        id:
-            ctx.Identifier[0].image,
+                circuits:
+                    ctx.circuit?.map(
+                        (c: any) => this.visit(c)
+                    ) ?? []
 
-        componentType:
-            ctx.type[0].image,
+            }
 
-        properties:
-            ctx.property?.map(
-                (p:any)=>this.visit(p)
-            ) ?? []
+        };
 
-    };
 
-}
+    }
 
-property(ctx:any){
 
-    return {
 
-        kind: NodeKind.Property,
+    circuit(ctx: any) {
 
-        name:
-            ctx.Identifier[0].image,
+        return {
 
-        value:
-            ctx.StringLiteral[0]
-            .image
-            .replaceAll('"',"")
-    };
+            kind: NodeKind.Circuit,
 
-}
+            name:
+                ctx.StringLiteral[0]
+                    .image
+                    .replaceAll('"', ""),
 
-connection(ctx:any){
+            components:
+                ctx.component?.map(
+                    (c: any) => this.visit(c)
+                ) ?? [],
 
-    return {
+            connections:
+                ctx.connection?.map(
+                    (c: any) => this.visit(c)
+                ) ?? [],
 
-        kind: NodeKind.Connection,
+            nets:
+                ctx.net?.map(
+                    (n: any) => this.visit(n)
+                ) ?? []
 
-        from: {
+        };
 
-            component:
+    }
+
+    component(ctx: any) {
+
+        return {
+
+            kind: NodeKind.Component,
+
+            id:
                 ctx.Identifier[0].image,
 
-            pin:
-                ctx.Identifier[1].image
+            componentType:
+                ctx.type[0].image,
 
-        },
+            type:
+                ctx.type[0].image,
 
-        to: {
+            properties:
+                ctx.property?.map(
+                    (p: any) => this.visit(p)
+                ) ?? [],
 
-            component:
-                ctx.Identifier[2].image,
+            pins: [
+                {
+                    name: "L1",
+                    side: "left"
+                },
+                {
+                    name: "A1",
+                    side: "right"
+                }
+            ]
 
-            pin:
-                ctx.Identifier[3].image
+        };
 
-        }
+    }
 
-    };
+    property(ctx: any) {
 
-}
+        return {
+
+            kind: NodeKind.Property,
+
+            name:
+                ctx.Identifier[0].image,
+
+            value:
+                ctx.StringLiteral[0]
+                    .image
+                    .replaceAll('"', "")
+        };
+
+    }
+
+    connection(ctx: any) {
+
+        return {
+
+            kind: NodeKind.Connection,
+
+            from: {
+
+                component:
+                    ctx.Identifier[0].image,
+
+                pin:
+                    ctx.Identifier[1].image
+
+            },
+
+            to: {
+
+                component:
+                    ctx.Identifier[2].image,
+
+                pin:
+                    ctx.Identifier[3].image
+
+            }
+
+        };
+
+    }
+
+    net(ctx: any) {
+
+        return {
+
+            kind: NodeKind.Net,
+
+            name: ctx.Identifier[0].image
+
+        };
+
+    }
 
 }
