@@ -1,0 +1,1 @@
+"ElectroDSL is an open, AI-friendly language for electrical systems. It provides a vendor-neutral, human-readable, and machine-readable format that enables interoperability between CAD tools, simulators, documentation systems, and AI assistants."
