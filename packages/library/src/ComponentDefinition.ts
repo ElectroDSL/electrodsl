@@ -1,9 +1,35 @@
+import { PinDefinition } from "./core/PinDefinition.js";
+
+
 export interface ComponentDefinition {
 
-    type: string;
 
-    pins: string[];
+    id: string;
 
-    symbol: string;
+
+    name: string;
+
+
+    category: string;
+
+
+    standard: string;
+
+
+    aliases?: string[];
+
+
+    symbol: {
+        file: string;
+        width: number;
+        height: number;
+    };
+
+    basePath?: string;
+    
+    terminals: PinDefinition[];
+
+
+    properties: Record<string, string>;
 
 }

@@ -1,0 +1,66 @@
+<svg 
+width="80" 
+height="80"
+viewBox="0 0 80 80"
+xmlns="http://www.w3.org/2000/svg">
+
+
+<!-- Left terminal -->
+<line
+x1="0"
+y1="40"
+x2="20"
+y2="40"
+stroke="black"
+stroke-width="2"/>
+
+
+<!-- Lamp circle -->
+<circle
+cx="40"
+cy="40"
+r="20"
+fill="none"
+stroke="black"
+stroke-width="2"/>
+
+
+<!-- Cross inside lamp -->
+<line
+x1="28"
+y1="28"
+x2="52"
+y2="52"
+stroke="black"
+stroke-width="2"/>
+
+
+<line
+x1="52"
+y1="28"
+x2="28"
+y2="52"
+stroke="black"
+stroke-width="2"/>
+
+
+<!-- Right terminal -->
+<line
+x1="60"
+y1="40"
+x2="80"
+y2="40"
+stroke="black"
+stroke-width="2"/>
+
+
+<!-- Label -->
+<text
+x="32"
+y="75"
+font-size="12">
+LAMP
+</text>
+
+
+</svg>

@@ -41,7 +41,7 @@ export const Circuit = createToken({
 
 export const Identifier = createToken({
     name: "Identifier",
-    pattern: /[A-Za-z_][A-Za-z0-9_]*/
+    pattern: /[A-Za-z_][A-Za-z0-9_-]*/
 });
 
 export const EDSL =

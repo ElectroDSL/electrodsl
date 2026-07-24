@@ -1,11 +1,30 @@
-project TestCircuit {
+EDSL 0.1
 
-  circuit Main {
+PROJECT "ElectroDSL Test Project" {
 
-    resistor R1 {
-      resistance = 1000
+    CIRCUIT "Main Circuit" {
+
+        COMPONENT P1 : IEC-LAMP {
+            voltage = "230V"
+            tag = "Power Lamp"
+        }
+
+        COMPONENT M1 : IEC-MOTOR-3PH {
+            power = "5.5kW"
+            voltage = "400V"
+        }
+
+        COMPONENT L1 : IEC-LAMP {
+            tag = "Indicator"
+        }
+
+        CONNECT P1.L1 -> M1.A1;
+        CONNECT M1.A1 -> L1.L1;
+        CONNECT L1.L1 -> P1.A1;
+
+        NET POWER;
+        NET CONTROL;
+
     }
-
-  }
 
 }

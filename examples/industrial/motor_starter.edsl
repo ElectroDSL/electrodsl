@@ -1,0 +1,44 @@
+circuit MotorStarter {
+
+    supply AC_415V {
+        phases 3
+        frequency 50
+    }
+
+
+    breaker Q1 {
+        type MCCB
+        rating 32A
+    }
+
+
+    contactor K1 {
+        coil 230V
+    }
+
+
+    overload OL1 {
+        rating 10A
+    }
+
+
+    motor M1 {
+
+        type induction
+        power 5kW
+        phases 3
+        rpm 1440
+
+    }
+
+
+    connection {
+
+        AC_415V -> Q1
+        Q1 -> K1
+        K1 -> OL1
+        OL1 -> M1
+
+    }
+
+}

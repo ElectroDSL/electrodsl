@@ -121,9 +121,12 @@ export class AstBuilderVisitor
                 ctx.type[0].image,
 
             properties:
-                ctx.property?.map(
-                    (p: any) => this.visit(p)
-                ) ?? [],
+                ctx.property
+                    ?.map(
+                        (p: any) => this.visit(p)
+                    )
+                    .filter(Boolean)
+                ?? [],
 
             pins: [
                 {
@@ -141,6 +144,14 @@ export class AstBuilderVisitor
     }
 
     property(ctx: any) {
+
+        if (
+            !ctx.Identifier ||
+            !ctx.StringLiteral
+        ) {
+            return null;
+        }
+
 
         return {
 

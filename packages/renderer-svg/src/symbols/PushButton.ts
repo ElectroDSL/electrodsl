@@ -1,14 +1,14 @@
 import { SymbolRenderer } from "./Symbol";
 
-export class Motor implements SymbolRenderer {
+export class PushButton implements SymbolRenderer {
   render(x: number, y: number): string {
     return `
-      <g class="symbol motor">
-        <circle cx="${x + 15}" cy="${y + 15}" r="15"
+      <g class="symbol pushbutton">
+        <circle cx="${x + 15}" cy="${y + 15}" r="12"
                 fill="none" stroke="black"/>
         <text x="${x + 15}" y="${y + 19}"
               text-anchor="middle"
-              font-size="10">M</text>
+              font-size="8">PB</text>
       </g>
     `;
   }

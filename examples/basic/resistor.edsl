@@ -1,0 +1,20 @@
+circuit SimpleVoltageDivider {
+
+    supply DC_12V
+
+    resistor R1 {
+        resistance 1000
+        unit ohm
+    }
+
+    resistor R2 {
+        resistance 2000
+        unit ohm
+    }
+
+    connection {
+        DC_12V -> R1
+        R1 -> R2
+        R2 -> ground
+    }
+}

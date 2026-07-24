@@ -1,54 +1,40 @@
-export function drawContactor(x:number,y:number):string{
-
-    return `
-<rect
-    x="${x}"
-    y="${y}"
-    width="80"
-    height="60"
-    fill="white"
-    stroke="black"
-/>`;
-
-}
-
-export function drawMotor(x:number,y:number):string{
-
-    return `
-<circle
-    cx="${x+40}"
-    cy="${y+30}"
-    r="30"
-    fill="white"
-    stroke="black"
-/>`;
-
-}
+import { symbolProvider } from "./SymbolProvider.js";
 
 export function drawSymbol(
-    type:string,
-    x:number,
-    y:number
-):string{
+    type: string,
+    x: number,
+    y: number
+): string {
 
-    switch(type){
+    const svg = symbolProvider.getSymbol(type);
 
-        case "Contactor":
-            return drawContactor(x,y);
+    if (!svg) {
 
-        case "Motor":
-            return drawMotor(x,y);
-
-        default:
-            return `
+        return `
 <rect
-    x="${x}"
-    y="${y}"
-    width="80"
-    height="60"
-    fill="none"
-    stroke="red"
-/>`;
+x="${x}"
+y="${y}"
+width="80"
+height="60"
+fill="none"
+stroke="red"/>
+`;
     }
 
+    return `
+<g transform="translate(${x},${y})">
+
+${extractSvgContent(svg)}
+
+</g>`;
+}
+
+
+function extractSvgContent(svg: string): string {
+
+    const match = svg.match(
+        /<svg[^>]*>([\s\S]*)<\/svg>/
+    );
+
+    return match ? match[1] : svg;
 }

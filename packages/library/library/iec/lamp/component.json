@@ -1,0 +1,52 @@
+{
+  "id": "IEC-LAMP",
+
+  "name": "Indicator Lamp",
+
+  "category": "indicator",
+
+  "standard": "IEC60617",
+
+  "symbol": {
+    "file": "symbol.svg",
+    "width": 80,
+    "height": 80
+  },
+
+  "terminals": [
+
+    {
+      "id": "L",
+      "name": "L",
+      "electricalType": "power",
+      "direction": "bidirectional",
+      "position": {
+        "x": 0,
+        "y": 40
+      }
+    },
+
+    {
+      "id": "N",
+      "name": "N",
+      "electricalType": "power",
+      "direction": "bidirectional",
+      "position": {
+        "x": 80,
+        "y": 40
+      }
+    }
+
+  ],
+
+  "properties": {
+
+    "voltage": "230VAC",
+
+    "power": "5W",
+
+    "colour": "White"
+
+  }
+
+}

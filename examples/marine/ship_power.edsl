@@ -1,0 +1,89 @@
+system PatrolVesselPower {
+
+
+generator DG1 {
+
+ rating 500kVA
+ voltage 415V
+ frequency 50
+
+}
+
+
+generator DG2 {
+
+ rating 500kVA
+ voltage 415V
+ frequency 50
+
+}
+
+
+switchboard MSB {
+
+ type main
+
+}
+
+
+panel Navigation {
+
+voltage 230V
+
+}
+
+
+panel Engineering {
+
+voltage 415V
+
+}
+
+
+load Radar {
+
+power 5kW
+
+}
+
+
+load CCTV {
+
+power 1kW
+
+}
+
+
+load Pump {
+
+power 15kW
+
+}
+
+
+
+connection {
+
+
+DG1 -> MSB
+
+DG2 -> MSB
+
+
+MSB -> Navigation
+
+MSB -> Engineering
+
+
+Navigation -> Radar
+
+Navigation -> CCTV
+
+
+Engineering -> Pump
+
+
+}
+
+
+}

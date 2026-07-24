@@ -1,0 +1,47 @@
+control_system Conveyor {
+
+
+plc PLC1 {
+
+brand Omron
+model CP1H
+
+}
+
+
+sensor S1 {
+
+type proximity
+
+}
+
+
+motor M1 {
+
+power 2.2kW
+
+}
+
+
+drive VFD1 {
+
+input 415V
+output 3phase
+
+}
+
+
+connection {
+
+
+S1 -> PLC1
+
+PLC1 -> VFD1
+
+VFD1 -> M1
+
+
+}
+
+
+}

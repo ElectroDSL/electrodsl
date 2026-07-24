@@ -1,0 +1,35 @@
+{
+"id":"IEC-MOTOR-3PH",
+
+"name":"Three Phase Induction Motor",
+
+"category":"motor",
+
+"standard":"IEC60617",
+
+"symbol":{
+
+    "file":"symbol.svg",
+
+    "width":100,
+
+    "height":100
+
+},
+
+"terminals":[
+
+{
+"id":"U1",
+"name":"U1",
+"electricalType":"power",
+"direction":"input",
+"position":{
+"x":0,
+"y":30
+}
+}
+
+]
+
+}
