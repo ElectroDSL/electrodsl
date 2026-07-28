@@ -1,59 +1,250 @@
 # Contributing to ElectroDSL
 
-Thank you for your interest in ElectroDSL.
+First, thank you for your interest in contributing to ElectroDSL.
 
-ElectroDSL is an open standard for describing electrical systems. Community contributions are welcome.
-
----
-
-# Guiding Principles
-
-* Keep the language simple.
-* Preserve backward compatibility whenever possible.
-* Follow the official specification.
-* Write readable, maintainable code.
-* Add tests for new features.
-
----
-
-# Repository Structure
-
-* `packages/ast` — Canonical AST
-* `packages/parser` — Reference parser
-* `packages/validator` — Validation engine
-* `packages/cli` — Command-line interface
-* `spec` — Official language specification
-* `examples` — Example ElectroDSL projects
-
----
-
-# Pull Requests
-
-Please ensure that:
-
-* All tests pass.
-* Documentation is updated when required.
-* New language features include specification changes.
-* Parser changes include tests.
-
----
-
-# Reporting Issues
-
-Please include:
-
-* ElectroDSL version
-* Sample `.edsl` file
-* Expected behavior
-* Actual behavior
+ElectroDSL is an open, AI-native language and reference implementation for electrical engineering schematics. Our goal is to build an open standard that benefits engineers, educators, researchers, and software developers worldwide.
 
 ---
 
 # Code of Conduct
 
-Be respectful, constructive, and collaborative.
+Please read the Code of Conduct before contributing.
 
-ElectroDSL aims to build an open ecosystem for the electrical engineering community.
-# Contributing
+All contributors are expected to behave professionally and respectfully.
 
-Pull requests are welcome.
+---
+
+# Development Philosophy
+
+ElectroDSL follows several important principles.
+
+## Engineering First
+
+ElectroDSL models electrical engineering concepts rather than graphical drawings.
+
+## AI Native
+
+The language should be easy for both humans and AI systems to understand and generate.
+
+## Open Standard
+
+The language specification is independent of any renderer or editor.
+
+## Modular Architecture
+
+Each package should have a single responsibility.
+
+---
+
+# Repository Structure
+
+```
+packages/
+
+├── ai-schema
+├── ast
+├── cli
+├── graph
+├── integration
+├── layout
+├── library
+├── parser
+├── renderer-svg
+├── shared
+└── validator
+```
+
+---
+
+# Getting Started
+
+Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+Install dependencies
+
+```bash
+pnpm install
+```
+
+Build everything
+
+```bash
+pnpm build
+```
+
+Run all tests
+
+```bash
+pnpm test
+```
+
+---
+
+# Development Workflow
+
+1. Create a new branch
+
+```
+feature/my-feature
+```
+
+2. Make one logical change.
+
+3. Build the workspace.
+
+```bash
+pnpm build
+```
+
+4. Run all tests.
+
+```bash
+pnpm test
+```
+
+5. Commit using a descriptive message.
+
+Example:
+
+```
+Add automatic wire routing
+```
+
+6. Open a Pull Request.
+
+---
+
+# Coding Guidelines
+
+## TypeScript
+
+- Use strict typing.
+- Avoid `any`.
+- Prefer interfaces for public APIs.
+- Export only public functionality.
+
+---
+
+## Naming
+
+Classes
+
+```
+GraphBuilder
+LayerCalculator
+AutoLayout
+```
+
+Functions
+
+```
+parse()
+build()
+renderSVG()
+```
+
+Interfaces
+
+```
+ElectricalGraph
+LayoutResult
+DocumentNode
+```
+
+---
+
+## Comments
+
+Explain **why**, not **what**.
+
+Good:
+
+```ts
+// Layer assignment minimizes wire crossings.
+```
+
+Avoid:
+
+```ts
+// Increment x.
+x++;
+```
+
+---
+
+# Testing
+
+Every new feature should include appropriate tests.
+
+Examples
+
+- Parser tests
+- Validator tests
+- Graph tests
+- Layout tests
+- Integration tests
+
+A Pull Request should not reduce test coverage.
+
+---
+
+# Documentation
+
+Update documentation whenever public APIs or behavior changes.
+
+Relevant files include:
+
+- README.md
+- ROADMAP.md
+- ARCHITECTURE.md
+
+---
+
+# Reporting Bugs
+
+Include:
+
+- Operating System
+- Node version
+- PNPM version
+- ElectroDSL version
+- Reproduction steps
+
+---
+
+# Feature Requests
+
+Describe:
+
+- The engineering problem
+- The proposed solution
+- Expected behavior
+- Possible implementation
+
+---
+
+# Pull Request Checklist
+
+Before submitting:
+
+- [ ] Project builds successfully
+- [ ] Tests pass
+- [ ] Documentation updated
+- [ ] No unnecessary dependencies added
+- [ ] Public APIs reviewed
+
+---
+
+# Questions
+
+If you are unsure about a design decision, open a discussion before implementing major changes.
+
+Large architectural changes should be discussed before development begins.
+
+---
+
+Thank you for helping build ElectroDSL.
