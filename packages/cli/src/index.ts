@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 
-import { basename, extname, resolve } from "node:path";
+import { resolve as pathResolve } from "node:path";
+
+import {
+    LibraryScanner,
+    ComponentRegistry,
+    ComponentEnricher
+} from "@electrodsl/library";
+
+
 import { writeFileSync } from "node:fs";
 import { parseFile } from "@electrodsl/parser";
 import { renderSVG } from "@electrodsl/renderer-svg";
@@ -78,6 +86,56 @@ function readDocument(
     return parseFile(requiredFile(file, usage));
 
 }
+
+function enrichDocument(
+    document: ReturnType<typeof parseFile>
+) {
+
+    const libraryPath =
+        resolve(
+            "packages/library/library"
+        );
+
+
+    const registry =
+        new ComponentRegistry();
+
+
+    const scanner =
+        new LibraryScanner(
+            libraryPath
+        );
+
+
+    scanner.scan(
+        registry
+    );
+
+
+    const enricher =
+        new ComponentEnricher(
+            registry
+        );
+
+
+    for (
+        const circuit
+        of document.project.circuits
+    ) {
+
+        circuit.components =
+            circuit.components.map(
+                component =>
+                    enricher.enrich(component)
+            );
+
+    }
+
+
+    return document;
+
+}
+
 
 function requiredFile(
     file: string | undefined,

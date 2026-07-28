@@ -8,25 +8,24 @@ export class SymbolResolver {
 
 
     constructor(
-        private libraryRoot:string
-    ){}
+        private libraryRoot: string
+    ) { }
 
 
 
     resolve(
-        component:ComponentDefinition
-    ){
+        component: ComponentDefinition
+    ) {
 
 
         const symbolPath =
-    path.join(
-        component.basePath!,
-        component.symbol.file
-    );
+            path.join(
+                component.basePath!,
+                component.symbol.file
+            );
 
 
-        if(!fs.existsSync(symbolPath))
-        {
+        if (!fs.existsSync(symbolPath)) {
             throw new Error(
                 `Symbol not found: ${symbolPath}`
             );

@@ -22,4 +22,16 @@ export interface ComponentNode extends AstNode {
 
     pins: PinNode[];
 
+
+    /**
+     * Position assigned by layout engine
+     */
+    position?: {
+
+        x: number;
+
+        y: number;
+
+    };
+
 }

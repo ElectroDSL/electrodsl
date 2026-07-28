@@ -131,7 +131,7 @@ class ElectroDSLParser extends CstParser {
         });
 
 
-public component = this.RULE(
+    public component = this.RULE(
         "component",
         () => {
 
@@ -150,9 +150,9 @@ public component = this.RULE(
 
             this.MANY(() => {
 
-    this.SUBRULE(this.property);
+                this.SUBRULE(this.property);
 
-});
+            });
 
 
             this.CONSUME(RBrace);

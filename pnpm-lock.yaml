@@ -29,6 +29,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@electrodsl/library':
+        specifier: workspace:*
+        version: link:../library
       '@electrodsl/parser':
         specifier: workspace:*
         version: link:../parser
@@ -49,7 +52,30 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
 
+  packages/graph:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+    devDependencies:
+      '@types/node':
+        specifier: ^26.1.1
+        version: 26.1.1
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
   packages/library:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
     devDependencies:
       tsup:
         specifier: ^8.5.1

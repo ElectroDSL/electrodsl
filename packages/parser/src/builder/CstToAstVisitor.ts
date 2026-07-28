@@ -128,16 +128,7 @@ export class AstBuilderVisitor
                     .filter(Boolean)
                 ?? [],
 
-            pins: [
-                {
-                    name: "L1",
-                    side: "left"
-                },
-                {
-                    name: "A1",
-                    side: "right"
-                }
-            ]
+            pins:[]
 
         };
 
