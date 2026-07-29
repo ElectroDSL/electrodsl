@@ -215,8 +215,14 @@ ${symbolRegistry.register(
 
 ${symbolRegistry.use(
     component.componentType,
-    position.x,
-    position.y
+    {
+        x: position.x,
+        y: position.y,
+        rotation: component.position?.rotation,
+        scale: component.position?.scale,
+        mirrorX: component.position?.mirrorX,
+        mirrorY: component.position?.mirrorY
+    }
 )}
 
 ${renderPins(

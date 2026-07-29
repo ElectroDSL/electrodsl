@@ -28,10 +28,30 @@ export interface ComponentNode extends AstNode {
      */
     position?: {
 
-        x: number;
+    x: number;
 
-        y: number;
+    y: number;
 
-    };
+    /**
+     * Visual transformation
+     */
+    rotation?: number;
+
+    /**
+     * Symbol scaling factor
+     */
+    scale?: number;
+
+    /**
+     * Horizontal mirror
+     */
+    mirrorX?: boolean;
+
+    /**
+     * Vertical mirror
+     */
+    mirrorY?: boolean;
+
+};
 
 }
