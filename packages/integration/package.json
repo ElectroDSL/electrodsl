@@ -11,12 +11,14 @@
     "test": "vitest"
   },
 
-  "dependencies": {
-    "@electrodsl/parser": "workspace:*",
-    "@electrodsl/graph": "workspace:*",
-    "@electrodsl/layout": "workspace:*",
-    "@electrodsl/renderer-svg": "workspace:*"
-  },
+"dependencies": {
+  "@electrodsl/parser": "workspace:*",
+  "@electrodsl/graph": "workspace:*",
+  "@electrodsl/layout": "workspace:*",
+  "@electrodsl/diagram": "workspace:*",
+  "@electrodsl/renderer-svg": "workspace:*",
+  "@electrodsl/library": "workspace:*"
+},
 
   "devDependencies": {
     "tsup": "^8.5.1",

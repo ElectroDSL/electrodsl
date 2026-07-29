@@ -1,12 +1,19 @@
-import { symbolProvider } from "./SymbolProvider.js";
+import type {
+    SymbolProvider
+} from "@electrodsl/library";
+
 
 export function drawSymbol(
     type: string,
     x: number,
-    y: number
+    y: number,
+    provider: SymbolProvider
 ): string {
 
-    const svg = symbolProvider.getSymbol(type);
+
+    const svg =
+        provider.getSymbol(type);
+
 
     if (!svg) {
 
@@ -19,22 +26,22 @@ height="60"
 fill="none"
 stroke="red"/>
 `;
+
     }
+
+
+    const match =
+        svg.match(
+            /<svg[^>]*>([\s\S]*)<\/svg>/
+        );
+
 
     return `
 <g transform="translate(${x},${y})">
 
-${extractSvgContent(svg)}
+${match ? match[1] : svg}
 
-</g>`;
-}
+</g>
+`;
 
-
-function extractSvgContent(svg: string): string {
-
-    const match = svg.match(
-        /<svg[^>]*>([\s\S]*)<\/svg>/
-    );
-
-    return match ? match[1] : svg;
 }

@@ -11,7 +11,9 @@
 
   "dependencies": {
     "@electrodsl/ast": "workspace:*",
-    "@electrodsl/library": "workspace:*"
+    "@electrodsl/library": "workspace:*",
+    "@electrodsl/diagram": "workspace:*",
+    "@electrodsl/render-model": "workspace:*"
   },
 
   "devDependencies": {
