@@ -1,40 +1,26 @@
-import fs from "fs";
-import path from "path";
+import path from "node:path";
 
-import { ComponentDefinition } from "../ComponentDefinition.js";
-
+import type { ComponentDefinition } from "../ComponentDefinition.js";
 
 export class SymbolResolver {
 
-
-    constructor(
-        private libraryRoot: string
-    ) { }
-
-
-
     resolve(
         component: ComponentDefinition
-    ) {
+    ): string {
 
+        if (!component.basePath) {
 
-        const symbolPath =
-            path.join(
-                component.basePath!,
-                component.symbol.file
-            );
-
-
-        if (!fs.existsSync(symbolPath)) {
             throw new Error(
-                `Symbol not found: ${symbolPath}`
+                `Component '${component.id}' has no basePath.`
             );
+
         }
 
-
-        return symbolPath;
+        return path.join(
+            component.basePath,
+            component.symbol.file
+        );
 
     }
-
 
 }

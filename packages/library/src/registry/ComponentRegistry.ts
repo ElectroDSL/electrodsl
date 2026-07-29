@@ -1,42 +1,89 @@
-import {ComponentDefinition} from "../ComponentDefinition.js";
-
+import type { ComponentDefinition } from "../ComponentDefinition.js";
 
 export class ComponentRegistry {
 
-
-private components =
-new Map<string,ComponentDefinition>();
-
+    private readonly components =
+        new Map<string, ComponentDefinition>();
 
 
-register(
-component:ComponentDefinition
-){
+    /**
+     * Registers a component definition.
+     */
+    register(
+        component: ComponentDefinition
+    ): void {
 
-this.components.set(
-component.id,
-component
-);
+        if (this.components.has(component.id)) {
 
-}
+            throw new Error(
+                `Duplicate component id: ${component.id}`
+            );
+
+        }
+
+        this.components.set(
+            component.id,
+            component
+        );
+
+    }
 
 
+    /**
+     * Returns a component definition.
+     */
+    get(
+        id: string
+    ): ComponentDefinition | undefined {
 
-get(id:string){
+        return this.components.get(id);
 
-return this.components.get(id);
-
-}
+    }
 
 
+    /**
+     * Returns true if a component exists.
+     */
+    has(
+        id: string
+    ): boolean {
 
-list(){
+        return this.components.has(id);
 
-return [
-...this.components.keys()
-];
+    }
 
-}
 
+    /**
+     * Returns every registered component.
+     */
+    getAll(): ComponentDefinition[] {
+
+        return [
+            ...this.components.values()
+        ];
+
+    }
+
+
+    /**
+     * Returns all component ids.
+     */
+    list(): string[] {
+
+        return [
+            ...this.components.keys()
+        ];
+
+    }
+
+
+    /**
+     * Number of registered components.
+     */
+    size(): number {
+
+        return this.components.size;
+
+    }
 
 }

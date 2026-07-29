@@ -1,62 +1,35 @@
 import fs from "node:fs";
 
-import {
-    ComponentRegistry
-} from "./registry/ComponentRegistry.js";
-
-import {
-    LibraryScanner
-} from "./loader/LibraryScanner.js";
-
-import {
-    SymbolResolver
-} from "./loader/SymbolResolver.js";
-
+import { ComponentRegistry } from "./registry/ComponentRegistry.js";
+import { LibraryScanner } from "./loader/LibraryScanner.js";
+import { SymbolResolver } from "./loader/SymbolResolver.js";
 
 export class SymbolProvider {
 
+    private readonly registry = new ComponentRegistry();
 
-    private registry =
-        new ComponentRegistry();
-
-
-    private resolver:
-        SymbolResolver;
-
+    private readonly resolver: SymbolResolver;
 
     constructor(
         private readonly libraryRoot: string
     ) {
 
-
-        const scanner =
-            new LibraryScanner(
-                libraryRoot
-            );
-
-
-        scanner.scan(
-            this.registry
+        const scanner = new LibraryScanner(
+            this.libraryRoot
         );
 
+        scanner.scan(this.registry);
 
-        this.resolver =
-            new SymbolResolver(
-                libraryRoot
-            );
+        this.resolver = new SymbolResolver();
 
     }
-
-
 
     getSymbol(
         type: string
     ): string | undefined {
 
-
         const component =
             this.registry.get(type);
-
 
         if (!component) {
 
@@ -68,12 +41,18 @@ export class SymbolProvider {
 
         }
 
-
         const symbolPath =
-            this.resolver.resolve(
-                component
+            this.resolver.resolve(component);
+
+        if (!fs.existsSync(symbolPath)) {
+
+            console.warn(
+                `Symbol not found: ${symbolPath}`
             );
 
+            return undefined;
+
+        }
 
         return fs.readFileSync(
             symbolPath,
