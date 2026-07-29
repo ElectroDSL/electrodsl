@@ -45,6 +45,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library

@@ -1,6 +1,6 @@
-import { drawSymbol } from "./symbols/BaseSymbols.js";
 import type { SymbolProvider } from "@electrodsl/library";
 import { SvgDocument } from "./SvgDocument.js";
+import { SymbolRegistry } from "./SymbolRegistry.js";
 
 import {
     ComponentNode,
@@ -12,9 +12,9 @@ import {
 
 interface ComponentPosition {
 
-    x:number;
+    x: number;
 
-    y:number;
+    y: number;
 
 }
 
@@ -42,7 +42,7 @@ export function renderSVG(
     const circuit = document.project.circuits[0];
 
 
-    if(!circuit){
+    if (!circuit) {
 
         return emptySvg();
 
@@ -59,9 +59,9 @@ export function renderSVG(
 
 
 function renderCircuit(
-    circuit:CircuitNode,
-    symbolProvider:SymbolProvider
-):string{
+    circuit: CircuitNode,
+    symbolProvider: SymbolProvider
+): string {
 
 
     const positions =
@@ -102,6 +102,13 @@ function renderCircuit(
         );
 
 
+    const symbolRegistry =
+        new SymbolRegistry(
+            svg,
+            symbolProvider
+        );
+
+
 
     circuit.connections
         .map(connection =>
@@ -124,7 +131,7 @@ function renderCircuit(
             renderComponent(
                 component,
                 positions.get(component.id)!,
-                symbolProvider
+                symbolRegistry
             )
         )
         .forEach(component =>
@@ -144,34 +151,34 @@ function renderCircuit(
 
 
 function createComponentPositions(
-    components:ComponentNode[]
-):Map<string,ComponentPosition>{
+    components: ComponentNode[]
+): Map<string, ComponentPosition> {
 
 
     return new Map(
 
         components.map(
-            (component,index)=>[
+            (component, index) => [
 
                 component.id,
 
                 {
 
                     x:
-                    PAGE_PADDING +
-                    (index % COMPONENTS_PER_ROW)
-                    *
-                    COMPONENT_SPACING_X,
+                        PAGE_PADDING +
+                        (index % COMPONENTS_PER_ROW)
+                        *
+                        COMPONENT_SPACING_X,
 
 
                     y:
-                    PAGE_PADDING +
-                    Math.floor(
-                        index /
-                        COMPONENTS_PER_ROW
-                    )
-                    *
-                    COMPONENT_SPACING_Y
+                        PAGE_PADDING +
+                        Math.floor(
+                            index /
+                            COMPONENTS_PER_ROW
+                        )
+                        *
+                        COMPONENT_SPACING_Y
 
                 }
 
@@ -191,29 +198,31 @@ function createComponentPositions(
 function renderComponent(
     component:ComponentNode,
     position:ComponentPosition,
-    symbolProvider:SymbolProvider
+    symbolRegistry:SymbolRegistry
 ):string{
 
 
-return `
+    return `
 
 <g
 class="edsl-component"
 data-component-id="${escapeAttribute(component.id)}">
 
 
-${drawSymbol(
+${symbolRegistry.register(
+    component.componentType
+)}
+
+${symbolRegistry.use(
     component.componentType,
     position.x,
-    position.y,
-    symbolProvider
+    position.y
 )}
-
 
 ${renderPins(
-    component,
-    position
-)}
+        component,
+        position
+    )}
 
 
 <text
@@ -237,66 +246,66 @@ ${escapeText(component.id)}
 
 
 function renderPins(
-component:ComponentNode,
-position:ComponentPosition
-):string{
+    component: ComponentNode,
+    position: ComponentPosition
+): string {
 
 
-return component.pins.map(pin=>{
+    return component.pins.map(pin => {
 
 
-let x=position.x;
+        let x = position.x;
 
-let y=position.y;
-
-
-switch(pin.side){
+        let y = position.y;
 
 
-case "left":
-
-x-=8;
-
-y+=GRID_SIZE/2;
-
-break;
+        switch (pin.side) {
 
 
+            case "left":
 
-case "right":
+                x -= 8;
 
-x+=GRID_SIZE+8;
+                y += GRID_SIZE / 2;
 
-y+=GRID_SIZE/2;
-
-break;
+                break;
 
 
 
-case "top":
+            case "right":
 
-x+=GRID_SIZE/2;
+                x += GRID_SIZE + 8;
 
-y-=8;
+                y += GRID_SIZE / 2;
 
-break;
-
-
-
-case "bottom":
-
-x+=GRID_SIZE/2;
-
-y+=GRID_SIZE+8;
-
-break;
-
-
-}
+                break;
 
 
 
-return `
+            case "top":
+
+                x += GRID_SIZE / 2;
+
+                y -= 8;
+
+                break;
+
+
+
+            case "bottom":
+
+                x += GRID_SIZE / 2;
+
+                y += GRID_SIZE + 8;
+
+                break;
+
+
+        }
+
+
+
+        return `
 
 <circle
 
@@ -313,9 +322,9 @@ class="edsl-pin"
 
 <text
 
-x="${x+6}"
+x="${x + 6}"
 
-y="${y-4}"
+y="${y - 4}"
 
 class="edsl-pin-label">
 
@@ -328,7 +337,7 @@ ${escapeText(pin.name)}
 
 
 
-}).join("");
+    }).join("");
 
 }
 
@@ -338,75 +347,75 @@ ${escapeText(pin.name)}
 
 
 function renderWire(
-connection:ConnectionNode,
-positions:Map<string,ComponentPosition>
-):string{
+    connection: ConnectionNode,
+    positions: Map<string, ComponentPosition>
+): string {
 
 
-const from =
-positions.get(
-connection.from.component
-);
+    const from =
+        positions.get(
+            connection.from.component
+        );
 
 
-const to =
-positions.get(
-connection.to.component
-);
-
-
-
-if(!from || !to){
-
-return "";
-
-}
+    const to =
+        positions.get(
+            connection.to.component
+        );
 
 
 
-const startX =
-from.x +
-SYMBOL_TERMINAL_OFFSET;
+    if (!from || !to) {
 
+        return "";
 
-const startY =
-from.y;
-
-
-
-const endX =
-to.x -
-SYMBOL_TERMINAL_OFFSET;
-
-
-const endY =
-to.y;
+    }
 
 
 
-const middleX =
-Math.round(
-(startX+endX) /
-(GRID_SIZE*2)
-)
-*
-GRID_SIZE;
+    const startX =
+        from.x +
+        SYMBOL_TERMINAL_OFFSET;
+
+
+    const startY =
+        from.y;
 
 
 
-const path =
-startY===endY
+    const endX =
+        to.x -
+        SYMBOL_TERMINAL_OFFSET;
 
-?
-`M ${startX} ${startY} H ${endX}`
 
-:
-
-`M ${startX} ${startY} H ${middleX} V ${endY} H ${endX}`;
+    const endY =
+        to.y;
 
 
 
-return `
+    const middleX =
+        Math.round(
+            (startX + endX) /
+            (GRID_SIZE * 2)
+        )
+        *
+        GRID_SIZE;
+
+
+
+    const path =
+        startY === endY
+
+            ?
+            `M ${startX} ${startY} H ${endX}`
+
+            :
+
+            `M ${startX} ${startY} H ${middleX} V ${endY} H ${endX}`;
+
+
+
+    return `
 
 <path
 
@@ -424,10 +433,10 @@ class="edsl-wire"
 
 
 
-function emptySvg():string{
+function emptySvg(): string {
 
 
-return `
+    return `
 
 <svg
 xmlns="http://www.w3.org/2000/svg"
@@ -443,25 +452,25 @@ viewBox="0 0 160 160">
 
 
 
-function escapeText(value:string):string{
+function escapeText(value: string): string {
 
 
-return value
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;");
+    return value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
 
 
 }
 
 
 
-function escapeAttribute(value:string):string{
+function escapeAttribute(value: string): string {
 
 
-return escapeText(value)
-.replaceAll('"',"&quot;")
-.replaceAll("'","&apos;");
+    return escapeText(value)
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&apos;");
 
 
 }

@@ -13,7 +13,8 @@
     "@electrodsl/parser": "workspace:*",
     "@electrodsl/library": "workspace:*",
     "@electrodsl/renderer-svg": "workspace:*",
-    "@electrodsl/validator": "workspace:*"
+    "@electrodsl/validator": "workspace:*",
+    "@electrodsl/ast": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",

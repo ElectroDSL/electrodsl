@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
-import { resolve as pathResolve } from "node:path";
+import {
+    resolve,
+    basename,
+    extname
+} from "node:path";
 
 import {
     LibraryScanner,
     ComponentRegistry,
-    ComponentEnricher
+    ComponentEnricher,
+    SymbolProvider
 } from "@electrodsl/library";
 
-
+import type { ComponentNode } from "@electrodsl/ast";
 import { writeFileSync } from "node:fs";
 import { parseFile } from "@electrodsl/parser";
 import { renderSVG } from "@electrodsl/renderer-svg";
@@ -16,6 +21,9 @@ import { DuplicateComponentIdRule, Validator } from "@electrodsl/validator";
 
 const args = process.argv.slice(2);
 const command = args[0];
+
+const symbolProvider =
+    createSymbolProvider();
 
 if (command === "parse") {
 
@@ -38,7 +46,7 @@ else if (command === "build") {
     const file = requiredFile(args[1], "edsl build <file.edsl>");
     const output = outputPath(file);
 
-    writeFileSync(output, renderSVG(parseFile(file)), "utf-8");
+    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
 
     console.log(`Built ${output}`);
 
@@ -56,7 +64,7 @@ else if (command === "export") {
 
     const output = outputPath(file);
 
-    writeFileSync(output, renderSVG(parseFile(file)), "utf-8");
+    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
 
     console.log(`Exported ${output}`);
 
@@ -77,6 +85,22 @@ Commands:
 `);
 
 }
+
+function createSymbolProvider() {
+
+
+    const libraryPath =
+        resolve(
+            "packages/library/library"
+        );
+
+
+    return new SymbolProvider(
+        libraryPath
+    );
+
+}
+
 
 function readDocument(
     file: string | undefined,
@@ -125,7 +149,7 @@ function enrichDocument(
 
         circuit.components =
             circuit.components.map(
-                component =>
+                (component: ComponentNode) =>
                     enricher.enrich(component)
             );
 
