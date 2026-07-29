@@ -4,20 +4,19 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts"
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest"
   },
-
   "dependencies": {
     "@electrodsl/ast": "workspace:*",
-    "@electrodsl/library": "workspace:*",
     "@electrodsl/diagram": "workspace:*",
+    "@electrodsl/library": "workspace:*",
     "@electrodsl/render-model": "workspace:*"
   },
-
   "devDependencies": {
     "tsup": "^8.5.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
   }
 }

@@ -13,7 +13,15 @@ export class SymbolRegistry {
     constructor(
         private readonly svg: SvgDocument,
         private readonly provider: SymbolProvider
-    ) { }
+    ) {}
+
+
+
+    private symbolId(type:string):string {
+
+        return `edsl-${type.toLowerCase()}`;
+
+    }
 
 
 
@@ -48,7 +56,7 @@ export class SymbolRegistry {
 
 
         this.svg.addSymbol(
-            type,
+            this.symbolId(type),
             content
         );
 
@@ -60,17 +68,18 @@ export class SymbolRegistry {
 
 
 
+
     use(
         type: string,
         position: {
-            x: number;
-            y: number;
-            rotation?: number;
-            scale?: number;
-            mirrorX?: boolean;
-            mirrorY?: boolean;
+            x:number;
+            y:number;
+            rotation?:number;
+            scale?:number;
+            mirrorX?:boolean;
+            mirrorY?:boolean;
         }
-    ): string {
+    ):string {
 
 
         const rotation =
@@ -81,12 +90,17 @@ export class SymbolRegistry {
             position.scale ?? 1;
 
 
+
         const scaleX =
-            position.mirrorX ? -scale : scale;
+            position.mirrorX
+            ? -scale
+            : scale;
 
 
         const scaleY =
-            position.mirrorY ? -scale : scale;
+            position.mirrorY
+            ? -scale
+            : scale;
 
 
 
@@ -105,7 +119,7 @@ class="edsl-symbol">
 
 <use
 
-href="#${type}"
+href="#${this.symbolId(type)}"
 
 />
 
@@ -121,8 +135,8 @@ href="#${type}"
 
 
     private extractContent(
-        svg: string
-    ): string {
+        svg:string
+    ):string {
 
 
         const match =

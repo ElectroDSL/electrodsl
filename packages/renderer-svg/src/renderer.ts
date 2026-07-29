@@ -196,10 +196,10 @@ function createComponentPositions(
 
 
 function renderComponent(
-    component:ComponentNode,
-    position:ComponentPosition,
-    symbolRegistry:SymbolRegistry
-):string{
+    component: ComponentNode,
+    position: ComponentPosition,
+    symbolRegistry: SymbolRegistry
+): string {
 
 
     return `
@@ -209,21 +209,22 @@ class="edsl-component"
 data-component-id="${escapeAttribute(component.id)}">
 
 
-${symbolRegistry.register(
-    component.componentType
+${registerSymbol(
+        symbolRegistry,
+        component.componentType
 )}
 
 ${symbolRegistry.use(
-    component.componentType,
-    {
-        x: position.x,
-        y: position.y,
-        rotation: component.position?.rotation,
-        scale: component.position?.scale,
-        mirrorX: component.position?.mirrorX,
-        mirrorY: component.position?.mirrorY
-    }
-)}
+        component.componentType,
+        {
+            x: position.x,
+            y: position.y,
+            rotation: component.position?.rotation,
+            scale: component.position?.scale,
+            mirrorX: component.position?.mirrorX,
+            mirrorY: component.position?.mirrorY
+        }
+    )}
 
 ${renderPins(
         component,
@@ -235,11 +236,7 @@ ${renderPins(
 x="${position.x}"
 y="${position.y + GRID_SIZE + 20}"
 text-anchor="middle"
-class="edsl-component-label">
-
-${escapeText(component.id)}
-
-</text>
+class="edsl-component-label">${escapeText(component.id)}</text>
 
 
 </g>
@@ -248,7 +245,16 @@ ${escapeText(component.id)}
 
 }
 
+function registerSymbol(
+    registry: SymbolRegistry,
+    type: string
+): string {
 
+    registry.register(type);
+
+    return "";
+
+}
 
 
 function renderPins(
@@ -257,7 +263,7 @@ function renderPins(
 ): string {
 
 
-    return component.pins.map(pin => {
+    return (component.pins ?? []).map(pin => {
 
 
         let x = position.x;
@@ -327,16 +333,9 @@ class="edsl-pin"
 
 
 <text
-
 x="${x + 6}"
-
 y="${y - 4}"
-
-class="edsl-pin-label">
-
-${escapeText(pin.name)}
-
-</text>
+class="edsl-pin-label">${escapeText(pin.name)}</text>
 
 
 `;
