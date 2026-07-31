@@ -10,12 +10,10 @@ export function drawSymbol(
     provider: SymbolProvider
 ): string {
 
-
-    const svg =
+    const symbol =
         provider.getSymbol(type);
 
-
-    if (!svg) {
+    if (!symbol) {
 
         return `
 <rect
@@ -29,17 +27,20 @@ stroke="red"/>
 
     }
 
-
     const match =
-        svg.match(
+        symbol.svg.match(
             /<svg[^>]*>([\s\S]*)<\/svg>/
         );
 
+    const content =
+        match
+            ? match[1]
+            : symbol.svg;
 
     return `
 <g transform="translate(${x},${y})">
 
-${match ? match[1] : svg}
+${content}
 
 </g>
 `;

@@ -1,63 +1,79 @@
 import fs from "node:fs";
 
-import { ComponentRegistry } from "./registry/ComponentRegistry.js";
-import { LibraryScanner } from "./loader/LibraryScanner.js";
-import { SymbolResolver } from "./loader/SymbolResolver.js";
+import {
+    ComponentRegistry
+} from "./registry/ComponentRegistry.js";
+
+import {
+    LibraryScanner
+} from "./loader/LibraryScanner.js";
+
+import {
+    SymbolResolver
+} from "./loader/SymbolResolver.js";
+
+
+
+import type { LoadedSymbol } from "./core/LoadedSymbol.js";
+
+
 
 export class SymbolProvider {
 
-    private readonly registry = new ComponentRegistry();
+    private registry =
+        new ComponentRegistry();
 
-    private readonly resolver: SymbolResolver;
+    private resolver: SymbolResolver;
 
     constructor(
         private readonly libraryRoot: string
     ) {
 
-        const scanner = new LibraryScanner(
-            this.libraryRoot
+        const scanner =
+            new LibraryScanner(
+                libraryRoot
+            );
+
+        scanner.scan(
+            this.registry
         );
 
-        scanner.scan(this.registry);
-
-        this.resolver = new SymbolResolver();
+        this.resolver =
+            new SymbolResolver();
 
     }
 
+
+
     getSymbol(
         type: string
-    ): string | undefined {
+    ): LoadedSymbol  | undefined {
 
         const component =
             this.registry.get(type);
 
-        if (!component) {
-
-            console.warn(
-                `Component not found: ${type}`
-            );
-
+        if (!component)
             return undefined;
-
-        }
 
         const symbolPath =
-            this.resolver.resolve(component);
-
-        if (!fs.existsSync(symbolPath)) {
-
-            console.warn(
-                `Symbol not found: ${symbolPath}`
+            this.resolver.resolve(
+                component
             );
 
-            return undefined;
+        return {
 
-        }
+            id: component.id,
 
-        return fs.readFileSync(
-            symbolPath,
-            "utf8"
-        );
+            svg: fs.readFileSync(
+                symbolPath,
+                "utf8"
+            ),
+
+            width: component.symbol.width,
+
+            height: component.symbol.height
+
+        };
 
     }
 
