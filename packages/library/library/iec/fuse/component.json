@@ -1,0 +1,39 @@
+{
+  "id": "IEC-FUSE",
+  "name": "Fuse",
+  "category": "protection",
+  "standard": "IEC60617",
+
+  "symbol": {
+    "file": "symbol.svg",
+    "width": 100,
+    "height": 100
+  },
+
+  "terminals": [
+    {
+      "id": "1",
+      "name": "1",
+      "electricalType": "power",
+      "direction": "bidirectional",
+      "position": {
+        "x": 0,
+        "y": 50
+      }
+    },
+    {
+      "id": "2",
+      "name": "2",
+      "electricalType": "power",
+      "direction": "bidirectional",
+      "position": {
+        "x": 100,
+        "y": 50
+      }
+    }
+  ],
+
+  "properties": {
+    "rating": "10A"
+  }
+}
