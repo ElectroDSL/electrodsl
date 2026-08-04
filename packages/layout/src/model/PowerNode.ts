@@ -1,22 +1,17 @@
-export interface PowerNode {
-    /**
-     * Graph node ID.
-     */
-    nodeId: string;
+import type { LayoutNode } from "./LayoutNode.js";
+
+/**
+ * Represents a power symbol in the layout.
+ */
+export interface PowerNode extends LayoutNode {
 
     /**
-     * Symbol type (VCC, GND, etc.)
+     * Symbol name.
+     * Examples:
+     * VCC
+     * GND
+     * +5V
      */
     symbol: string;
 
-    /**
-     * Calculated position.
-     */
-    x: number;
-    y: number;
-
-    /**
-     * Assigned layout layer.
-     */
-    layer: number;
 }
