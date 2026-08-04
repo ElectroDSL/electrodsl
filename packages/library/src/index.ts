@@ -15,3 +15,4 @@ export * from "./enrichment/ComponentEnricher.js";
 
 export * from "./SymbolProvider.js";
 export * from "./loadComponentLibrary.js";
+export * from "./model/index.js";
