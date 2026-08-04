@@ -5,3 +5,4 @@ export * from "./PowerNodeDetector.js";
 export * from "./PowerNodeBuilder.js";
 export * from "./LayoutCellBuilder.js";
 export * from "./PortNodeBuilder.js";
+export * from "./LayoutGraphBuilder.js";

@@ -5,3 +5,4 @@ export * from "./PowerNode.js";
 
 export * from "./PortDirection.js";
 export * from "./PortNode.js";
+export * from "./LayoutGraph.js";
