@@ -1,6 +1,7 @@
 import type { ComponentDefinition } from "../ComponentDefinition.js";
+import type { ComponentProvider } from "../providers/ComponentProvider.js";
 
-export class ComponentRegistry {
+export class ComponentRegistry implements ComponentProvider {
 
     private readonly components =
         new Map<string, ComponentDefinition>();
