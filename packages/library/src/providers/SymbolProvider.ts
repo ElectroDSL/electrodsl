@@ -1,4 +1,4 @@
-import type { SymbolDefinition } from "../model/SymbolDefinition.js";
+import type { SymbolDefinition } from "../core/SymbolDefinition.js";
 
 /**
  * Provides schematic symbol definitions.
@@ -6,19 +6,27 @@ import type { SymbolDefinition } from "../model/SymbolDefinition.js";
 export interface SymbolProvider {
 
     /**
-     * Retrieve a symbol by name.
+     * Retrieve a symbol definition by component type.
+     *
+     * Examples:
+     * - resistor
+     * - capacitor
+     * - relay
+     * - plc
      */
-    getSymbol(name: string): SymbolDefinition | undefined;
-
+    getSymbol(
+        type: string
+    ): SymbolDefinition | undefined;
 
     /**
-     * Check whether a symbol exists.
+     * Returns true if a symbol exists.
      */
-    hasSymbol(name: string): boolean;
-
+    hasSymbol(
+        type: string
+    ): boolean;
 
     /**
-     * List available symbols.
+     * Returns all available symbol types.
      */
     listSymbols(): string[];
 
