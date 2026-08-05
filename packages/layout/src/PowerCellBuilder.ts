@@ -1,9 +1,9 @@
 import { isPowerSymbol } from "./PowerCellDetector";
-import type { GraphNode } from "@electrodsl/graph";
+import type { ElectricalNode } from "@electrodsl/graph";
 
 import { PowerCell } from "./PowerCell";
 
-export function buildPowerCells(nodes: GraphNode[]): PowerCell[] {
+export function buildPowerCells(nodes: ElectricalNode[]): PowerCell[] {
 
     const result: PowerCell[] = [];
 

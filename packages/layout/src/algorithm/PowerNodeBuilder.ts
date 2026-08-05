@@ -1,10 +1,10 @@
-import type { GraphNode } from "@electrodsl/graph";
+import type { ElectricalNode } from "@electrodsl/graph";
 
 import type { PowerNode } from "../model/PowerNode.js";
 import { isPowerNode } from "./PowerNodeDetector.js";
 
 export function buildPowerNodes(
-    nodes: GraphNode[]
+    nodes: ElectricalNode[]
 ): PowerNode[] {
 
     const result: PowerNode[] = [];

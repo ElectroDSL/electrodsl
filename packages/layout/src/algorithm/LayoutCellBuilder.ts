@@ -1,8 +1,8 @@
-import type { GraphNode } from "@electrodsl/graph";
+import type { ElectricalNode } from "@electrodsl/graph";
 import type { LayoutCell } from "../model/LayoutCell.js";
 
 export function buildLayoutCells(
-    nodes: GraphNode[]
+    nodes: ElectricalNode[]
 ): LayoutCell[] {
 
     return nodes.map((node, index) => ({

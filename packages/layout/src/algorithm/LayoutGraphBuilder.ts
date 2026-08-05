@@ -1,4 +1,4 @@
-import type { GraphNode } from "@electrodsl/graph";
+import type { ElectricalNode } from "@electrodsl/graph";
 
 import type { LayoutGraph } from "../model/LayoutGraph.js";
 
@@ -10,7 +10,7 @@ import { buildPortNodes } from "./PortNodeBuilder.js";
  * Builds a complete LayoutGraph.
  */
 export function buildLayoutGraph(
-    nodes: GraphNode[]
+    nodes: ElectricalNode[]
 ): LayoutGraph {
 
     return {

@@ -1,62 +1,64 @@
 import { describe, expect, it } from "vitest";
 
-import { PortSide } from "../src";
 import type { SymbolDefinition } from "../src";
 
-describe("SymbolDefinition", () => {
 
-    it("creates a resistor symbol", () => {
+describe("SymbolDefinition",()=>{
 
-        const resistor: SymbolDefinition = {
 
-            name: "Resistor",
+    it("creates resistor symbol definition",()=>{
 
-            category: "Passive",
 
-            bounds: {
+        const resistor:SymbolDefinition={
 
-                width: 80,
+            id:"R",
 
-                height: 20
+            file:"resistor.svg",
 
-            },
+            width:80,
 
-            ports: [
+            height:20,
+
+
+            pins:[
 
                 {
+                    id:"1",
+                    name:"A",
+                    number:"1",
+                    electricalType:"signal",
+                    direction:"bidirectional",
 
-                    id: "1",
-
-                    name: "A",
-
-                    side: PortSide.Left,
-
-                    x: 0,
-
-                    y: 10
-
+                    position:{
+                        x:0,
+                        y:10
+                    }
                 },
 
+
                 {
+                    id:"2",
+                    name:"B",
+                    number:"2",
+                    electricalType:"signal",
+                    direction:"bidirectional",
 
-                    id: "2",
-
-                    name: "B",
-
-                    side: PortSide.Right,
-
-                    x: 80,
-
-                    y: 10
-
+                    position:{
+                        x:80,
+                        y:10
+                    }
                 }
 
             ]
 
         };
 
-        expect(resistor.ports.length).toBe(2);
+
+        expect(resistor.pins.length)
+            .toBe(2);
+
 
     });
+
 
 });

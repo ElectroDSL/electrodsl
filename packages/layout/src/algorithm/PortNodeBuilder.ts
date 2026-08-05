@@ -1,16 +1,16 @@
-import type { GraphNode } from "@electrodsl/graph";
+import type { ElectricalNode } from "@electrodsl/graph";
 
 import type { PortNode } from "../model/PortNode.js";
 import { PortDirection } from "../model/PortDirection.js";
 
 /**
- * Builds PortNodes from graph nodes.
+ * Builds PortNodes from electrical graph nodes.
  *
  * Temporary implementation:
  * Every component gets two ports.
  */
 export function buildPortNodes(
-    nodes: GraphNode[]
+    nodes: ElectricalNode[]
 ): PortNode[] {
 
     const result: PortNode[] = [];
