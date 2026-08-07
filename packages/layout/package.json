@@ -22,7 +22,8 @@
   },
 
   "dependencies": {
-    "@electrodsl/graph": "workspace:*"
+    "@electrodsl/graph": "workspace:*",
+    "@electrodsl/library": "workspace:*"
   },
 
   "devDependencies": {

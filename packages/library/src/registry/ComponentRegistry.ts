@@ -31,60 +31,70 @@ export class ComponentRegistry implements ComponentProvider {
 
 
     /**
-     * Returns a component definition.
-     */
-    get(
-        id: string
-    ): ComponentDefinition | undefined {
+ * Returns a component definition.
+ */
+get(
+    id: string
+): ComponentDefinition | undefined {
 
-        return this.components.get(id);
-
-    }
-
-
-    /**
-     * Returns true if a component exists.
-     */
-    has(
-        id: string
-    ): boolean {
-
-        return this.components.has(id);
-
-    }
-
-
-    /**
-     * Returns every registered component.
-     */
-    getAll(): ComponentDefinition[] {
-
-        return [
-            ...this.components.values()
-        ];
-
-    }
-
-
-    /**
-     * Returns all component ids.
-     */
-    list(): string[] {
-
-        return [
-            ...this.components.keys()
-        ];
-
-    }
-
-
-    /**
-     * Number of registered components.
-     */
-    size(): number {
-
-        return this.components.size;
-
-    }
+    return this.components.get(id);
 
 }
+
+
+/**
+ * ComponentProvider compatibility.
+ */
+getComponent(
+    type: string
+): ComponentDefinition | undefined {
+
+    return this.get(type);
+
+}
+
+
+/**
+ * Returns true if component exists.
+ */
+has(
+    id: string
+): boolean {
+
+    return this.components.has(id);
+
+}
+
+
+/**
+ * ComponentProvider compatibility.
+ */
+hasComponent(
+    type: string
+): boolean {
+
+    return this.has(type);
+
+}
+
+
+/**
+ * Returns all component ids.
+ */
+list(): string[] {
+
+    return [
+        ...this.components.keys()
+    ];
+
+}
+
+
+/**
+ * ComponentProvider compatibility.
+ */
+listComponents(): string[] {
+
+    return this.list();
+
+}}

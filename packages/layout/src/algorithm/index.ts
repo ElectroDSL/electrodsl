@@ -6,3 +6,5 @@ export * from "./PowerNodeBuilder.js";
 export * from "./LayoutCellBuilder.js";
 export * from "./PortNodeBuilder.js";
 export * from "./LayoutGraphBuilder.js";
+export * from "./NodePositioner.js";
+export * from "./LayoutEngine.js";

@@ -6,3 +6,5 @@ export * from "./PowerNode.js";
 export * from "./PortDirection.js";
 export * from "./PortNode.js";
 export * from "./LayoutGraph.js";
+export * from "./PositionedNode.js";
+export * from "./PlacedLayout.js";

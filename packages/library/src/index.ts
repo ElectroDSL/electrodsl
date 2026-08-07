@@ -13,6 +13,5 @@ export * from "./loader/SymbolResolver.js";
 
 export * from "./enrichment/ComponentEnricher.js";
 
-export * from "./SymbolProvider.js";
 export * from "./loadComponentLibrary.js";
 export * from "./providers/index.js";
