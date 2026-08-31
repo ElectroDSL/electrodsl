@@ -4,6 +4,21 @@
 
 ---
 
+# Version 0.2 — Electrically Meaningful Diagrams
+
+- Named net membership ✅
+- Junction nodes and SVG junction dots ✅
+- Exact library terminal routing ✅
+- Obstacle-aware orthogonal routing ✅
+- Route preferences ✅
+- Component and terminal validation ✅
+- Strict syntax diagnostics ✅
+- End-to-end CLI build pipeline ✅
+
+Status: Complete
+
+---
+
 # Version 0.1 — Core Language Foundation
 
 ## Milestone 1 — Repository Setup ✅

@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "ElectroDSL command line tools",
   "type": "module",
   "bin": {

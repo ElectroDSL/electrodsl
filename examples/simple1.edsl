@@ -1,4 +1,3 @@
-```edsl
 EDSL 0.1
 
 PROJECT "Advanced Distribution Panel" {
@@ -55,4 +54,3 @@ PROJECT "Advanced Distribution Panel" {
     }
 
 }
-```

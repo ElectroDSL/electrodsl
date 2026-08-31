@@ -9,7 +9,15 @@ import {
 import { readFileSync, writeFileSync } from "node:fs";
 import { parseFile } from "@electrodsl/parser";
 import { compile } from "@electrodsl/integration";
-import { DuplicateComponentIdRule, Validator } from "@electrodsl/validator";
+import {
+    DuplicateComponentIdRule,
+    ElectricalReferenceRule,
+    LanguageVersionRule,
+    NetDefinitionRule,
+    RoutePreferenceRule,
+    Validator
+} from "@electrodsl/validator";
+import { LibrarySymbolProvider } from "@electrodsl/library";
 
 
 const args = process.argv.slice(2);
@@ -35,6 +43,9 @@ else if (command === "build") {
 
     const file = requiredFile(args[1], "edsl build <file.edsl>");
     const output = outputPath(file);
+    const document = parseFile(file);
+
+    validate(document);
 
     writeFileSync(
         output,
@@ -57,6 +68,9 @@ else if (command === "export") {
     }
 
     const output = outputPath(file);
+    const document = parseFile(file);
+
+    validate(document);
 
     writeFileSync(
         output,
@@ -111,8 +125,16 @@ function validate(
     document: ReturnType<typeof parseFile>
 ): void {
 
+    const symbols = new LibrarySymbolProvider(
+        resolve("packages/library/library")
+    );
+
     const result = new Validator([
-        new DuplicateComponentIdRule()
+        new LanguageVersionRule(),
+        new DuplicateComponentIdRule(),
+        new ElectricalReferenceRule(symbols),
+        new NetDefinitionRule(),
+        new RoutePreferenceRule()
     ]).validate(document);
 
     if (result.errors.length === 0) {

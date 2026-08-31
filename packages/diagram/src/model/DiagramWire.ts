@@ -9,6 +9,10 @@ export interface DiagramWire {
 
     to: string;
 
+    net?: string;
+
+    route?: "auto" | "above" | "below";
+
     /** Optional bend points for routed wires */
     points?: Array<{
         x: number;

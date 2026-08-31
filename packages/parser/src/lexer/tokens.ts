@@ -113,6 +113,16 @@ pattern:/NET/
 
 });
 
+export const Junction = createToken({
+    name: "Junction",
+    pattern: /JUNCTION/
+});
+
+export const Route = createToken({
+    name: "Route",
+    pattern: /route/
+});
+
 export const allTokens = [
 
     WhiteSpace,
@@ -125,9 +135,11 @@ export const allTokens = [
     Circuit,
     Component,
     Net,
+    Junction,
 
     StringLiteral,
     Connect,
+    Route,
     Identifier,
 
     Colon,

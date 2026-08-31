@@ -3,3 +3,7 @@ export * from "./ValidationError.js";
 export * from "./ValidationResult.js";
 export * from "./rules/ValidationRule.js";
 export * from "./rules/DuplicateComponentIdRule.js";
+export * from "./rules/LanguageVersionRule.js";
+export * from "./rules/ElectricalReferenceRule.js";
+export * from "./rules/NetDefinitionRule.js";
+export * from "./rules/RoutePreferenceRule.js";

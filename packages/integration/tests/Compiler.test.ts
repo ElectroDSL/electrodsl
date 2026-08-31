@@ -11,15 +11,36 @@ const __dirname = dirname(__filename);
 
 describe("Compiler", () => {
 
-    it("connects wires to library terminal coordinates", () => {
+    it("renders 0.2 named nets and junctions", () => {
 
         const source = readFileSync(
             resolve(
                 __dirname,
-                "../../../examples/simple1.edsl"
+                "../../../examples/v02-panel.edsl"
             ),
             "utf8"
         );
+
+        const svg = compile(source);
+
+        expect(svg).toContain("POWER");
+        expect(svg).toContain("RETURN");
+        expect(svg.match(/class="edsl-junction"/g)).toHaveLength(2);
+        expect(svg).not.toContain('stroke="red"');
+
+    });
+
+    it("connects wires to library terminal coordinates", () => {
+
+        const source = `EDSL 0.1
+PROJECT "Terminal Routing" {
+    CIRCUIT "Main" {
+        COMPONENT F1 : IEC-FUSE {}
+        COMPONENT L1 : IEC-LAMP {}
+        CONNECT F1.2 -> L1.L;
+        CONNECT L1.N -> F1.1;
+    }
+}`;
 
         const svg = compile(source);
 

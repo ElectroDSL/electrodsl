@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+.pnpm-store/v11/index.db-*
 
 # Build output
 dist/
