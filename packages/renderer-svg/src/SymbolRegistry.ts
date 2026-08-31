@@ -1,5 +1,10 @@
-import type { SymbolProvider } from "@electrodsl/library";
-import { SvgDocument } from "./SvgDocument.js";
+import type {
+    SymbolProvider
+} from "@electrodsl/library";
+
+import {
+    SvgDocument
+} from "./SvgDocument.js";
 
 
 export class SymbolRegistry {
@@ -9,28 +14,28 @@ export class SymbolRegistry {
         new Set<string>();
 
 
-
     constructor(
         private readonly svg: SvgDocument,
         private readonly provider: SymbolProvider
     ) { }
 
 
-
-    private symbolId(type: string): string {
+    private symbolId(
+        type: string
+    ): string {
 
         return `edsl-${type.toLowerCase()}`;
 
     }
 
 
-
     register(
         type: string
     ): void {
 
-
-        if (this.registered.has(type)) {
+        if (
+            this.registered.has(type)
+        ) {
 
             return;
 
@@ -38,8 +43,9 @@ export class SymbolRegistry {
 
 
         const symbol =
-            this.provider.getSymbol(type);
-
+            this.provider.getSymbol(
+                type
+            );
 
 
         if (!symbol) {
@@ -49,10 +55,10 @@ export class SymbolRegistry {
         }
 
 
-
         const content =
-            this.extractContent(symbol.svg);
-
+            this.extractContent(
+                symbol.svg
+            );
 
 
         this.svg.addSymbol(
@@ -61,12 +67,11 @@ export class SymbolRegistry {
         );
 
 
-        this.registered.add(type);
+        this.registered.add(
+            type
+        );
 
     }
-
-
-
 
 
     use(
@@ -90,7 +95,6 @@ export class SymbolRegistry {
             position.scale ?? 1;
 
 
-
         const scaleX =
             position.mirrorX
                 ? -scale
@@ -103,35 +107,23 @@ export class SymbolRegistry {
                 : scale;
 
 
-
         return `
-
 <g
-
 transform="
 translate(${position.x},${position.y})
 rotate(${rotation})
 scale(${scaleX},${scaleY})
 "
-
 class="edsl-symbol">
 
-
 <use
-
 href="#${this.symbolId(type)}"
-
 />
 
-
 </g>
-
 `;
 
     }
-
-
-
 
 
     private extractContent(
@@ -157,6 +149,5 @@ href="#${this.symbolId(type)}"
             : svg;
 
     }
-
 
 }

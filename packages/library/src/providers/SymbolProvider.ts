@@ -1,22 +1,16 @@
-import type { SymbolDefinition } from "../core/SymbolDefinition.js";
+import type { LoadedSymbol } from "../core/LoadedSymbol.js";
 
 /**
- * Provides schematic symbol definitions.
+ * Provides loaded schematic symbols for rendering.
  */
 export interface SymbolProvider {
 
     /**
-     * Retrieve a symbol definition by component type.
-     *
-     * Examples:
-     * - resistor
-     * - capacitor
-     * - relay
-     * - plc
+     * Retrieve a loaded symbol by component type.
      */
     getSymbol(
         type: string
-    ): SymbolDefinition | undefined;
+    ): LoadedSymbol | undefined;
 
     /**
      * Returns true if a symbol exists.

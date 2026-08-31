@@ -12,7 +12,8 @@
     "@electrodsl/ast": "workspace:*",
     "@electrodsl/diagram": "workspace:*",
     "@electrodsl/library": "workspace:*",
-    "@electrodsl/render-model": "workspace:*"
+    "@electrodsl/render-model": "workspace:*",
+    "@electrodsl/layout": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

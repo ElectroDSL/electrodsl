@@ -6,24 +6,14 @@ import {
     extname
 } from "node:path";
 
-import {
-    LibraryScanner,
-    ComponentRegistry,
-    ComponentEnricher,
-    SymbolProvider
-} from "@electrodsl/library";
-
-import type { ComponentNode } from "@electrodsl/ast";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { parseFile } from "@electrodsl/parser";
-import { renderSVG } from "@electrodsl/renderer-svg";
+import { compile } from "@electrodsl/integration";
 import { DuplicateComponentIdRule, Validator } from "@electrodsl/validator";
+
 
 const args = process.argv.slice(2);
 const command = args[0];
-
-const symbolProvider =
-    createSymbolProvider();
 
 if (command === "parse") {
 
@@ -46,7 +36,11 @@ else if (command === "build") {
     const file = requiredFile(args[1], "edsl build <file.edsl>");
     const output = outputPath(file);
 
-    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
+    writeFileSync(
+        output,
+        compile(readFileSync(file, "utf8")),
+        "utf-8"
+    );
 
     console.log(`Built ${output}`);
 
@@ -64,7 +58,11 @@ else if (command === "export") {
 
     const output = outputPath(file);
 
-    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
+    writeFileSync(
+        output,
+        compile(readFileSync(file, "utf8")),
+        "utf-8"
+    );
 
     console.log(`Exported ${output}`);
 
@@ -86,22 +84,6 @@ Commands:
 
 }
 
-function createSymbolProvider() {
-
-
-    const libraryPath =
-        resolve(
-            "packages/library/library"
-        );
-
-
-    return new SymbolProvider(
-        libraryPath
-    );
-
-}
-
-
 function readDocument(
     file: string | undefined,
     usage: string
@@ -110,56 +92,6 @@ function readDocument(
     return parseFile(requiredFile(file, usage));
 
 }
-
-function enrichDocument(
-    document: ReturnType<typeof parseFile>
-) {
-
-    const libraryPath =
-        resolve(
-            "packages/library/library"
-        );
-
-
-    const registry =
-        new ComponentRegistry();
-
-
-    const scanner =
-        new LibraryScanner(
-            libraryPath
-        );
-
-
-    scanner.scan(
-        registry
-    );
-
-
-    const enricher =
-        new ComponentEnricher(
-            registry
-        );
-
-
-    for (
-        const circuit
-        of document.project.circuits
-    ) {
-
-        circuit.components =
-            circuit.components.map(
-                (component: ComponentNode) =>
-                    enricher.enrich(component)
-            );
-
-    }
-
-
-    return document;
-
-}
-
 
 function requiredFile(
     file: string | undefined,
@@ -214,4 +146,3 @@ function readOption(
     return index === -1 ? undefined : values[index + 1];
 
 }
-

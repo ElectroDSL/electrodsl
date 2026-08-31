@@ -51,6 +51,9 @@ importers:
       '@electrodsl/ast':
         specifier: workspace:*
         version: link:../ast
+      '@electrodsl/integration':
+        specifier: workspace:*
+        version: link:../integration
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library
@@ -223,6 +226,9 @@ importers:
       '@electrodsl/diagram':
         specifier: workspace:*
         version: link:../diagram
+      '@electrodsl/layout':
+        specifier: workspace:*
+        version: link:../layout
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library

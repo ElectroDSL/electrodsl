@@ -1,31 +1,56 @@
 
-<svg xmlns="http://www.w3.org/2000/svg" width="840" height="240" viewBox="0 0 840 240">
+<svg
+xmlns="http://www.w3.org/2000/svg"
+width="1000"
+height="1000"
+viewBox="0 0 1000 1000">
+
 <style>
-    .edsl-symbol-line, .edsl-wire { fill: none; stroke: #111; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .edsl-symbol-shape { fill: #fff; stroke: #111; stroke-width: 2; }
-    .edsl-terminal { fill: #111; }
-    .edsl-symbol-text { fill: #111; font: 14px sans-serif; }
-    .edsl-component-label { fill: #111; font: 14px sans-serif; font-weight: 600; }
-    .edsl-pin-label { fill: #555; font: 11px sans-serif; }
-    .edsl-pin {fill: black;}
+
+.edsl-wire{
+fill:none;
+stroke:#111;
+stroke-width:2;
+stroke-linecap:round;
+stroke-linejoin:round;
+}
+
+.edsl-component-label{
+font:14px sans-serif;
+text-anchor:middle;
+fill:#111;
+}
+
 </style>
 
-<path d="M 120 80 H 240" class="edsl-wire" data-from="P1.L1" data-to="M1.A1" />
-<text x="120" y="72" text-anchor="start" class="edsl-pin-label">L1</text>
-<text x="240" y="72" text-anchor="end" class="edsl-pin-label">A1</text>
-
-<path d="M 320 80 H 440" class="edsl-wire" data-from="M1.A1" data-to="L1.L1" />
-<text x="320" y="72" text-anchor="start" class="edsl-pin-label">A1</text>
-<text x="440" y="72" text-anchor="end" class="edsl-pin-label">L1</text>
-
-<path d="M 520 80 H 40" class="edsl-wire" data-from="L1.L1" data-to="P1.A1" />
-<text x="520" y="72" text-anchor="start" class="edsl-pin-label">L1</text>
-<text x="40" y="72" text-anchor="end" class="edsl-pin-label">A1</text>
-
-<g class="edsl-component" data-component-id="P1">
 
 
-<g transform="translate(80,80)">
+<path
+d="M 80 40 L 250 40"
+class="edsl-wire"/>
+
+
+
+
+<path
+d="M 290 80 L 290 120"
+class="edsl-wire"/>
+
+
+
+
+<path
+d="M 250 160 L 250 240 L 80 240 L 80 40"
+class="edsl-wire"/>
+
+
+
+
+
+<g>
+
+
+<g transform="translate(0,0)">
 
 
 
@@ -93,45 +118,24 @@ LAMP
 </g>
 
 
-<circle
-    cx="72"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
-
 <text
-    x="78"
-    y="96"
-    class="edsl-pin-label">
-L1
-</text>
-<circle
-    cx="128"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
+x="0"
+y="60"
+class="edsl-component-label">
 
-<text
-    x="134"
-    y="96"
-    class="edsl-pin-label">
-A1
-</text>
-
-<text
-    x="80"
-    y="140"
-    text-anchor="middle"
-    class="edsl-component-label">
 P1
+
 </text>
 
 </g>
 
-<g class="edsl-component" data-component-id="M1">
 
 
-<g transform="translate(280,80)">
+
+<g>
+
+
+<g transform="translate(250,0)">
 
 
 
@@ -180,45 +184,24 @@ stroke="black"/>
 </g>
 
 
-<circle
-    cx="272"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
-
 <text
-    x="278"
-    y="96"
-    class="edsl-pin-label">
-L1
-</text>
-<circle
-    cx="328"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
+x="250"
+y="60"
+class="edsl-component-label">
 
-<text
-    x="334"
-    y="96"
-    class="edsl-pin-label">
-A1
-</text>
-
-<text
-    x="280"
-    y="140"
-    text-anchor="middle"
-    class="edsl-component-label">
 M1
+
 </text>
 
 </g>
 
-<g class="edsl-component" data-component-id="L1">
 
 
-<g transform="translate(480,80)">
+
+<g>
+
+
+<g transform="translate(250,120)">
 
 
 
@@ -286,38 +269,17 @@ LAMP
 </g>
 
 
-<circle
-    cx="472"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
-
 <text
-    x="478"
-    y="96"
-    class="edsl-pin-label">
+x="250"
+y="180"
+class="edsl-component-label">
+
 L1
-</text>
-<circle
-    cx="528"
-    cy="100"
-    r="3"
-    class="edsl-pin"/>
 
-<text
-    x="534"
-    y="96"
-    class="edsl-pin-label">
-A1
-</text>
-
-<text
-    x="480"
-    y="140"
-    text-anchor="middle"
-    class="edsl-component-label">
-L1
 </text>
 
 </g>
+
+
+
 </svg>

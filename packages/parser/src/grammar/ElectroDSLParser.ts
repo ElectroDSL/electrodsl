@@ -12,6 +12,7 @@ import {
     RBrace,
     EDSL,
     Version,
+    NumericIdentifier,
     Component,
     Colon,
     Equals,
@@ -181,25 +182,51 @@ class ElectroDSLParser extends CstParser {
                 this.CONSUME(Connect);
 
 
-                this.CONSUME(Identifier);
+                this.CONSUME(Identifier, {
+                    LABEL: "sourceComponent"
+                });
 
 
                 this.CONSUME1(Dot);
 
 
-                this.CONSUME2(Identifier);
+                this.OR([
+                    {
+                        ALT: () => this.CONSUME2(Identifier, {
+                            LABEL: "sourcePin"
+                        })
+                    },
+                    {
+                        ALT: () => this.CONSUME(NumericIdentifier, {
+                            LABEL: "sourcePin"
+                        })
+                    }
+                ]);
 
 
                 this.CONSUME(Arrow);
 
 
-                this.CONSUME3(Identifier);
+                this.CONSUME3(Identifier, {
+                    LABEL: "targetComponent"
+                });
 
 
                 this.CONSUME2(Dot);
 
 
-                this.CONSUME4(Identifier);
+                this.OR2([
+                    {
+                        ALT: () => this.CONSUME4(Identifier, {
+                            LABEL: "targetPin"
+                        })
+                    },
+                    {
+                        ALT: () => this.CONSUME2(NumericIdentifier, {
+                            LABEL: "targetPin"
+                        })
+                    }
+                ]);
 
 
                 this.CONSUME(Semicolon);

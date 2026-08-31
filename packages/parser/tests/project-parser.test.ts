@@ -8,35 +8,29 @@ describe("Project Parser", () => {
     test("parses project declaration", () => {
 
 
-        const source = `
-
-project "motor-control"
-{
-
-    circuit "main"
-
-}
-
-
-        `;
+        const source = `EDSL 0.1
+PROJECT "motor-control" {
+    CIRCUIT "main" {
+    }
+}`;
 
 
         const result = parse(source);
 
 
-        expect(result.type)
-            .toBe("Project");
+        expect(result.kind)
+            .toBe("Document");
 
 
-        expect(result.name)
+        expect(result.project.name)
             .toBe("motor-control");
 
 
-        expect(result.circuits.length)
+        expect(result.project.circuits.length)
             .toBe(1);
 
 
-        expect(result.circuits[0].name)
+        expect(result.project.circuits[0].name)
             .toBe("main");
 
 

@@ -1,19 +1,19 @@
-import type { PlacedLayout } 
-from "@electrodsl/layout";
+import type {
+    PlacedLayout
+} from "@electrodsl/layout";
 
-import type { SvgDocument }
-from "../model/SvgDocument.js";
+import type {
+    SvgDocument
+} from "../model/SvgDocument.js";
 
 import {
     renderComponent
-}
-from "./ComponentRenderer.js";
+} from "./ComponentRenderer.js";
 
 
 export function renderSvg(
-    layout:PlacedLayout
+    layout: PlacedLayout
 ): SvgDocument {
-
 
     const elements =
         layout.nodes.map(
@@ -21,13 +21,31 @@ export function renderSvg(
         );
 
 
+    const symbols =
+        new Map<string, string>();
+
+
     return {
 
-        width:1000,
+        width: 1000,
 
-        height:800,
+        height: 800,
 
-        elements
+        elements,
+
+        symbols,
+
+        addSymbol(
+            id: string,
+            content: string
+        ): void {
+
+            symbols.set(
+                id,
+                content
+            );
+
+        }
 
     };
 

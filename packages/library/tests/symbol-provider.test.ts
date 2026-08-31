@@ -5,7 +5,7 @@ import {
 } from "vitest";
 
 import {
-    SymbolProvider
+    LibrarySymbolProvider
 } from "../src/index.js";
 
 import path from "node:path";
@@ -15,7 +15,7 @@ describe("SymbolProvider", () => {
     it("loads symbol definition", () => {
 
         const provider =
-            new SymbolProvider(
+            new LibrarySymbolProvider(
                 path.resolve("library")
             );
 
@@ -28,6 +28,24 @@ describe("SymbolProvider", () => {
 
         expect(symbol?.svg)
             .toContain("<svg");
+
+        expect(symbol?.width)
+            .toBe(100);
+
+    });
+
+    it("loads the IEC fuse symbol", () => {
+
+        const provider =
+            new LibrarySymbolProvider(
+                path.resolve("library")
+            );
+
+        const symbol =
+            provider.getSymbol("IEC-FUSE");
+
+        expect(symbol?.svg)
+            .toContain("<rect");
 
         expect(symbol?.width)
             .toBe(100);

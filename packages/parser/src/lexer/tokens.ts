@@ -57,6 +57,11 @@ name:"Version",
 pattern:/\d+\.\d+/
 });
 
+export const NumericIdentifier = createToken({
+    name: "NumericIdentifier",
+    pattern: /\d+/
+});
+
 
 export const Component = createToken({
     name:"Component",
@@ -114,6 +119,7 @@ export const allTokens = [
 
     EDSL,
     Version,
+    NumericIdentifier,
 
     Project,
     Circuit,

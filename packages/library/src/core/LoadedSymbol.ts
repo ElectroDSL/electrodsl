@@ -8,4 +8,13 @@ export interface LoadedSymbol {
 
     height: number;
 
+    terminals?: Array<{
+        id: string;
+        name: string;
+        position: {
+            x: number;
+            y: number;
+        };
+    }>;
+
 }

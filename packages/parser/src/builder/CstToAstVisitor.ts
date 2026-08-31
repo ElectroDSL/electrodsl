@@ -167,21 +167,21 @@ export class AstBuilderVisitor
 
             from: {
 
-                component:
-                    ctx.Identifier[0].image,
+                  component:
+                      ctx.sourceComponent[0].image,
 
-                pin:
-                    ctx.Identifier[1].image
+                  pin:
+                      ctx.sourcePin[0].image
 
             },
 
             to: {
 
-                component:
-                    ctx.Identifier[2].image,
+                  component:
+                      ctx.targetComponent[0].image,
 
-                pin:
-                    ctx.Identifier[3].image
+                  pin:
+                      ctx.targetPin[0].image
 
             }
 

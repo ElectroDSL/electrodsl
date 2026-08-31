@@ -1,19 +1,22 @@
-import type { SymbolDefinition } from "../core/SymbolDefinition.js";
+import type { LoadedSymbol } from "../core/LoadedSymbol.js";
 import type { SymbolProvider } from "./SymbolProvider.js";
 
 /**
  * Default in-memory implementation of SymbolProvider.
+ *
+ * Stores already-loaded SVG symbols in memory.
  */
-export class DefaultSymbolProvider implements SymbolProvider {
+export class DefaultSymbolProvider
+implements SymbolProvider {
 
     private readonly symbols =
-        new Map<string, SymbolDefinition>();
+        new Map<string, LoadedSymbol>();
 
     /**
-     * Register a symbol.
+     * Register a loaded symbol.
      */
     register(
-        symbol: SymbolDefinition
+        symbol: LoadedSymbol
     ): void {
 
         this.symbols.set(
@@ -24,11 +27,11 @@ export class DefaultSymbolProvider implements SymbolProvider {
     }
 
     /**
-     * Returns a symbol definition.
+     * Returns a loaded symbol.
      */
     getSymbol(
         type: string
-    ): SymbolDefinition | undefined {
+    ): LoadedSymbol | undefined {
 
         return this.symbols.get(type);
 

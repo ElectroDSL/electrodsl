@@ -40,13 +40,20 @@ export class LayerAssignment {
 
                 result.push({
 
-                    node,
+                    nodeId:
+                        node.id,
 
-                    layer: index,
 
-                    x: index * 250,
+                    layer:
+                        index,
 
-                    y: 0
+
+                    x:
+                        index * 250,
+
+
+                    y:
+                        0
 
                 });
 

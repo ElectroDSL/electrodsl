@@ -13,29 +13,38 @@ export function drawSymbol(
     const symbol =
         provider.getSymbol(type);
 
+
     if (!symbol) {
 
         return `
 <rect
-x="${x}"
-y="${y}"
-width="80"
-height="60"
-fill="none"
-stroke="red"/>
+    x="${x}"
+    y="${y}"
+    width="80"
+    height="60"
+    fill="none"
+    stroke="red"
+/>
 `;
 
     }
 
+
+    const svg =
+        symbol.svg;
+
+
     const match =
-        symbol.svg.match(
+        svg.match(
             /<svg[^>]*>([\s\S]*)<\/svg>/
         );
+
 
     const content =
         match
             ? match[1]
-            : symbol.svg;
+            : svg;
+
 
     return `
 <g transform="translate(${x},${y})">
