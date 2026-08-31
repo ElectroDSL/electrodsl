@@ -1,0 +1,56 @@
+EDSL 0.1
+
+PROJECT "Advanced Distribution Panel" {
+
+    CIRCUIT "Lighting and Filter Circuit" {
+
+        COMPONENT F1 : IEC-FUSE {
+            rating = "16A"
+            tag = "Main Protection"
+        }
+
+        COMPONENT F2 : IEC-FUSE {
+            rating = "6A"
+            tag = "Indicator Protection"
+        }
+
+        COMPONENT R1 : IEC-RESISTOR {
+            resistance = "1000 ohm"
+            power = "5W"
+        }
+
+        COMPONENT C1 : IEC-CAPACITOR {
+            capacitance = "10uF"
+            voltage = "400V"
+        }
+
+        COMPONENT L1 : IEC-LAMP {
+            voltage = "230V"
+            colour = "Green"
+            tag = "Power Available"
+        }
+
+        COMPONENT L2 : IEC-LAMP {
+            voltage = "230V"
+            colour = "Red"
+            tag = "Alarm Indicator"
+        }
+
+        CONNECT F1.2 -> R1.1;
+        CONNECT R1.2 -> L1.L;
+        CONNECT L1.N -> F1.1;
+
+        CONNECT F1.2 -> F2.1;
+        CONNECT F2.2 -> L2.L;
+        CONNECT L2.N -> F1.1;
+
+        CONNECT R1.2 -> C1.1;
+        CONNECT C1.2 -> F1.1;
+
+        NET POWER;
+        NET INDICATOR;
+        NET FILTER;
+
+    }
+
+}

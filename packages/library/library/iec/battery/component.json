@@ -1,0 +1,48 @@
+{
+  "id": "iec.battery",
+  "name": "Battery",
+  "category": "source",
+  "description": "Rechargeable electrical energy storage source",
+
+  "symbol": {
+    "file": "symbol.svg"
+  },
+
+  "pins": [
+    {
+      "name": "+",
+      "number": "1",
+      "type": "power",
+      "position": {
+        "x": 40,
+        "y": 0
+      }
+    },
+    {
+      "name": "-",
+      "number": "2",
+      "type": "power",
+      "position": {
+        "x": 40,
+        "y": 120
+      }
+    }
+  ],
+
+  "properties": {
+    "voltage": {
+      "type": "string",
+      "default": "24V"
+    },
+
+    "capacity": {
+      "type": "string",
+      "default": "50Ah"
+    },
+
+    "technology": {
+      "type": "string",
+      "default": "Li-ion"
+    }
+  }
+}

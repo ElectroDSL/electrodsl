@@ -1,18 +1,65 @@
-import { describe, expect, it } from "vitest";
-import { loadComponentLibrary } from "../src/index.js";
+import { describe, it, expect } from "vitest";
 
-describe("ComponentLibrary", () => {
+import {
+    loadComponentLibrary
+}
+from "../src/loadComponentLibrary.js";
 
-    it("loads reusable JSON component definitions", () => {
 
-        const library = loadComponentLibrary("packages/library/library");
+describe(
+    "ComponentLibrary",
+    () => {
 
-        expect(library.get("Motor")).toEqual({
-            type: "Motor",
-            pins: ["L1", "L2", "L3", "PE"],
-            symbol: "motor"
-        });
 
-    });
+        it(
+            "loads reusable JSON component definitions",
+            () => {
 
-});
+
+                const library =
+                    loadComponentLibrary(
+                        "packages/library/library"
+                    );
+
+
+                const motor =
+                    library.get(
+                        "Motor"
+                    );
+
+
+                expect(
+                    motor
+                ).toBeDefined();
+
+
+                expect(
+                    motor?.name
+                )
+                .toBe(
+                    "Motor"
+                );
+
+
+                expect(
+                    motor?.terminals.length
+                )
+                .toBe(
+                    4
+                );
+
+
+                expect(
+                    motor?.symbol.file
+                )
+                .toBe(
+                    "motor.svg"
+                );
+
+
+            }
+        );
+
+
+    }
+);

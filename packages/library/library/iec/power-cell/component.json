@@ -1,0 +1,43 @@
+{
+  "id": "iec.power-cell",
+  "name": "Power Cell",
+  "category": "source",
+  "description": "Electrical power source cell",
+
+  "symbol": {
+    "file": "symbol.svg"
+  },
+
+  "pins": [
+    {
+      "name": "+",
+      "number": "1",
+      "type": "power",
+      "position": {
+        "x": 0,
+        "y": 20
+      }
+    },
+    {
+      "name": "-",
+      "number": "2",
+      "type": "power",
+      "position": {
+        "x": 0,
+        "y": 80
+      }
+    }
+  ],
+
+  "properties": {
+    "voltage": {
+      "type": "string",
+      "default": "12V"
+    },
+
+    "capacity": {
+      "type": "string",
+      "default": "100Ah"
+    }
+  }
+}

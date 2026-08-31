@@ -1,0 +1,10 @@
+EDSL 0.3
+PROJECT "Connectivity" {
+    CIRCUIT "Main" {
+        COMPONENT F1 : IEC-FUSE {}
+        COMPONENT L1 : IEC-LAMP {}
+        JUNCTION J1;
+        NET POWER { F1.2; J1; L1.L; }
+        CONNECT L1.N -> F1.1 { route = "below" }
+    }
+}

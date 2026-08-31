@@ -57,6 +57,11 @@ name:"Version",
 pattern:/\d+\.\d+/
 });
 
+export const NumericIdentifier = createToken({
+    name: "NumericIdentifier",
+    pattern: /\d+/
+});
+
 
 export const Component = createToken({
     name:"Component",
@@ -108,20 +113,33 @@ pattern:/NET/
 
 });
 
+export const Junction = createToken({
+    name: "Junction",
+    pattern: /JUNCTION/
+});
+
+export const Route = createToken({
+    name: "Route",
+    pattern: /route/
+});
+
 export const allTokens = [
 
     WhiteSpace,
 
     EDSL,
     Version,
+    NumericIdentifier,
 
     Project,
     Circuit,
     Component,
     Net,
+    Junction,
 
     StringLiteral,
     Connect,
+    Route,
     Identifier,
 
     Colon,

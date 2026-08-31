@@ -1,40 +1,28 @@
-import type { ElectricalNode } from "@electrodsl/graph";
-
-
 /**
- * Electrical component with calculated position.
+ * Base interface for every layout node.
+ *
+ * Specialized nodes such as PowerNode, PortNode,
+ * JunctionNode and NetNode extend this interface.
  */
 export interface LayoutNode {
 
-
     /**
-     * Original graph component.
+     * Graph node ID.
      */
-    node: ElectricalNode;
-
-
+    nodeId: string;
 
     /**
-     * X coordinate on drawing canvas.
+     * X position in layout space.
      */
     x: number;
 
-
-
     /**
-     * Y coordinate on drawing canvas.
+     * Y position in layout space.
      */
     y: number;
 
-
-
     /**
-     * Layout layer.
-     *
-     * Example:
-     * Layer 0 = Supply
-     * Layer 1 = Protection
-     * Layer 2 = Load
+     * Assigned layout layer.
      */
     layer: number;
 

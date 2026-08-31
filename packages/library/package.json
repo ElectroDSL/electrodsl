@@ -1,12 +1,13 @@
 {
   "name": "@electrodsl/library",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Reusable electrical component definitions for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts"
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest"
   },
   "dependencies": {
     "@electrodsl/ast": "workspace:*"

@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/parser",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Reference ElectroDSL parser",
   "type": "module",
 
@@ -10,14 +10,16 @@
 
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
+      
     }
   },
 
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts"
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest"
   },
 
   "dependencies": {

@@ -32,10 +32,13 @@ export class AstBuilderVisitor
 
     document(ctx: any) {
 
+        const document =
+            this.visit(ctx.project[0]);
 
+        document.version =
+            ctx.Version[0].image;
 
-
-        return this.visit(ctx.project[0]);
+        return document;
 
     }
 
@@ -99,6 +102,11 @@ export class AstBuilderVisitor
             nets:
                 ctx.net?.map(
                     (n: any) => this.visit(n)
+                ) ?? [],
+
+            junctions:
+                ctx.junction?.map(
+                    (j: any) => this.visit(j)
                 ) ?? []
 
         };
@@ -161,29 +169,19 @@ export class AstBuilderVisitor
 
     connection(ctx: any) {
 
+        const route = ctx.routeValue?.[0]
+            ?.image
+            .replaceAll('"', "");
+
         return {
 
             kind: NodeKind.Connection,
 
-            from: {
+            from: this.visit(ctx.from[0]),
 
-                component:
-                    ctx.Identifier[0].image,
+            to: this.visit(ctx.to[0]),
 
-                pin:
-                    ctx.Identifier[1].image
-
-            },
-
-            to: {
-
-                component:
-                    ctx.Identifier[2].image,
-
-                pin:
-                    ctx.Identifier[3].image
-
-            }
+            route
 
         };
 
@@ -195,8 +193,31 @@ export class AstBuilderVisitor
 
             kind: NodeKind.Net,
 
-            name: ctx.Identifier[0].image
+            name: ctx.netName[0].image,
 
+            members:
+                ctx.member?.map(
+                    (member: any) => this.visit(member)
+                ) ?? []
+
+        };
+
+    }
+
+    junction(ctx: any) {
+
+        return {
+            kind: NodeKind.Junction,
+            id: ctx.Identifier[0].image
+        };
+
+    }
+
+    endpoint(ctx: any) {
+
+        return {
+            component: ctx.component[0].image,
+            pin: ctx.pin?.[0]?.image ?? ""
         };
 
     }

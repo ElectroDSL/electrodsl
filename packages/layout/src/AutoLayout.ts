@@ -13,18 +13,26 @@ import type {
 
 export function autoLayout(
     graph: ElectricalGraph,
-    startNodeId: string
+    startNodeId?: string
 ): LayoutResult[] {
-
-
-    const layers =
-        new LayerCalculator(graph)
-            .calculate(startNodeId);
-
-
 
     const nodes =
         graph.getNodes();
+
+    if (nodes.length === 0) {
+
+        return [];
+
+    }
+
+    const rootNodeId =
+        startNodeId && graph.hasNode(startNodeId)
+            ? startNodeId
+            : nodes[0].id;
+
+    const layers =
+        new LayerCalculator(graph)
+            .calculate(rootNodeId);
 
 
 
@@ -37,17 +45,38 @@ export function autoLayout(
 
 
 
-    return positioned.map(item => ({
+    return positioned.map(item => {
 
-        node: item.node,
 
-        x: item.x,
+        const node =
+            graph.getNode(item.nodeId);
 
-        y: item.y,
 
-        layer:
-            layers.get(item.node.id) ?? 0
 
-    }));
+        if (!node) {
+
+            throw new Error(
+                `Node not found: ${item.nodeId}`
+            );
+
+        }
+
+
+
+        return {
+
+            node,
+
+            x: item.x,
+
+            y: item.y,
+
+            layer:
+                layers.get(node.id) ?? 0
+
+        };
+
+    });
+
 
 }

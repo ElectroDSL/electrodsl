@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/layout",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Auto layout engine for ElectroDSL electrical schematics",
   "type": "module",
 
@@ -22,7 +22,8 @@
   },
 
   "dependencies": {
-    "@electrodsl/graph": "workspace:*"
+    "@electrodsl/graph": "workspace:*",
+    "@electrodsl/library": "workspace:*"
   },
 
   "devDependencies": {

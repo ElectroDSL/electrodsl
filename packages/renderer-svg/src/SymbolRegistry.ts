@@ -1,5 +1,10 @@
-import type { SymbolProvider } from "@electrodsl/library";
-import { SvgDocument } from "./SvgDocument.js";
+import type {
+    SymbolProvider
+} from "@electrodsl/library";
+
+import {
+    SvgDocument
+} from "./SvgDocument.js";
 
 
 export class SymbolRegistry {
@@ -9,28 +14,28 @@ export class SymbolRegistry {
         new Set<string>();
 
 
-
     constructor(
         private readonly svg: SvgDocument,
         private readonly provider: SymbolProvider
-    ) {}
+    ) { }
 
 
-
-    private symbolId(type:string):string {
+    private symbolId(
+        type: string
+    ): string {
 
         return `edsl-${type.toLowerCase()}`;
 
     }
 
 
-
     register(
         type: string
     ): void {
 
-
-        if (this.registered.has(type)) {
+        if (
+            this.registered.has(type)
+        ) {
 
             return;
 
@@ -38,8 +43,9 @@ export class SymbolRegistry {
 
 
         const symbol =
-            this.provider.getSymbol(type);
-
+            this.provider.getSymbol(
+                type
+            );
 
 
         if (!symbol) {
@@ -49,10 +55,10 @@ export class SymbolRegistry {
         }
 
 
-
         const content =
-            this.extractContent(symbol);
-
+            this.extractContent(
+                symbol.svg
+            );
 
 
         this.svg.addSymbol(
@@ -61,25 +67,24 @@ export class SymbolRegistry {
         );
 
 
-        this.registered.add(type);
+        this.registered.add(
+            type
+        );
 
     }
-
-
-
 
 
     use(
         type: string,
         position: {
-            x:number;
-            y:number;
-            rotation?:number;
-            scale?:number;
-            mirrorX?:boolean;
-            mirrorY?:boolean;
+            x: number;
+            y: number;
+            rotation?: number;
+            scale?: number;
+            mirrorX?: boolean;
+            mirrorY?: boolean;
         }
-    ):string {
+    ): string {
 
 
         const rotation =
@@ -90,53 +95,47 @@ export class SymbolRegistry {
             position.scale ?? 1;
 
 
-
         const scaleX =
             position.mirrorX
-            ? -scale
-            : scale;
+                ? -scale
+                : scale;
 
 
         const scaleY =
             position.mirrorY
-            ? -scale
-            : scale;
-
+                ? -scale
+                : scale;
 
 
         return `
-
 <g
-
 transform="
 translate(${position.x},${position.y})
 rotate(${rotation})
 scale(${scaleX},${scaleY})
 "
-
 class="edsl-symbol">
 
-
 <use
-
 href="#${this.symbolId(type)}"
-
 />
 
-
 </g>
-
 `;
 
     }
 
 
-
-
-
     private extractContent(
-        svg:string
-    ):string {
+        svg: string
+    ): string {
+
+
+        if (!svg) {
+
+            return "";
+
+        }
 
 
         const match =
@@ -150,6 +149,5 @@ href="#${this.symbolId(type)}"
             : svg;
 
     }
-
 
 }

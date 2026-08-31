@@ -2,7 +2,7 @@ import { Compiler } from "./Compiler.js";
 
 export function compile(
     source: string,
-    startNodeId = "START"
+    startNodeId?: string
 ): string {
 
     return new Compiler()

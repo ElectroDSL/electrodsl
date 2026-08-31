@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/renderer-svg",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,7 +12,8 @@
     "@electrodsl/ast": "workspace:*",
     "@electrodsl/diagram": "workspace:*",
     "@electrodsl/library": "workspace:*",
-    "@electrodsl/render-model": "workspace:*"
+    "@electrodsl/render-model": "workspace:*",
+    "@electrodsl/layout": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

@@ -6,24 +6,27 @@ import {
     extname
 } from "node:path";
 
-import {
-    LibraryScanner,
-    ComponentRegistry,
-    ComponentEnricher,
-    SymbolProvider
-} from "@electrodsl/library";
-
-import type { ComponentNode } from "@electrodsl/ast";
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { parseFile } from "@electrodsl/parser";
-import { renderSVG } from "@electrodsl/renderer-svg";
-import { DuplicateComponentIdRule, Validator } from "@electrodsl/validator";
+import { compile } from "@electrodsl/integration";
+import {
+    DuplicateComponentIdRule,
+    ElectricalReferenceRule,
+    LanguageVersionRule,
+    NetDefinitionRule,
+    RoutePreferenceRule,
+    Validator
+} from "@electrodsl/validator";
+import { LibrarySymbolProvider } from "@electrodsl/library";
+import { format } from "@electrodsl/formatter";
+import { serializeCanonicalIR } from "@electrodsl/ir";
+import { ElectroDSLSyntaxError } from "@electrodsl/parser";
+
 
 const args = process.argv.slice(2);
 const command = args[0];
 
-const symbolProvider =
-    createSymbolProvider();
+try {
 
 if (command === "parse") {
 
@@ -45,10 +48,39 @@ else if (command === "build") {
 
     const file = requiredFile(args[1], "edsl build <file.edsl>");
     const output = outputPath(file);
+    const document = parseFile(file);
 
-    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
+    validate(document);
+
+    writeFileSync(
+        output,
+        compile(readFileSync(file, "utf8")),
+        "utf-8"
+    );
 
     console.log(`Built ${output}`);
+
+}
+
+else if (command === "format" || command === "fmt") {
+
+    const file = requiredFile(args[1], "edsl format <file.edsl> [--check|--write]");
+    const source = readFileSync(file, "utf8");
+    const formatted = format(source);
+
+    if (args.includes("--check")) {
+        if (source.replaceAll("\r\n", "\n") !== formatted) {
+            console.error(`${file} is not formatted.`);
+            process.exitCode = 1;
+        } else {
+            console.log(`✓ ${file} is formatted`);
+        }
+    } else if (args.includes("--write")) {
+        writeFileSync(file, formatted, "utf8");
+        console.log(`Formatted ${file}`);
+    } else {
+        process.stdout.write(formatted);
+    }
 
 }
 
@@ -57,14 +89,29 @@ else if (command === "export") {
     const file = requiredFile(args[1], "edsl export <file.edsl> --format svg");
     const format = readOption(args.slice(2), "--format");
 
-    if (format !== "svg") {
-        console.error("Only the svg export format is currently supported.");
+    if (format !== "svg" && format !== "json") {
+        console.error("Supported export formats are svg and json.");
         process.exit(1);
+    }
+
+    const document = parseFile(file);
+
+    validate(document);
+
+    if (format === "json") {
+        const output = outputPath(file, ".json");
+        writeFileSync(output, serializeCanonicalIR(document), "utf-8");
+        console.log(`Exported ${output}`);
+        process.exit(0);
     }
 
     const output = outputPath(file);
 
-    writeFileSync(output, renderSVG(parseFile(file),symbolProvider), "utf-8");
+    writeFileSync(
+        output,
+        compile(readFileSync(file, "utf8")),
+        "utf-8"
+    );
 
     console.log(`Exported ${output}`);
 
@@ -80,27 +127,26 @@ Commands:
   edsl parse <file.edsl>
   edsl validate <file.edsl>
   edsl check <file.edsl>
+  edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
-  edsl export <file.edsl> --format svg
+  edsl export <file.edsl> --format svg|json
 `);
 
 }
 
-function createSymbolProvider() {
-
-
-    const libraryPath =
-        resolve(
-            "packages/library/library"
-        );
-
-
-    return new SymbolProvider(
-        libraryPath
-    );
-
+} catch (error) {
+    if (error instanceof ElectroDSLSyntaxError) {
+        for (const diagnostic of error.diagnostics) {
+            const location = diagnostic.line === undefined
+                ? ""
+                : `${diagnostic.line}:${diagnostic.column} `;
+            console.error(`${location}${diagnostic.code} ${diagnostic.message}`);
+        }
+        process.exitCode = 1;
+    } else {
+        throw error;
+    }
 }
-
 
 function readDocument(
     file: string | undefined,
@@ -110,56 +156,6 @@ function readDocument(
     return parseFile(requiredFile(file, usage));
 
 }
-
-function enrichDocument(
-    document: ReturnType<typeof parseFile>
-) {
-
-    const libraryPath =
-        resolve(
-            "packages/library/library"
-        );
-
-
-    const registry =
-        new ComponentRegistry();
-
-
-    const scanner =
-        new LibraryScanner(
-            libraryPath
-        );
-
-
-    scanner.scan(
-        registry
-    );
-
-
-    const enricher =
-        new ComponentEnricher(
-            registry
-        );
-
-
-    for (
-        const circuit
-        of document.project.circuits
-    ) {
-
-        circuit.components =
-            circuit.components.map(
-                (component: ComponentNode) =>
-                    enricher.enrich(component)
-            );
-
-    }
-
-
-    return document;
-
-}
-
 
 function requiredFile(
     file: string | undefined,
@@ -179,8 +175,16 @@ function validate(
     document: ReturnType<typeof parseFile>
 ): void {
 
+    const symbols = new LibrarySymbolProvider(
+        resolve("packages/library/library")
+    );
+
     const result = new Validator([
-        new DuplicateComponentIdRule()
+        new LanguageVersionRule(),
+        new DuplicateComponentIdRule(),
+        new ElectricalReferenceRule(symbols),
+        new NetDefinitionRule(),
+        new RoutePreferenceRule()
     ]).validate(document);
 
     if (result.errors.length === 0) {
@@ -197,10 +201,11 @@ function validate(
 }
 
 function outputPath(
-    file: string
+    file: string,
+    extension = ".svg"
 ): string {
 
-    return resolve(file, "..", `${basename(file, extname(file))}.svg`);
+    return resolve(file, "..", `${basename(file, extname(file))}${extension}`);
 
 }
 
@@ -214,4 +219,3 @@ function readOption(
     return index === -1 ? undefined : values[index + 1];
 
 }
-

@@ -4,38 +4,60 @@ import { autoLayout } from "@electrodsl/layout";
 import { DiagramBuilder } from "@electrodsl/diagram";
 import { renderDiagram } from "@electrodsl/renderer-svg";
 
-import { SymbolProvider } from "@electrodsl/library";
-
+import {
+    LibrarySymbolProvider
+} from "@electrodsl/library";
 
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+const __filename =
+    fileURLToPath(
+        import.meta.url
+    );
+
+
+const __dirname =
+    path.dirname(
+        __filename
+    );
+
 
 export class Compiler {
 
+
     compile(
         source: string,
-        startNodeId = "START"
+        startNodeId?: string
     ): string {
 
-        const libraryRoot = path.resolve(
-            __dirname,
-            "../../library/library"
-        );
+
+        const libraryRoot =
+            path.resolve(
+                __dirname,
+                "../../library/library"
+            );
+
 
         const symbolProvider =
-            new SymbolProvider(
+            new LibrarySymbolProvider(
                 libraryRoot
             );
 
+
         const ast =
-            parse(source);
+            parse(
+                source
+            );
+
 
         const graph =
             new GraphBuilder()
-                .build(ast);
+                .build(
+                    ast
+                );
+
 
         const layout =
             autoLayout(
@@ -43,12 +65,14 @@ export class Compiler {
                 startNodeId
             );
 
+
         const diagram =
-            new DiagramBuilder()
+            new DiagramBuilder(symbolProvider)
                 .build(
                     graph,
                     layout
                 );
+
 
         return renderDiagram(
             diagram,

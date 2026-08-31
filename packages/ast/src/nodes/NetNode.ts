@@ -7,4 +7,9 @@ export interface NetNode extends AstNode {
 
     name: string;
 
+    members: Array<{
+        component: string;
+        pin: string;
+    }>;
+
 }

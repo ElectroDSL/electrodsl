@@ -72,11 +72,11 @@ describe("GridPlacement", () => {
         const layers =
             new Map<string, number>([
 
-                ["Q1",0],
+                ["Q1", 0],
 
-                ["K1",1],
+                ["K1", 1],
 
-                ["K2",1]
+                ["K2", 1]
 
             ]);
 
@@ -97,19 +97,19 @@ describe("GridPlacement", () => {
 
         const q1 =
             result.find(
-                x => x.node.id === "Q1"
+                x => x.nodeId === "Q1"
             );
 
 
         const k1 =
             result.find(
-                x => x.node.id === "K1"
+               x => x.nodeId === "K1"
             );
 
 
         const k2 =
             result.find(
-                x => x.node.id === "K2"
+                x => x.nodeId === "K2"
             );
 
 
@@ -130,8 +130,10 @@ describe("GridPlacement", () => {
 
 
         expect(k1?.y)
-            .not
-            .toBe(k2?.y);
+            .toBe(0);
+
+        expect(k2?.y)
+            .toBe(120);
 
 
     });

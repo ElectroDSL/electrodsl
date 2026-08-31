@@ -18,6 +18,41 @@ import {
 
 describe("AutoLayout", () => {
 
+    it("uses the first graph node when the requested root is missing", () => {
+
+        const graph = new DefaultElectricalGraph();
+
+        graph.addNode({
+            id: "Q1",
+            type: "breaker",
+            ports: [],
+            properties: {}
+        });
+
+        graph.addNode({
+            id: "K1",
+            type: "contactor",
+            ports: [],
+            properties: {}
+        });
+
+        graph.addEdge({
+            id: "E1",
+            sourcePortId: "Q1:A",
+            targetPortId: "K1:A",
+            type: "wire"
+        });
+
+        const result = autoLayout(graph, "START");
+
+        expect(result.find(item => item.node.id === "Q1")?.layer)
+            .toBe(0);
+
+        expect(result.find(item => item.node.id === "K1")?.layer)
+            .toBe(1);
+
+    });
+
 
     it("should generate coordinates from graph topology", () => {
 

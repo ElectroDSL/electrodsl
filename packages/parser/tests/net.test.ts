@@ -14,8 +14,8 @@ PROJECT "Power" {
 }`);
 
         expect(document.project.circuits[0].nets).toEqual([
-            { kind: "Net", name: "L1" },
-            { kind: "Net", name: "PE" }
+            { kind: "Net", name: "L1", members: [] },
+            { kind: "Net", name: "PE", members: [] }
         ]);
 
     });

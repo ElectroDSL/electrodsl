@@ -12,11 +12,14 @@ import {
     RBrace,
     EDSL,
     Version,
+    NumericIdentifier,
     Component,
     Colon,
     Equals,
     Connect,
     Net,
+    Junction,
+    Route,
     Dot,
     Arrow,
     Semicolon,
@@ -119,6 +122,10 @@ class ElectroDSLParser extends CstParser {
 
                     {
                         ALT: () => this.SUBRULE(this.net)
+                    },
+
+                    {
+                        ALT: () => this.SUBRULE(this.junction)
                     }
 
                 ]);
@@ -180,29 +187,35 @@ class ElectroDSLParser extends CstParser {
 
                 this.CONSUME(Connect);
 
-
-                this.CONSUME(Identifier);
-
-
-                this.CONSUME1(Dot);
-
-
-                this.CONSUME2(Identifier);
+                this.SUBRULE(this.endpoint, {
+                    LABEL: "from"
+                });
 
 
                 this.CONSUME(Arrow);
 
 
-                this.CONSUME3(Identifier);
+                this.SUBRULE2(this.endpoint, {
+                    LABEL: "to"
+                });
 
-
-                this.CONSUME2(Dot);
-
-
-                this.CONSUME4(Identifier);
-
-
-                this.CONSUME(Semicolon);
+                this.OR([
+                    {
+                        ALT: () => this.CONSUME(Semicolon)
+                    },
+                    {
+                        ALT: () => {
+                            this.CONSUME(LBrace);
+                            this.CONSUME(Route);
+                            this.CONSUME(Equals);
+                            this.CONSUME(StringLiteral, {
+                                LABEL: "routeValue"
+                            });
+                            this.OPTION(() => this.CONSUME2(Semicolon));
+                            this.CONSUME(RBrace);
+                        }
+                    }
+                ]);
 
 
             });
@@ -213,10 +226,63 @@ class ElectroDSLParser extends CstParser {
 
             this.CONSUME(Net);
 
+            this.CONSUME(Identifier, {
+                LABEL: "netName"
+            });
+
+            this.OPTION(() => {
+                this.OR([
+                    {
+                        ALT: () => this.CONSUME(Semicolon)
+                    },
+                    {
+                        ALT: () => {
+                            this.CONSUME(LBrace);
+                            this.MANY(() => {
+                                this.SUBRULE(this.endpoint, {
+                                    LABEL: "member"
+                                });
+                                this.OPTION2(() => this.CONSUME2(Semicolon));
+                            });
+                            this.CONSUME(RBrace);
+                        }
+                    }
+                ]);
+            });
+
+        }
+    );
+
+    public junction = this.RULE(
+        "junction",
+        () => {
+            this.CONSUME(Junction);
             this.CONSUME(Identifier);
+            this.CONSUME(Semicolon);
+        }
+    );
 
-            this.OPTION(() => this.CONSUME(Semicolon));
-
+    public endpoint = this.RULE(
+        "endpoint",
+        () => {
+            this.CONSUME(Identifier, {
+                LABEL: "component"
+            });
+            this.OPTION(() => {
+                this.CONSUME(Dot);
+                this.OR([
+                    {
+                        ALT: () => this.CONSUME2(Identifier, {
+                            LABEL: "pin"
+                        })
+                    },
+                    {
+                        ALT: () => this.CONSUME(NumericIdentifier, {
+                            LABEL: "pin"
+                        })
+                    }
+                ]);
+            });
         }
     );
 

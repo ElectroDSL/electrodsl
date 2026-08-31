@@ -19,5 +19,7 @@ export interface ConnectionNode extends AstNode {
         pin:string;
     };
 
+    route?: "auto" | "above" | "below";
+
 
 }

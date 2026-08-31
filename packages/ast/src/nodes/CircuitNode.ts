@@ -5,6 +5,7 @@ import { ConnectionNode } from "./ConnectionNode.js";
 import { TerminalNode } from "./TerminalNode.js";
 import { WireNode } from "./WireNode.js";
 import { NetNode } from "./NetNode.js";
+import { JunctionNode } from "./JunctionNode.js";
 
 
 export interface CircuitNode extends AstNode {
@@ -22,5 +23,7 @@ export interface CircuitNode extends AstNode {
     wires?: WireNode[];
 
     nets?: NetNode[];
+
+    junctions?: JunctionNode[];
 
 }

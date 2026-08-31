@@ -1,0 +1,50 @@
+EDSL 0.2
+
+PROJECT "ElectroDSL 0.2 Distribution Panel" {
+
+    CIRCUIT "Indicators" {
+
+        COMPONENT F1 : IEC-FUSE {
+            rating = "10A"
+            tag = "Main Protection"
+        }
+
+        COMPONENT R1 : IEC-RESISTOR {
+            resistance = "1 kohm"
+        }
+
+        COMPONENT L1 : IEC-LAMP {
+            voltage = "230V"
+            tag = "Power Available"
+        }
+
+        COMPONENT L2 : IEC-LAMP {
+            voltage = "230V"
+            tag = "Alarm"
+        }
+
+        JUNCTION J1;
+        JUNCTION J2;
+
+        NET POWER {
+            F1.2;
+            J1;
+            R1.1;
+            L1.L;
+            L2.L;
+        }
+
+        NET RETURN {
+            L1.N;
+            J2;
+            L2.N;
+            F1.1;
+        }
+
+        CONNECT R1.2 -> J2 {
+            route = "below"
+        }
+
+    }
+
+}

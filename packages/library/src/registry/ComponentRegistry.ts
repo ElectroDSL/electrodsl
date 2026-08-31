@@ -1,42 +1,100 @@
-import {ComponentDefinition} from "../ComponentDefinition.js";
+import type { ComponentDefinition } from "../ComponentDefinition.js";
+import type { ComponentProvider } from "../providers/ComponentProvider.js";
+
+export class ComponentRegistry implements ComponentProvider {
+
+    private readonly components =
+        new Map<string, ComponentDefinition>();
 
 
-export class ComponentRegistry {
+    /**
+     * Registers a component definition.
+     */
+    register(
+        component: ComponentDefinition
+    ): void {
+
+        if (this.components.has(component.id)) {
+
+            throw new Error(
+                `Duplicate component id: ${component.id}`
+            );
+
+        }
+
+        this.components.set(
+            component.id,
+            component
+        );
+
+    }
 
 
-private components =
-new Map<string,ComponentDefinition>();
+    /**
+ * Returns a component definition.
+ */
+get(
+    id: string
+): ComponentDefinition | undefined {
 
-
-
-register(
-component:ComponentDefinition
-){
-
-this.components.set(
-component.id,
-component
-);
+    return this.components.get(id);
 
 }
 
 
+/**
+ * ComponentProvider compatibility.
+ */
+getComponent(
+    type: string
+): ComponentDefinition | undefined {
 
-get(id:string){
-
-return this.components.get(id);
-
-}
-
-
-
-list(){
-
-return [
-...this.components.keys()
-];
+    return this.get(type);
 
 }
 
 
+/**
+ * Returns true if component exists.
+ */
+has(
+    id: string
+): boolean {
+
+    return this.components.has(id);
+
 }
+
+
+/**
+ * ComponentProvider compatibility.
+ */
+hasComponent(
+    type: string
+): boolean {
+
+    return this.has(type);
+
+}
+
+
+/**
+ * Returns all component ids.
+ */
+list(): string[] {
+
+    return [
+        ...this.components.keys()
+    ];
+
+}
+
+
+/**
+ * ComponentProvider compatibility.
+ */
+listComponents(): string[] {
+
+    return this.list();
+
+}}

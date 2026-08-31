@@ -10,24 +10,28 @@ export function drawSymbol(
     provider: SymbolProvider
 ): string {
 
-
-    const svg =
+    const symbol =
         provider.getSymbol(type);
 
 
-    if (!svg) {
+    if (!symbol) {
 
         return `
 <rect
-x="${x}"
-y="${y}"
-width="80"
-height="60"
-fill="none"
-stroke="red"/>
+    x="${x}"
+    y="${y}"
+    width="80"
+    height="60"
+    fill="none"
+    stroke="red"
+/>
 `;
 
     }
+
+
+    const svg =
+        symbol.svg;
 
 
     const match =
@@ -36,10 +40,16 @@ stroke="red"/>
         );
 
 
+    const content =
+        match
+            ? match[1]
+            : svg;
+
+
     return `
 <g transform="translate(${x},${y})">
 
-${match ? match[1] : svg}
+${content}
 
 </g>
 `;

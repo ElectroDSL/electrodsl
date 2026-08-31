@@ -7,6 +7,8 @@ describe("ElectroDSL Parser", () => {
     it("should parse empty project", () => {
 
         const source = `
+        EDSL 0.1
+
         PROJECT "Motor Control" {
 
         }

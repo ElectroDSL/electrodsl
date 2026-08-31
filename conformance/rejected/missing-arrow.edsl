@@ -1,0 +1,6 @@
+EDSL 0.3
+PROJECT "Invalid" {
+    CIRCUIT "Main" {
+        CONNECT J1 J2;
+    }
+}

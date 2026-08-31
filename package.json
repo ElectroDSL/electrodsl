@@ -1,6 +1,6 @@
 {
   "name": "electrodsl",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": true,
   "description": "ElectroDSL - Open Standard for Electrical Schematics",
   "packageManager": "pnpm",
@@ -11,6 +11,7 @@
   "devDependencies": {
     "@types/node": "^26.1.1",
     "tsx": "^4.23.0",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "vitest": "^4.1.10"
   }
 }
