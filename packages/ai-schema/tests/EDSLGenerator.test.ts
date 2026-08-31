@@ -1,5 +1,6 @@
 import {describe,it,expect} from "vitest";
 import {generateEDSL} from "../src";
+import { parse } from "@electrodsl/parser";
 
 
 describe("EDSL Generator",()=>{
@@ -31,8 +32,9 @@ connections:[]
 });
 
 
-expect(edsl)
-.toContain("component M1");
+expect(edsl).toContain("COMPONENT M1 : IEC-MOTOR-3PH");
+expect(edsl).toContain("EDSL 0.5");
+expect(() => parse(edsl)).not.toThrow();
 
 
 });

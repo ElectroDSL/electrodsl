@@ -15,8 +15,9 @@ export class EngineeringSemanticsRule implements ValidationRule {
         const errors: ValidationError[] = [];
         const modules = new Map((document.project.modules ?? []).map(module => [module.name, module]));
 
-        if (document.version !== "0.4" && (document.project.modules?.length ?? 0) > 0) {
-            errors.push({ code: "E2200", message: "Module declarations require EDSL 0.4", severity: "error" });
+        const supportsEngineering = document.version === "0.4" || document.version === "0.5";
+        if (!supportsEngineering && (document.project.modules?.length ?? 0) > 0) {
+            errors.push({ code: "E2200", message: "Module declarations require EDSL 0.4 or later", severity: "error" });
         }
 
         for (const circuit of [
@@ -25,8 +26,8 @@ export class EngineeringSemanticsRule implements ValidationRule {
         ]) {
             const usesV04 = (circuit.conductors?.length ?? 0) + (circuit.cables?.length ?? 0) +
                 (circuit.buses?.length ?? 0) + (circuit.ports?.length ?? 0) + (circuit.instances?.length ?? 0) > 0;
-            if (document.version !== "0.4" && usesV04) {
-                errors.push({ code: "E2200", message: "Engineering declarations require EDSL 0.4", severity: "error" });
+            if (!supportsEngineering && usesV04) {
+                errors.push({ code: "E2200", message: "Engineering declarations require EDSL 0.4 or later", severity: "error" });
             }
 
             const ids = new Set<string>();

@@ -41,13 +41,14 @@ Status: Complete
 
 ## Version 0.5 — Tooling and ecosystem
 
-- Language server and editor diagnostics
-- Package registry and versioned component libraries
+- Language service and editor diagnostics foundation ✅
+- Package manifests and versioned resolution foundation ✅
 - Import/export adapters
-- RFC-based language governance
-- Natural-language generation, validation, optimization, and explanation
+- RFC-based language governance ✅
+- Valid AI-to-ElectroDSL generation ✅
+- Natural-language validation, optimization, and explanation
 
-Status: Planned
+Status: In Progress (`0.5.0-dev.1`)
 
 ## Version 1.0 — Stable open standard
 

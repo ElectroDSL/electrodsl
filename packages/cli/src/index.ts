@@ -22,6 +22,7 @@ import { LibrarySymbolProvider } from "@electrodsl/library";
 import { format } from "@electrodsl/formatter";
 import { serializeCanonicalIR } from "@electrodsl/ir";
 import { ElectroDSLSyntaxError } from "@electrodsl/parser";
+import { ElectroDSLLanguageService } from "@electrodsl/language-service";
 
 
 const args = process.argv.slice(2);
@@ -42,6 +43,18 @@ else if (command === "validate" || command === "check") {
     const document = readDocument(args[1], `edsl ${command} <file.edsl>`);
 
     validate(document);
+
+}
+
+else if (command === "diagnose") {
+
+    const file = requiredFile(args[1], "edsl diagnose <file.edsl> [--json]");
+    const service = new ElectroDSLLanguageService(new LibrarySymbolProvider(resolve("packages/library/library")));
+    const diagnostics = service.diagnose(readFileSync(file, "utf8"));
+    if (args.includes("--json")) console.log(JSON.stringify(diagnostics, null, 2));
+    else if (diagnostics.length === 0) console.log("✓ No diagnostics");
+    else for (const diagnostic of diagnostics) console.log(`${diagnostic.code}: ${diagnostic.message}`);
+    if (diagnostics.some(diagnostic => diagnostic.severity === "error")) process.exitCode = 1;
 
 }
 
@@ -128,6 +141,7 @@ Commands:
   edsl parse <file.edsl>
   edsl validate <file.edsl>
   edsl check <file.edsl>
+  edsl diagnose <file.edsl> [--json]
   edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
   edsl export <file.edsl> --format svg|json

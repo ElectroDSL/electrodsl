@@ -1,0 +1,10 @@
+{
+  "schema": "electrodsl-package/0.5",
+  "name": "@electrodsl/motor-control",
+  "version": "1.0.0",
+  "language": "^0.5",
+  "description": "Reusable motor-control components and starter modules",
+  "license": "Apache-2.0",
+  "components": ["IEC-MOTOR-3PH", "IEC-CONTACTOR", "IEC-OVERLOAD"],
+  "modules": ["DOLStarter"]
+}

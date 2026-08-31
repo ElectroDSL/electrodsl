@@ -6,6 +6,25 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.5.0-dev.1] - 2026-08-31
+
+### Added
+
+- Editor-neutral language service with diagnostics, formatting, completions, and hover information
+- JSON diagnostics CLI command for editor and CI integrations
+- Versioned package manifest model, validation, schema, and deterministic resolver
+- Public RFC governance process and proposal template
+- ElectroDSL 0.5 conformance fixture
+
+### Fixed
+
+- AI schema generator now emits valid, deterministic, parseable ElectroDSL 0.5
+- Engineering constructs correctly inherit into language version 0.5
+
+Status: Development preview; v0.5 remains in progress.
+
+---
+
 ## [0.4.0] - 2026-08-31
 
 ### Added

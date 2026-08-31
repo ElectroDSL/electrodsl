@@ -27,6 +27,9 @@ importers:
         specifier: workspace:*
         version: link:../ast
     devDependencies:
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
       tsup:
         specifier: ^8.0.0
         version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
@@ -60,6 +63,9 @@ importers:
       '@electrodsl/ir':
         specifier: workspace:*
         version: link:../ir
+      '@electrodsl/language-service':
+        specifier: workspace:*
+        version: link:../language-service
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library
@@ -205,6 +211,31 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
+  packages/language-service:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@electrodsl/formatter':
+        specifier: workspace:*
+        version: link:../formatter
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@electrodsl/validator':
+        specifier: workspace:*
+        version: link:../validator
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
   packages/layout:
     dependencies:
       '@electrodsl/graph':
@@ -236,6 +267,18 @@ importers:
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+
+  packages/package-registry:
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
   packages/parser:
     dependencies:

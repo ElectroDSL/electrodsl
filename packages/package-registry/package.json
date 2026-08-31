@@ -1,6 +1,7 @@
 {
-  "name": "@electrodsl/ai-schema",
+  "name": "@electrodsl/package-registry",
   "version": "0.5.0-dev.1",
+  "description": "Versioned package manifests and deterministic resolution for ElectroDSL libraries",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -8,12 +9,8 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "vitest"
   },
-  "dependencies": {
-    "@electrodsl/ast": "workspace:*"
-  },
   "devDependencies": {
-    "@electrodsl/parser": "workspace:*",
-    "tsup": "^8.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"
   }

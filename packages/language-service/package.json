@@ -1,6 +1,7 @@
 {
-  "name": "@electrodsl/ai-schema",
+  "name": "@electrodsl/language-service",
   "version": "0.5.0-dev.1",
+  "description": "Editor-neutral language intelligence for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,11 +10,13 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@electrodsl/ast": "workspace:*"
+    "@electrodsl/ast": "workspace:*",
+    "@electrodsl/formatter": "workspace:*",
+    "@electrodsl/parser": "workspace:*",
+    "@electrodsl/validator": "workspace:*"
   },
   "devDependencies": {
-    "@electrodsl/parser": "workspace:*",
-    "tsup": "^8.0.0",
+    "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"
   }

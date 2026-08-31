@@ -1,36 +1,22 @@
-import { AISchematic } from "./AIComponentSchema";
+import type { AISchematic } from "./AIComponentSchema.js";
 
+const quote = (value: string) => `"${value.replaceAll("\\", "\\\\").replaceAll('"', '\\"')}"`;
 
-export function generateEDSL(
-    schematic:AISchematic
-):string {
+/** Converts structured AI output into valid, deterministic ElectroDSL 0.5 source. */
+export function generateEDSL(schematic: AISchematic): string {
+    const lines = ["EDSL 0.5", "", `PROJECT ${quote(schematic.design.name)} {`, "", "    CIRCUIT \"Main\" {"];
 
+    for (const component of schematic.components) {
+        lines.push("", `        COMPONENT ${component.id} : ${component.type} {`);
+        if (component.description) lines.push(`            description = ${quote(component.description)}`);
+        if (component.category) lines.push(`            category = ${quote(component.category)}`);
+        lines.push("        }");
+    }
 
-let output = "";
+    for (const connection of schematic.connections) {
+        lines.push("", `        CONNECT ${connection.from} -> ${connection.to};`);
+    }
 
-output += `design ${schematic.design.name.replace(/\s+/g,"_")} {\n\n`;
-
-
-for(const component of schematic.components){
-
-output += `component ${component.id} {\n`;
-output += `    type: ${component.type}\n`;
-output += `}\n\n`;
-
-}
-
-
-for(const connection of schematic.connections){
-
-output +=
-`connect ${connection.from} -> ${connection.to}\n`;
-
-}
-
-
-output += "\n}";
-
-
-return output;
-
+    lines.push("", "    }", "", "}", "");
+    return lines.join("\n");
 }
