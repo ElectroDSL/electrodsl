@@ -1,23 +1,14 @@
 {
-  "name": "@electrodsl/diagram",
+  "name": "@electrodsl/engineering",
   "version": "0.4.0",
+  "description": "Typed engineering values and SI-unit normalization for ElectroDSL",
   "type": "module",
-
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "vitest"
   },
-
-
-  "dependencies": {
-    "@electrodsl/graph": "workspace:*",
-    "@electrodsl/layout": "workspace:*"
-  },
-
-
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^5.7.3",

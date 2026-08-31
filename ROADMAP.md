@@ -31,13 +31,13 @@ Status: Complete
 
 ## Version 0.4 — Engineering semantics
 
-- Typed engineering values and SI units
-- Conductors, cables, buses, phases, and protective earth
-- Hierarchical circuits and reusable modules
-- IEC 81346-style reference designations
-- Cross-sheet references
+- Typed engineering values and SI units ✅
+- Conductors, cables, buses, phases, and protective earth ✅
+- Hierarchical circuits and reusable modules ✅
+- IEC 81346-style reference designations ✅
+- Cross-sheet references ✅
 
-Status: Planned
+Status: Complete
 
 ## Version 0.5 — Tooling and ecosystem
 

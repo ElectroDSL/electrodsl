@@ -12,6 +12,7 @@ import { compile } from "@electrodsl/integration";
 import {
     DuplicateComponentIdRule,
     ElectricalReferenceRule,
+    EngineeringSemanticsRule,
     LanguageVersionRule,
     NetDefinitionRule,
     RoutePreferenceRule,
@@ -183,6 +184,7 @@ function validate(
         new LanguageVersionRule(),
         new DuplicateComponentIdRule(),
         new ElectricalReferenceRule(symbols),
+        new EngineeringSemanticsRule(),
         new NetDefinitionRule(),
         new RoutePreferenceRule()
     ]).validate(document);

@@ -14,3 +14,4 @@ export * from "./nodes/TerminalNode.js";
 export * from "./nodes/WireNode.js";
 export * from "./nodes/NetNode.js";
 export * from "./nodes/JunctionNode.js";
+export * from "./nodes/EngineeringNodes.js";

@@ -33,4 +33,18 @@ describe("canonical IR", () => {
         });
         expect(ir.project.circuits[0].presentation.routes[0].preference).toBe("below");
     });
+
+    it("normalizes v0.4 engineering values", () => {
+        const document: DocumentNode = {
+            kind: NodeKind.Document, version: "0.4",
+            project: { kind: NodeKind.Project, name: "P", modules: [], circuits: [{
+                kind: NodeKind.Circuit, name: "C", components: [], connections: [],
+                conductors: [{ kind: NodeKind.Conductor, id: "W1",
+                    from: { component: "A", pin: "1" }, to: { component: "B", pin: "1" },
+                    properties: [{ kind: NodeKind.Property, name: "size", value: "1.5 mm2" }] }]
+            }] }
+        };
+        const value = toCanonicalIR(document).project.circuits[0].electrical.conductors[0].properties.normalized.size;
+        expect(value).toMatchObject({ dimension: "area", siValue: 0.0000015, siUnit: "m2" });
+    });
 });

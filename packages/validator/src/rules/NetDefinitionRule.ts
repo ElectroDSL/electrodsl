@@ -6,7 +6,10 @@ export class NetDefinitionRule implements ValidationRule {
     validate(document: DocumentNode): ValidationError[] {
         const errors: ValidationError[] = [];
 
-        for (const circuit of document.project.circuits) {
+        for (const circuit of [
+            ...document.project.circuits,
+            ...(document.project.modules ?? []).map(module => module.circuit)
+        ]) {
             const names = new Set<string>();
             const junctionIds = new Set<string>();
 
@@ -32,7 +35,7 @@ export class NetDefinitionRule implements ValidationRule {
                         severity: "error"
                     });
                 }
-                if (document.version === "0.2" && net.members.length < 2) {
+                if (document.version !== "0.1" && net.members.length < 2) {
                     errors.push({
                         code: "E2102",
                         message: `Net '${net.name}' requires at least two members`,

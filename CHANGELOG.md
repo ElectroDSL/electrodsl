@@ -6,6 +6,29 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.4.0] - 2026-08-31
+
+### Added
+
+- Typed engineering-value parser with SI normalization
+- Conductors with size, phase, cable, and arbitrary engineering properties
+- Multi-core cable declarations
+- Multi-phase bus declarations including protective earth
+- Reusable modules, public ports, and validated instances
+- Module expansion into scoped electrical graph nodes and edges
+- Cross-sheet electrical continuity through shared ports
+- IEC 81346-style function, location, and product reference designations
+- Canonical IR 0.4 and JSON Schema for all engineering constructs
+- Normative 0.4 specification, conformance fixture, and motor-control example
+
+### Changed
+
+- All workspace packages are versioned as 0.4.0
+- Formatter, validator, graph, renderer, and JSON exporter support v0.4 constructs
+- Optional semicolons are accepted after properties
+
+---
+
 ## [0.3.0] - 2026-08-31
 
 ### Added

@@ -16,6 +16,11 @@ export function drawSymbol(
 
     if (!symbol) {
 
+        if (type.startsWith("__module__:")) {
+            const name = type.slice("__module__:".length);
+            return `<g class="edsl-module"><rect x="${x}" y="${y}" width="80" height="60" fill="white" stroke="black"/><text x="${x + 40}" y="${y + 34}" text-anchor="middle" font-size="12">${name}</text></g>`;
+        }
+
         return `
 <rect
     x="${x}"

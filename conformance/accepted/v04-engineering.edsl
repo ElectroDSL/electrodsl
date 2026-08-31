@@ -1,0 +1,11 @@
+EDSL 0.4
+PROJECT "Engineering" {
+    MODULE Load { PORT LINE; PORT RETURN; }
+    CIRCUIT "Main" {
+        PORT SUPPLY;
+        INSTANCE X1 : Load;
+        CABLE C1 { cores = "4" size = "1.5 mm2" }
+        CONDUCTOR W1 : SUPPLY -> X1.LINE { size = "1.5 mm2" phase = "L1" }
+        BUS N_BUS { phases = "N,PE" X1.RETURN; SUPPLY; }
+    }
+}
