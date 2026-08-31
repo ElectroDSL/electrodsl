@@ -1,6 +1,7 @@
 {
-  "name": "@electrodsl/renderer-svg",
+  "name": "@electrodsl/formatter",
   "version": "0.3.0",
+  "description": "Deterministic reference formatter for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,10 +11,7 @@
   },
   "dependencies": {
     "@electrodsl/ast": "workspace:*",
-    "@electrodsl/diagram": "workspace:*",
-    "@electrodsl/library": "workspace:*",
-    "@electrodsl/render-model": "workspace:*",
-    "@electrodsl/layout": "workspace:*"
+    "@electrodsl/parser": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

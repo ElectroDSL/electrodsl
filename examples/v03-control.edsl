@@ -1,0 +1,42 @@
+EDSL 0.3
+
+PROJECT "Motor Control Panel" {
+
+    CIRCUIT "Run Indicator" {
+
+        COMPONENT F1 : IEC-FUSE {
+            rating = "10A"
+        }
+
+        COMPONENT R1 : IEC-RESISTOR {
+            resistance = "1 kohm"
+        }
+
+        COMPONENT L1 : IEC-LAMP {
+            voltage = "230V"
+            tag = "Motor Running"
+        }
+
+        JUNCTION J1;
+
+        JUNCTION J2;
+
+        NET CONTROL_POWER {
+            F1.2;
+            J1;
+            R1.1;
+        }
+
+        NET CONTROL_RETURN {
+            L1.N;
+            J2;
+            F1.1;
+        }
+
+        CONNECT R1.2 -> L1.L {
+            route = "above"
+        }
+
+    }
+
+}

@@ -1,6 +1,7 @@
 {
-  "name": "@electrodsl/renderer-svg",
+  "name": "@electrodsl/ir",
   "version": "0.3.0",
+  "description": "Canonical JSON intermediate representation for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -9,11 +10,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@electrodsl/ast": "workspace:*",
-    "@electrodsl/diagram": "workspace:*",
-    "@electrodsl/library": "workspace:*",
-    "@electrodsl/render-model": "workspace:*",
-    "@electrodsl/layout": "workspace:*"
+    "@electrodsl/ast": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

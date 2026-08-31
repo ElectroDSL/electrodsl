@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "ElectroDSL command line tools",
   "type": "module",
   "bin": {
@@ -15,7 +15,9 @@
     "@electrodsl/renderer-svg": "workspace:*",
     "@electrodsl/validator": "workspace:*",
     "@electrodsl/ast": "workspace:*",
-    "@electrodsl/integration": "workspace:*"
+    "@electrodsl/integration": "workspace:*",
+    "@electrodsl/formatter": "workspace:*",
+    "@electrodsl/ir": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^26.1.1",

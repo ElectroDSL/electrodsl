@@ -51,9 +51,15 @@ importers:
       '@electrodsl/ast':
         specifier: workspace:*
         version: link:../ast
+      '@electrodsl/formatter':
+        specifier: workspace:*
+        version: link:../formatter
       '@electrodsl/integration':
         specifier: workspace:*
         version: link:../integration
+      '@electrodsl/ir':
+        specifier: workspace:*
+        version: link:../ir
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library
@@ -85,6 +91,25 @@ importers:
       '@electrodsl/layout':
         specifier: workspace:*
         version: link:../layout
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/formatter:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
     devDependencies:
       tsup:
         specifier: ^8.5.1
@@ -135,6 +160,22 @@ importers:
       '@electrodsl/renderer-svg':
         specifier: workspace:*
         version: link:../renderer-svg
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/ir:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
     devDependencies:
       tsup:
         specifier: ^8.5.1

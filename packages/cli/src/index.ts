@@ -18,10 +18,15 @@ import {
     Validator
 } from "@electrodsl/validator";
 import { LibrarySymbolProvider } from "@electrodsl/library";
+import { format } from "@electrodsl/formatter";
+import { serializeCanonicalIR } from "@electrodsl/ir";
+import { ElectroDSLSyntaxError } from "@electrodsl/parser";
 
 
 const args = process.argv.slice(2);
 const command = args[0];
+
+try {
 
 if (command === "parse") {
 
@@ -57,20 +62,50 @@ else if (command === "build") {
 
 }
 
+else if (command === "format" || command === "fmt") {
+
+    const file = requiredFile(args[1], "edsl format <file.edsl> [--check|--write]");
+    const source = readFileSync(file, "utf8");
+    const formatted = format(source);
+
+    if (args.includes("--check")) {
+        if (source.replaceAll("\r\n", "\n") !== formatted) {
+            console.error(`${file} is not formatted.`);
+            process.exitCode = 1;
+        } else {
+            console.log(`✓ ${file} is formatted`);
+        }
+    } else if (args.includes("--write")) {
+        writeFileSync(file, formatted, "utf8");
+        console.log(`Formatted ${file}`);
+    } else {
+        process.stdout.write(formatted);
+    }
+
+}
+
 else if (command === "export") {
 
     const file = requiredFile(args[1], "edsl export <file.edsl> --format svg");
     const format = readOption(args.slice(2), "--format");
 
-    if (format !== "svg") {
-        console.error("Only the svg export format is currently supported.");
+    if (format !== "svg" && format !== "json") {
+        console.error("Supported export formats are svg and json.");
         process.exit(1);
     }
 
-    const output = outputPath(file);
     const document = parseFile(file);
 
     validate(document);
+
+    if (format === "json") {
+        const output = outputPath(file, ".json");
+        writeFileSync(output, serializeCanonicalIR(document), "utf-8");
+        console.log(`Exported ${output}`);
+        process.exit(0);
+    }
+
+    const output = outputPath(file);
 
     writeFileSync(
         output,
@@ -92,10 +127,25 @@ Commands:
   edsl parse <file.edsl>
   edsl validate <file.edsl>
   edsl check <file.edsl>
+  edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
-  edsl export <file.edsl> --format svg
+  edsl export <file.edsl> --format svg|json
 `);
 
+}
+
+} catch (error) {
+    if (error instanceof ElectroDSLSyntaxError) {
+        for (const diagnostic of error.diagnostics) {
+            const location = diagnostic.line === undefined
+                ? ""
+                : `${diagnostic.line}:${diagnostic.column} `;
+            console.error(`${location}${diagnostic.code} ${diagnostic.message}`);
+        }
+        process.exitCode = 1;
+    } else {
+        throw error;
+    }
 }
 
 function readDocument(
@@ -151,10 +201,11 @@ function validate(
 }
 
 function outputPath(
-    file: string
+    file: string,
+    extension = ".svg"
 ): string {
 
-    return resolve(file, "..", `${basename(file, extname(file))}.svg`);
+    return resolve(file, "..", `${basename(file, extname(file))}${extension}`);
 
 }
 

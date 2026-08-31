@@ -1,184 +1,59 @@
 # ElectroDSL Roadmap
 
-> **Vision:** An open, AI-native language and reference implementation for electrical engineering schematics.
+> **Vision:** The open, AI-native language and reference implementation for electrical schematics.
 
----
+## Version 0.1 — Core foundation
 
-# Version 0.2 — Electrically Meaningful Diagrams
+- Monorepo, AST, parser, validation, electrical graph, SVG renderer, layout, and AI schema ✅
 
-- Named net membership ✅
-- Junction nodes and SVG junction dots ✅
-- Exact library terminal routing ✅
-- Obstacle-aware orthogonal routing ✅
-- Route preferences ✅
-- Component and terminal validation ✅
-- Strict syntax diagnostics ✅
+Status: Complete
+
+## Version 0.2 — Electrically meaningful diagrams
+
+- Named net membership and junctions ✅
+- Exact terminal routing and collision avoidance ✅
+- Route preferences and semantic validation ✅
 - End-to-end CLI build pipeline ✅
 
 Status: Complete
 
----
+## Version 0.3 — Open language foundation
 
-# Version 0.1 — Core Language Foundation
-
-## Milestone 1 — Repository Setup ✅
-- Monorepo using pnpm workspaces
-- TypeScript configuration
-- Build system
-- Package structure
-
-Status: Complete
-
----
-
-## Milestone 2 — AST Model ✅
-- AST definitions
-- Component nodes
-- Circuit nodes
-- Connection nodes
+- Normative language specification and EBNF ✅
+- Canonical JSON intermediate representation and schema ✅
+- Electrical/presentation separation ✅
+- Reference formatter and CLI integration ✅
+- Structured syntax diagnostics ✅
+- Executable conformance suite ✅
+- Backward compatibility with 0.1 and 0.2 ✅
 
 Status: Complete
 
----
+## Version 0.4 — Engineering semantics
 
-## Milestone 3 — Parser ✅
-- Lexer
-- Grammar
-- CST → AST Visitor
-- File parser
-
-Status: Complete
-
----
-
-## Milestone 4 — Validation Engine ✅
-- Graph validation
-- Duplicate ID detection
-- Basic diagnostics
-
-Status: Complete
-
----
-
-## Milestone 5 — Electrical Graph ✅
-- Graph builder
-- Nodes
-- Ports
-- Connections
-- Graph traversal
-
-Status: Complete
-
----
-
-## Milestone 6 — SVG Renderer ✅
-- IEC symbol rendering
-- Wiring
-- Labels
-- Library integration
-
-Status: Complete (Initial Version)
-
----
-
-## Milestone 7 — Auto Layout Foundation ✅
-- Layer calculation
-- Grid placement
-- Layout engine
-
-Status: Complete
-
----
-
-## Milestone 8 — AI Schema ✅
-- AI data model
-- Design intent
-- AI → ElectroDSL generator
-
-Status: Complete
-
----
-
-# Version 0.2 — Integration
-
-## Milestone 9 — Complete Pipeline
-
-Goals
-
-- AI Schema → ElectroDSL
-- ElectroDSL → AST
-- AST → Graph
-- Graph → Layout
-- Layout → SVG
-
-Deliverables
-
-- End-to-end compilation
-- Integration package
-- Pipeline API
-
-Status: In Progress
-
----
-
-## Milestone 10 — Diagram Model
-
-Goals
-
-- Renderer-independent diagram model
-- Shared drawing primitives
-- Multi-renderer support
+- Typed engineering values and SI units
+- Conductors, cables, buses, phases, and protective earth
+- Hierarchical circuits and reusable modules
+- IEC 81346-style reference designations
+- Cross-sheet references
 
 Status: Planned
 
----
+## Version 0.5 — Tooling and ecosystem
 
-## Milestone 11 — Intelligent Routing
-
-Goals
-
-- Orthogonal routing
-- Junction handling
-- Collision avoidance
-- Label placement
+- Language server and editor diagnostics
+- Package registry and versioned component libraries
+- Import/export adapters
+- RFC-based language governance
+- Natural-language generation, validation, optimization, and explanation
 
 Status: Planned
 
----
+## Version 1.0 — Stable open standard
 
-# Version 0.3 — AI Engineering
-
-## Milestone 12
-
-- Natural language → ElectroDSL
-
-## Milestone 13
-
-- AI validation
-
-## Milestone 14
-
-- AI design optimization
-
-## Milestone 15
-
-- AI explanation engine
-
-Status: Planned
-
----
-
-# Version 1.0
-
-Goals
-
-- Stable language specification
-- VS Code extension
-- Web editor
-- SVG renderer
-- Diagram model
-- AI interface
-- Documentation
-- Official IEC library
+- Stable language and IR compatibility contract
+- Multiple independent implementations
+- Open governance and extension process
+- Production editor, renderer, library, and interchange ecosystem
 
 Status: Future

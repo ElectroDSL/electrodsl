@@ -6,6 +6,26 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.3.0] - 2026-08-31
+
+### Added
+
+- Normative ElectroDSL 0.3 language specification and EBNF grammar
+- Canonical, renderer-independent JSON IR with a published JSON Schema
+- Explicit separation of electrical semantics from presentation preferences
+- Deterministic, idempotent reference formatter
+- CLI `format`, formatter check/write modes, and canonical JSON export
+- Structured parser diagnostics with stable codes and source locations
+- Executable accepted/rejected conformance fixtures
+- Reference 0.3 control-circuit example
+
+### Changed
+
+- All workspace packages are versioned as 0.3.0
+- Language validation accepts 0.3 while preserving 0.1 and 0.2 compatibility
+
+---
+
 ## [0.2.0] - 2026-08-31
 
 ### Added

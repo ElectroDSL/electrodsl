@@ -1,0 +1,103 @@
+{
+  "$schema": "https://electrodsl.org/schema/ir/0.3",
+  "language": {
+    "name": "ElectroDSL",
+    "version": "0.3"
+  },
+  "project": {
+    "name": "Motor Control Panel",
+    "circuits": [
+      {
+        "name": "Run Indicator",
+        "electrical": {
+          "components": [
+            {
+              "id": "F1",
+              "type": "IEC-FUSE",
+              "properties": {
+                "rating": "10A"
+              }
+            },
+            {
+              "id": "R1",
+              "type": "IEC-RESISTOR",
+              "properties": {
+                "resistance": "1 kohm"
+              }
+            },
+            {
+              "id": "L1",
+              "type": "IEC-LAMP",
+              "properties": {
+                "voltage": "230V",
+                "tag": "Motor Running"
+              }
+            }
+          ],
+          "junctions": [
+            {
+              "id": "J1"
+            },
+            {
+              "id": "J2"
+            }
+          ],
+          "connections": [
+            {
+              "from": {
+                "component": "R1",
+                "terminal": "2"
+              },
+              "to": {
+                "component": "L1",
+                "terminal": "L"
+              }
+            }
+          ],
+          "nets": [
+            {
+              "name": "CONTROL_POWER",
+              "members": [
+                {
+                  "component": "F1",
+                  "terminal": "2"
+                },
+                {
+                  "component": "J1"
+                },
+                {
+                  "component": "R1",
+                  "terminal": "1"
+                }
+              ]
+            },
+            {
+              "name": "CONTROL_RETURN",
+              "members": [
+                {
+                  "component": "L1",
+                  "terminal": "N"
+                },
+                {
+                  "component": "J2"
+                },
+                {
+                  "component": "F1",
+                  "terminal": "1"
+                }
+              ]
+            }
+          ]
+        },
+        "presentation": {
+          "routes": [
+            {
+              "connection": 0,
+              "preference": "above"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

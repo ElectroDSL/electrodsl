@@ -4,7 +4,7 @@ import type { ValidationRule } from "./ValidationRule.js";
 
 export class LanguageVersionRule implements ValidationRule {
     validate(document: DocumentNode): ValidationError[] {
-        if (document.version !== "0.1" && document.version !== "0.2") {
+        if (!["0.1", "0.2", "0.3"].includes(document.version)) {
             return [{
                 code: "E2000",
                 message: `Unsupported ElectroDSL version: ${document.version}`,
@@ -22,7 +22,7 @@ export class LanguageVersionRule implements ValidationRule {
             if (usesV02) {
                 return [{
                     code: "E2005",
-                    message: "Nets with members, junctions, and route preferences require EDSL 0.2",
+                    message: "Nets with members, junctions, and route preferences require EDSL 0.2 or later",
                     severity: "error"
                 }];
             }

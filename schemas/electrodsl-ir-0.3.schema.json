@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electrodsl.org/schema/ir/0.3",
+  "title": "ElectroDSL Canonical IR 0.3",
+  "type": "object",
+  "required": ["$schema", "language", "project"],
+  "properties": {
+    "$schema": { "const": "https://electrodsl.org/schema/ir/0.3" },
+    "language": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "ElectroDSL" },
+        "version": { "enum": ["0.1", "0.2", "0.3"] }
+      },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "circuits"],
+      "properties": {
+        "name": { "type": "string" },
+        "circuits": { "type": "array", "items": { "$ref": "#/$defs/circuit" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object",
+      "required": ["component"],
+      "properties": {
+        "component": { "type": "string" },
+        "terminal": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "circuit": {
+      "type": "object",
+      "required": ["name", "electrical", "presentation"],
+      "properties": {
+        "name": { "type": "string" },
+        "electrical": {
+          "type": "object",
+          "required": ["components", "junctions", "connections", "nets"],
+          "properties": {
+            "components": { "type": "array" },
+            "junctions": { "type": "array" },
+            "connections": { "type": "array" },
+            "nets": { "type": "array" }
+          }
+        },
+        "presentation": {
+          "type": "object",
+          "required": ["routes"],
+          "properties": { "routes": { "type": "array" } }
+        }
+      }
+    }
+  }
+}
