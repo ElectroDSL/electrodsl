@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/ast",
-  "version": "0.3.0",
+  "version": "0.7.0",
   "description": "Canonical AST definitions for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",

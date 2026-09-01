@@ -1,8 +1,12 @@
 export interface ProjectManifest {
 
+    schema?: "electrodsl-project/0.6" | "electrodsl-project/0.7";
+
     name: string;
 
     version: string;
+
+    language?: string;
 
     description?: string;
 
@@ -14,8 +18,10 @@ export interface ProjectManifest {
 
         directory: string;
 
-        format: "svg" | "pdf";
+        format: "svg";
 
     };
+
+    reports?: boolean;
 
 }

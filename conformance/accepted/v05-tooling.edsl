@@ -1,0 +1,8 @@
+EDSL 0.5
+PROJECT "Tooling Preview" {
+    CIRCUIT "Main" {
+        PORT SUPPLY;
+        COMPONENT F1 : IEC-FUSE { rating = "10 A" }
+        CONDUCTOR W1 : SUPPLY -> F1.1 { size = "1.5 mm2" phase = "L1" }
+    }
+}

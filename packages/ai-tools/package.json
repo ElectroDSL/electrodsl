@@ -1,0 +1,22 @@
+{
+  "name": "@electrodsl/ai-tools",
+  "version": "0.7.0",
+  "description": "Safe generation prompts, review, explanation, and optimization hints for ElectroDSL",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@electrodsl/ast": "workspace:*",
+    "@electrodsl/language-service": "workspace:*",
+    "@electrodsl/parser": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  }
+}

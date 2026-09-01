@@ -1,0 +1,14 @@
+EDSL 0.6
+
+PROJECT "Motor Panel Production Set" {
+    CIRCUIT "Control" {
+        COMPONENT X2 : IEC-TERMINAL { tag = "Control input" }
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" tag = "Run" }
+        CONDUCTOR W2 : X2.1 -> L1.L1 {
+            size = "1.5 mm2"
+            phase = "L1"
+            length = "1 m"
+        }
+        PORT CONTROL_POWER;
+    }
+}

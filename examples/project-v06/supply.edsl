@@ -1,0 +1,25 @@
+EDSL 0.6
+
+PROJECT "Motor Panel Production Set" {
+    CIRCUIT "Supply" {
+        COMPONENT F1 : IEC-FUSE {
+            rating = "10A"
+            description = "Control supply protection"
+        }
+        COMPONENT X1 : IEC-TERMINAL {
+            tag = "Supply terminal"
+        }
+        CONDUCTOR W1 : F1.2 -> X1.1 {
+            size = "1.5 mm2"
+            phase = "L1"
+            cable = "C1"
+            length = "2 m"
+        }
+        CABLE C1 {
+            cores = "3"
+            size = "1.5 mm2"
+            length = "2 m"
+        }
+        PORT CONTROL_POWER;
+    }
+}

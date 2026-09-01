@@ -1,0 +1,337 @@
+{
+  "$schema": "https://electrodsl.org/schema/ir/0.4",
+  "language": {
+    "name": "ElectroDSL",
+    "version": "0.4"
+  },
+  "project": {
+    "name": "Motor Control Engineering Example",
+    "modules": [
+      {
+        "name": "IndicatorBranch",
+        "ports": [
+          {
+            "id": "LINE"
+          },
+          {
+            "id": "RETURN"
+          }
+        ],
+        "body": {
+          "name": "IndicatorBranch",
+          "electrical": {
+            "components": [
+              {
+                "id": "L1",
+                "type": "IEC-LAMP",
+                "properties": {
+                  "source": {
+                    "designation": "=CONTROL+DOOR-L1",
+                    "voltage": "230 V",
+                    "tag": "Motor Running"
+                  },
+                  "normalized": {
+                    "voltage": {
+                      "source": "230 V",
+                      "value": 230,
+                      "unit": "V",
+                      "dimension": "voltage",
+                      "siValue": 230,
+                      "siUnit": "V"
+                    }
+                  }
+                }
+              }
+            ],
+            "junctions": [],
+            "ports": [
+              {
+                "id": "LINE"
+              },
+              {
+                "id": "RETURN"
+              }
+            ],
+            "instances": [],
+            "connections": [],
+            "nets": [],
+            "conductors": [
+              {
+                "id": "WI1",
+                "from": {
+                  "component": "LINE"
+                },
+                "to": {
+                  "component": "L1",
+                  "terminal": "L"
+                },
+                "properties": {
+                  "source": {
+                    "size": "1.5 mm2",
+                    "phase": "L1"
+                  },
+                  "normalized": {
+                    "size": {
+                      "source": "1.5 mm2",
+                      "value": 1.5,
+                      "unit": "mm2",
+                      "dimension": "area",
+                      "siValue": 0.0000015,
+                      "siUnit": "m2"
+                    }
+                  }
+                }
+              },
+              {
+                "id": "WI2",
+                "from": {
+                  "component": "L1",
+                  "terminal": "N"
+                },
+                "to": {
+                  "component": "RETURN"
+                },
+                "properties": {
+                  "source": {
+                    "size": "1.5 mm2",
+                    "phase": "N"
+                  },
+                  "normalized": {
+                    "size": {
+                      "source": "1.5 mm2",
+                      "value": 1.5,
+                      "unit": "mm2",
+                      "dimension": "area",
+                      "siValue": 0.0000015,
+                      "siUnit": "m2"
+                    }
+                  }
+                }
+              }
+            ],
+            "cables": [],
+            "buses": []
+          },
+          "presentation": {
+            "routes": []
+          }
+        }
+      }
+    ],
+    "circuits": [
+      {
+        "name": "Supply Sheet",
+        "electrical": {
+          "components": [
+            {
+              "id": "F1",
+              "type": "IEC-FUSE",
+              "properties": {
+                "source": {
+                  "designation": "=POWER+PANEL-F1",
+                  "rating": "10 A"
+                },
+                "normalized": {
+                  "rating": {
+                    "source": "10 A",
+                    "value": 10,
+                    "unit": "A",
+                    "dimension": "current",
+                    "siValue": 10,
+                    "siUnit": "A"
+                  }
+                }
+              }
+            }
+          ],
+          "junctions": [],
+          "ports": [
+            {
+              "id": "CONTROL_POWER"
+            },
+            {
+              "id": "CONTROL_RETURN"
+            }
+          ],
+          "instances": [],
+          "connections": [],
+          "nets": [],
+          "conductors": [
+            {
+              "id": "W1",
+              "from": {
+                "component": "F1",
+                "terminal": "2"
+              },
+              "to": {
+                "component": "CONTROL_POWER"
+              },
+              "properties": {
+                "source": {
+                  "size": "1.5 mm2",
+                  "phase": "L1",
+                  "cable": "C1"
+                },
+                "normalized": {
+                  "size": {
+                    "source": "1.5 mm2",
+                    "value": 1.5,
+                    "unit": "mm2",
+                    "dimension": "area",
+                    "siValue": 0.0000015,
+                    "siUnit": "m2"
+                  }
+                }
+              }
+            },
+            {
+              "id": "W2",
+              "from": {
+                "component": "CONTROL_RETURN"
+              },
+              "to": {
+                "component": "F1",
+                "terminal": "1"
+              },
+              "properties": {
+                "source": {
+                  "size": "1.5 mm2",
+                  "phase": "N",
+                  "cable": "C1"
+                },
+                "normalized": {
+                  "size": {
+                    "source": "1.5 mm2",
+                    "value": 1.5,
+                    "unit": "mm2",
+                    "dimension": "area",
+                    "siValue": 0.0000015,
+                    "siUnit": "m2"
+                  }
+                }
+              }
+            }
+          ],
+          "cables": [],
+          "buses": []
+        },
+        "presentation": {
+          "routes": []
+        }
+      },
+      {
+        "name": "Door Sheet",
+        "electrical": {
+          "components": [],
+          "junctions": [],
+          "ports": [
+            {
+              "id": "CONTROL_POWER"
+            },
+            {
+              "id": "CONTROL_RETURN"
+            }
+          ],
+          "instances": [
+            {
+              "id": "RUN_LAMP",
+              "module": "IndicatorBranch"
+            }
+          ],
+          "connections": [],
+          "nets": [],
+          "conductors": [
+            {
+              "id": "W3",
+              "from": {
+                "component": "CONTROL_POWER"
+              },
+              "to": {
+                "component": "RUN_LAMP",
+                "terminal": "LINE"
+              },
+              "properties": {
+                "source": {
+                  "size": "1.5 mm2",
+                  "phase": "L1",
+                  "cable": "C1"
+                },
+                "normalized": {
+                  "size": {
+                    "source": "1.5 mm2",
+                    "value": 1.5,
+                    "unit": "mm2",
+                    "dimension": "area",
+                    "siValue": 0.0000015,
+                    "siUnit": "m2"
+                  }
+                }
+              }
+            }
+          ],
+          "cables": [
+            {
+              "id": "C1",
+              "properties": {
+                "source": {
+                  "cores": "4",
+                  "size": "1.5 mm2",
+                  "length": "8 m"
+                },
+                "normalized": {
+                  "cores": {
+                    "source": "4",
+                    "value": 4,
+                    "unit": "",
+                    "dimension": "dimensionless",
+                    "siValue": 4,
+                    "siUnit": ""
+                  },
+                  "size": {
+                    "source": "1.5 mm2",
+                    "value": 1.5,
+                    "unit": "mm2",
+                    "dimension": "area",
+                    "siValue": 0.0000015,
+                    "siUnit": "m2"
+                  },
+                  "length": {
+                    "source": "8 m",
+                    "value": 8,
+                    "unit": "m",
+                    "dimension": "length",
+                    "siValue": 8,
+                    "siUnit": "m"
+                  }
+                }
+              }
+            }
+          ],
+          "buses": [
+            {
+              "name": "RETURN_BUS",
+              "members": [
+                {
+                  "component": "RUN_LAMP",
+                  "terminal": "RETURN"
+                },
+                {
+                  "component": "CONTROL_RETURN"
+                }
+              ],
+              "properties": {
+                "source": {
+                  "phases": "N,PE"
+                },
+                "normalized": {}
+              }
+            }
+          ]
+        },
+        "presentation": {
+          "routes": []
+        }
+      }
+    ]
+  }
+}

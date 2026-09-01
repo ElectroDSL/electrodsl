@@ -1,0 +1,82 @@
+EDSL 0.4
+
+PROJECT "Motor Control Engineering Example" {
+
+    MODULE IndicatorBranch {
+
+        PORT LINE;
+
+        PORT RETURN;
+
+        COMPONENT L1 : IEC-LAMP {
+            designation = "=CONTROL+DOOR-L1"
+            voltage = "230 V"
+            tag = "Motor Running"
+        }
+
+        CONDUCTOR WI1 : LINE -> L1.L {
+            size = "1.5 mm2"
+            phase = "L1"
+        }
+
+        CONDUCTOR WI2 : L1.N -> RETURN {
+            size = "1.5 mm2"
+            phase = "N"
+        }
+
+    }
+
+    CIRCUIT "Supply Sheet" {
+
+        PORT CONTROL_POWER;
+
+        PORT CONTROL_RETURN;
+
+        COMPONENT F1 : IEC-FUSE {
+            designation = "=POWER+PANEL-F1"
+            rating = "10 A"
+        }
+
+        CONDUCTOR W1 : F1.2 -> CONTROL_POWER {
+            size = "1.5 mm2"
+            phase = "L1"
+            cable = "C1"
+        }
+
+        CONDUCTOR W2 : CONTROL_RETURN -> F1.1 {
+            size = "1.5 mm2"
+            phase = "N"
+            cable = "C1"
+        }
+
+    }
+
+    CIRCUIT "Door Sheet" {
+
+        PORT CONTROL_POWER;
+
+        PORT CONTROL_RETURN;
+
+        INSTANCE RUN_LAMP : IndicatorBranch;
+
+        CABLE C1 {
+            cores = "4"
+            size = "1.5 mm2"
+            length = "8 m"
+        }
+
+        BUS RETURN_BUS {
+            phases = "N,PE"
+            RUN_LAMP.RETURN;
+            CONTROL_RETURN;
+        }
+
+        CONDUCTOR W3 : CONTROL_POWER -> RUN_LAMP.LINE {
+            size = "1.5 mm2"
+            phase = "L1"
+            cable = "C1"
+        }
+
+    }
+
+}

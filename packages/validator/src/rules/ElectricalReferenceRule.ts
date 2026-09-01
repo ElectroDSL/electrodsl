@@ -16,13 +16,21 @@ export class ElectricalReferenceRule implements ValidationRule {
     validate(document: DocumentNode): ValidationError[] {
         const errors: ValidationError[] = [];
 
-        for (const circuit of document.project.circuits) {
+        for (const circuit of [
+            ...document.project.circuits,
+            ...(document.project.modules ?? []).map(module => module.circuit)
+        ]) {
             const components = new Map(
                 circuit.components.map(component => [component.id, component])
             );
             const junctions = new Set(
-                (circuit.junctions ?? []).map(junction => junction.id)
+                [
+                    ...(circuit.junctions ?? []).map(junction => junction.id),
+                    ...(circuit.ports ?? []).map(port => port.id)
+                ]
             );
+            const modules = new Map((document.project.modules ?? []).map(module => [module.name, module]));
+            const instances = new Map((circuit.instances ?? []).map(instance => [instance.id, instance]));
 
             for (const component of circuit.components) {
                 if (!this.symbols.getSymbol(component.componentType)) {
@@ -40,14 +48,24 @@ export class ElectricalReferenceRule implements ValidationRule {
                     connection.to
                 ]),
                 ...(circuit.nets ?? []).flatMap(net => net.members)
+                ,...(circuit.conductors ?? []).flatMap(conductor => [conductor.from, conductor.to])
+                ,...(circuit.buses ?? []).flatMap(bus => bus.members)
             ];
 
             for (const endpoint of endpoints) {
+                const instance = instances.get(endpoint.component);
+                if (instance) {
+                    const module = modules.get(instance.module);
+                    if (!module?.ports.some(port => port.id === endpoint.pin)) {
+                        errors.push({ code: "E2006", message: `Unknown port '${endpoint.pin}' on module instance '${endpoint.component}'`, severity: "error" });
+                    }
+                    continue;
+                }
                 if (junctions.has(endpoint.component)) {
                     if (endpoint.pin) {
                         errors.push({
                             code: "E2004",
-                            message: `Junction '${endpoint.component}' cannot have terminal '${endpoint.pin}'`,
+                        message: `Junction or sheet port '${endpoint.component}' cannot have terminal '${endpoint.pin}'`,
                             severity: "error"
                         });
                     }

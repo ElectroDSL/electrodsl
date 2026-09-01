@@ -123,6 +123,13 @@ export const Route = createToken({
     pattern: /route/
 });
 
+export const Module = createToken({ name: "Module", pattern: /MODULE/ });
+export const Instance = createToken({ name: "Instance", pattern: /INSTANCE/ });
+export const Port = createToken({ name: "Port", pattern: /PORT/ });
+export const Conductor = createToken({ name: "Conductor", pattern: /CONDUCTOR/ });
+export const Cable = createToken({ name: "Cable", pattern: /CABLE/ });
+export const Bus = createToken({ name: "Bus", pattern: /BUS/ });
+
 export const allTokens = [
 
     WhiteSpace,
@@ -136,6 +143,12 @@ export const allTokens = [
     Component,
     Net,
     Junction,
+    Module,
+    Instance,
+    Port,
+    Conductor,
+    Cable,
+    Bus,
 
     StringLiteral,
     Connect,

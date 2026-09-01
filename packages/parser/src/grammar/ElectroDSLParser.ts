@@ -23,7 +23,13 @@ import {
     Dot,
     Arrow,
     Semicolon,
-    Identifier
+    Identifier,
+    Module,
+    Instance,
+    Port,
+    Conductor,
+    Cable,
+    Bus
 } from "../lexer/tokens.js";
 
 
@@ -79,10 +85,10 @@ class ElectroDSLParser extends CstParser {
 
 
             this.MANY(() => {
-
-                this.SUBRULE(
-                    this.circuit
-                );
+                this.OR([
+                    { ALT: () => this.SUBRULE(this.circuit) },
+                    { ALT: () => this.SUBRULE(this.module) }
+                ]);
 
             });
 
@@ -126,7 +132,12 @@ class ElectroDSLParser extends CstParser {
 
                     {
                         ALT: () => this.SUBRULE(this.junction)
-                    }
+                    },
+                    { ALT: () => this.SUBRULE(this.port) },
+                    { ALT: () => this.SUBRULE(this.conductor) },
+                    { ALT: () => this.SUBRULE(this.cable) },
+                    { ALT: () => this.SUBRULE(this.bus) },
+                    { ALT: () => this.SUBRULE(this.instance) }
 
                 ]);
 
@@ -175,6 +186,8 @@ class ElectroDSLParser extends CstParser {
             this.CONSUME(Equals);
 
             this.CONSUME(StringLiteral);
+
+            this.OPTION(() => this.CONSUME(Semicolon));
 
         }
     );
@@ -285,6 +298,74 @@ class ElectroDSLParser extends CstParser {
             });
         }
     );
+
+    public propertyBlock = this.RULE("propertyBlock", () => {
+        this.CONSUME(LBrace);
+        this.MANY(() => this.SUBRULE(this.property));
+        this.CONSUME(RBrace);
+    });
+
+    public port = this.RULE("port", () => {
+        this.CONSUME(Port);
+        this.CONSUME(Identifier);
+        this.CONSUME(Semicolon);
+    });
+
+    public instance = this.RULE("instance", () => {
+        this.CONSUME(Instance);
+        this.CONSUME(Identifier, { LABEL: "instanceId" });
+        this.CONSUME(Colon);
+        this.CONSUME2(Identifier, { LABEL: "moduleName" });
+        this.CONSUME(Semicolon);
+    });
+
+    public cable = this.RULE("cable", () => {
+        this.CONSUME(Cable);
+        this.CONSUME(Identifier);
+        this.SUBRULE(this.propertyBlock);
+    });
+
+    public conductor = this.RULE("conductor", () => {
+        this.CONSUME(Conductor);
+        this.CONSUME(Identifier);
+        this.CONSUME(Colon);
+        this.SUBRULE(this.endpoint, { LABEL: "from" });
+        this.CONSUME(Arrow);
+        this.SUBRULE2(this.endpoint, { LABEL: "to" });
+        this.SUBRULE(this.propertyBlock);
+    });
+
+    public bus = this.RULE("bus", () => {
+        this.CONSUME(Bus);
+        this.CONSUME(Identifier, { LABEL: "busName" });
+        this.CONSUME(LBrace);
+        this.MANY(() => this.OR([
+            { ALT: () => this.SUBRULE(this.property, { LABEL: "busProperty" }) },
+            { ALT: () => {
+                this.SUBRULE(this.endpoint, { LABEL: "member" });
+                this.CONSUME(Semicolon);
+            }}
+        ]));
+        this.CONSUME(RBrace);
+    });
+
+    public module = this.RULE("module", () => {
+        this.CONSUME(Module);
+        this.CONSUME(Identifier, { LABEL: "moduleName" });
+        this.CONSUME(LBrace);
+        this.MANY(() => this.OR([
+            { ALT: () => this.SUBRULE(this.port) },
+            { ALT: () => this.SUBRULE(this.component) },
+            { ALT: () => this.SUBRULE(this.connection) },
+            { ALT: () => this.SUBRULE(this.net) },
+            { ALT: () => this.SUBRULE(this.junction) },
+            { ALT: () => this.SUBRULE(this.conductor) },
+            { ALT: () => this.SUBRULE(this.cable) },
+            { ALT: () => this.SUBRULE(this.bus) },
+            { ALT: () => this.SUBRULE(this.instance) }
+        ]));
+        this.CONSUME(RBrace);
+    });
 
 
 }

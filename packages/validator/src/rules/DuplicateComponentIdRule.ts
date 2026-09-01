@@ -15,7 +15,10 @@ export class DuplicateComponentIdRule
         const errors: ValidationError[] = [];
 
 
-        for (const circuit of document.project.circuits) {
+        for (const circuit of [
+            ...document.project.circuits,
+            ...(document.project.modules ?? []).map(module => module.circuit)
+        ]) {
 
             const ids = new Set<string>();
 

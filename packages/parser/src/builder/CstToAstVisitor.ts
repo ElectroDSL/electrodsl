@@ -67,6 +67,11 @@ export class AstBuilderVisitor
                 circuits:
                     ctx.circuit?.map(
                         (c: any) => this.visit(c)
+                    ) ?? [],
+
+                modules:
+                    ctx.module?.map(
+                        (m: any) => this.visit(m)
                     ) ?? []
 
             }
@@ -107,7 +112,13 @@ export class AstBuilderVisitor
             junctions:
                 ctx.junction?.map(
                     (j: any) => this.visit(j)
-                ) ?? []
+                ) ?? [],
+
+            ports: ctx.port?.map((n: any) => this.visit(n)) ?? [],
+            conductors: ctx.conductor?.map((n: any) => this.visit(n)) ?? [],
+            cables: ctx.cable?.map((n: any) => this.visit(n)) ?? [],
+            buses: ctx.bus?.map((n: any) => this.visit(n)) ?? [],
+            instances: ctx.instance?.map((n: any) => this.visit(n)) ?? []
 
         };
 
@@ -220,6 +231,71 @@ export class AstBuilderVisitor
             pin: ctx.pin?.[0]?.image ?? ""
         };
 
+    }
+
+    propertyBlock(ctx: any) {
+        return ctx.property?.map((p: any) => this.visit(p)).filter(Boolean) ?? [];
+    }
+
+    port(ctx: any) {
+        return { kind: NodeKind.Port, id: ctx.Identifier[0].image };
+    }
+
+    instance(ctx: any) {
+        return {
+            kind: NodeKind.Instance,
+            id: ctx.instanceId[0].image,
+            module: ctx.moduleName[0].image
+        };
+    }
+
+    cable(ctx: any) {
+        return {
+            kind: NodeKind.Cable,
+            id: ctx.Identifier[0].image,
+            properties: this.visit(ctx.propertyBlock[0])
+        };
+    }
+
+    conductor(ctx: any) {
+        return {
+            kind: NodeKind.Conductor,
+            id: ctx.Identifier[0].image,
+            from: this.visit(ctx.from[0]),
+            to: this.visit(ctx.to[0]),
+            properties: this.visit(ctx.propertyBlock[0])
+        };
+    }
+
+    bus(ctx: any) {
+        return {
+            kind: NodeKind.Bus,
+            name: ctx.busName[0].image,
+            properties: ctx.busProperty?.map((p: any) => this.visit(p)).filter(Boolean) ?? [],
+            members: ctx.member?.map((m: any) => this.visit(m)) ?? []
+        };
+    }
+
+    module(ctx: any) {
+        const body = {
+            kind: NodeKind.Circuit,
+            name: ctx.moduleName[0].image,
+            components: ctx.component?.map((n: any) => this.visit(n)) ?? [],
+            connections: ctx.connection?.map((n: any) => this.visit(n)) ?? [],
+            nets: ctx.net?.map((n: any) => this.visit(n)) ?? [],
+            junctions: ctx.junction?.map((n: any) => this.visit(n)) ?? [],
+            ports: ctx.port?.map((n: any) => this.visit(n)) ?? [],
+            conductors: ctx.conductor?.map((n: any) => this.visit(n)) ?? [],
+            cables: ctx.cable?.map((n: any) => this.visit(n)) ?? [],
+            buses: ctx.bus?.map((n: any) => this.visit(n)) ?? [],
+            instances: ctx.instance?.map((n: any) => this.visit(n)) ?? []
+        };
+        return {
+            kind: NodeKind.Module,
+            name: ctx.moduleName[0].image,
+            ports: body.ports,
+            circuit: body
+        };
     }
 
 }

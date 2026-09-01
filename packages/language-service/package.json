@@ -1,0 +1,23 @@
+{
+  "name": "@electrodsl/language-service",
+  "version": "0.7.0",
+  "description": "Editor-neutral language intelligence for ElectroDSL",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@electrodsl/ast": "workspace:*",
+    "@electrodsl/formatter": "workspace:*",
+    "@electrodsl/parser": "workspace:*",
+    "@electrodsl/validator": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  }
+}

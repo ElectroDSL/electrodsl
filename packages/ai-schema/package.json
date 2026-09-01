@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/ai-schema",
-  "version": "0.3.0",
+  "version": "0.7.0",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,6 +12,7 @@
     "@electrodsl/ast": "workspace:*"
   },
   "devDependencies": {
+    "@electrodsl/parser": "workspace:*",
     "tsup": "^8.0.0",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

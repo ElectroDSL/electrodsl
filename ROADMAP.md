@@ -31,23 +31,45 @@ Status: Complete
 
 ## Version 0.4 — Engineering semantics
 
-- Typed engineering values and SI units
-- Conductors, cables, buses, phases, and protective earth
-- Hierarchical circuits and reusable modules
-- IEC 81346-style reference designations
-- Cross-sheet references
+- Typed engineering values and SI units ✅
+- Conductors, cables, buses, phases, and protective earth ✅
+- Hierarchical circuits and reusable modules ✅
+- IEC 81346-style reference designations ✅
+- Cross-sheet references ✅
 
-Status: Planned
+Status: Complete
 
 ## Version 0.5 — Tooling and ecosystem
 
-- Language server and editor diagnostics
-- Package registry and versioned component libraries
-- Import/export adapters
-- RFC-based language governance
-- Natural-language generation, validation, optimization, and explanation
+- Language service and editor diagnostics ✅
+- Package manifests and versioned resolution ✅
+- Language Server Protocol transport ✅
+- VS Code language extension scaffold ✅
+- Package lockfiles and integrity verification ✅
+- Import/export adapters ✅
+- RFC-based language governance ✅
+- Valid AI-to-ElectroDSL generation ✅
+- Natural-language validation, optimization, and explanation ✅
 
-Status: Planned
+Status: Complete
+
+## Version 0.6 — Production documentation
+
+- Safe multi-file project builds ✅
+- BOM and conductor, cable, terminal, and cross-reference schedules ✅
+- Deterministic artifact manifests and integrity verification ✅
+- Project schemas, conformance coverage, and end-to-end example ✅
+
+Status: Complete
+
+## Version 0.7 — Project quality gates
+
+- Mandatory validation before production generation ✅
+- Cross-file project identity and naming checks ✅
+- CI-friendly structured diagnostics ✅
+- Verified quality reports in every production build ✅
+
+Status: Complete
 
 ## Version 1.0 — Stable open standard
 

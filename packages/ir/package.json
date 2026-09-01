@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/ir",
-  "version": "0.3.0",
+  "version": "0.7.0",
   "description": "Canonical JSON intermediate representation for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,7 +10,8 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@electrodsl/ast": "workspace:*"
+    "@electrodsl/ast": "workspace:*",
+    "@electrodsl/engineering": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.1",

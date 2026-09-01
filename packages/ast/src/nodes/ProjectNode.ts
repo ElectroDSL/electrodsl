@@ -1,6 +1,7 @@
 import { AstNode } from "./AstNode.js";
 import { NodeKind } from "../enums/NodeKind.js";
 import { CircuitNode } from "./CircuitNode.js";
+import type { ModuleNode } from "./EngineeringNodes.js";
 
 export interface ProjectNode extends AstNode {
 
@@ -35,5 +36,7 @@ export interface ProjectNode extends AstNode {
      * All circuits in the project
      */
     circuits: CircuitNode[];
+
+    modules?: ModuleNode[];
 
 }

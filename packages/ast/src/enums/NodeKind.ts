@@ -20,6 +20,18 @@ export enum NodeKind {
 
     Terminal = "Terminal",
 
-    Wire = "Wire"
+    Wire = "Wire",
+
+    Conductor = "Conductor",
+
+    Cable = "Cable",
+
+    Bus = "Bus",
+
+    Port = "Port",
+
+    Module = "Module",
+
+    Instance = "Instance"
 
 }

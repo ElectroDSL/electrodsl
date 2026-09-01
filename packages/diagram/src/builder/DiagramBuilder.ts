@@ -31,7 +31,7 @@ export class DiagramBuilder {
         );
 
         const nodes = graph.getNodes()
-        .filter(node => node.type !== "__junction__")
+        .filter(node => node.type !== "__junction__" && node.type !== "__sheet_port__")
         .map(node => {
 
             const position = nodeLookup.get(node.id);
@@ -48,7 +48,7 @@ export class DiagramBuilder {
         });
 
         const obstacles = graph.getNodes()
-            .filter(node => node.type !== "__junction__")
+            .filter(node => node.type !== "__junction__" && node.type !== "__sheet_port__")
             .map(node => {
                 const position = nodeLookup.get(node.id);
                 const size = this.symbolSize(node.type);
@@ -62,7 +62,7 @@ export class DiagramBuilder {
             });
 
         const junctions = graph.getNodes()
-            .filter(node => node.type === "__junction__")
+            .filter(node => node.type === "__junction__" || node.type === "__sheet_port__")
             .map(node => {
                 const position = nodeLookup.get(node.id);
                 return {
@@ -187,7 +187,7 @@ export class DiagramBuilder {
 
         }
 
-        if (componentType === "__junction__") {
+        if (componentType === "__junction__" || componentType === "__sheet_port__") {
             return {
                 x: position.x,
                 y: position.y

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electrodsl.org/schema/ir/0.4",
+  "title": "ElectroDSL Canonical IR 0.4",
+  "type": "object",
+  "required": ["$schema", "language", "project"],
+  "properties": {
+    "$schema": { "const": "https://electrodsl.org/schema/ir/0.4" },
+    "language": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": { "name": { "const": "ElectroDSL" }, "version": { "enum": ["0.1", "0.2", "0.3", "0.4"] } },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": ["name", "modules", "circuits"],
+      "properties": {
+        "name": { "type": "string" },
+        "modules": { "type": "array" },
+        "circuits": { "type": "array", "items": { "$ref": "#/$defs/circuit" } }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object", "required": ["component"],
+      "properties": { "component": { "type": "string" }, "terminal": { "type": "string" } },
+      "additionalProperties": false
+    },
+    "engineeringValue": {
+      "type": "object", "required": ["source", "value", "unit", "dimension", "siValue", "siUnit"]
+    },
+    "properties": {
+      "type": "object", "required": ["source", "normalized"],
+      "properties": {
+        "source": { "type": "object", "additionalProperties": { "type": "string" } },
+        "normalized": { "type": "object", "additionalProperties": { "$ref": "#/$defs/engineeringValue" } }
+      }
+    },
+    "circuit": {
+      "type": "object", "required": ["name", "electrical", "presentation"],
+      "properties": {
+        "name": { "type": "string" },
+        "electrical": {
+          "type": "object",
+          "required": ["components", "junctions", "ports", "instances", "connections", "nets", "conductors", "cables", "buses"]
+        },
+        "presentation": { "type": "object", "required": ["routes"] }
+      }
+    }
+  }
+}

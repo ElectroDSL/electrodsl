@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "ElectroDSL",
+  "scopeName": "source.electrodsl",
+  "patterns": [
+    { "name": "keyword.control.electrodsl", "match": "\\b(EDSL|PROJECT|MODULE|CIRCUIT|COMPONENT|INSTANCE|PORT|CONNECT|NET|CONDUCTOR|CABLE|BUS|JUNCTION)\\b" },
+    { "name": "string.quoted.double.electrodsl", "begin": "\"", "end": "\"" },
+    { "name": "constant.numeric.electrodsl", "match": "\\b[0-9]+(?:\\.[0-9]+)?(?:\\s*(?:mA|A|kV|V|kW|W|kohm|Mohm|ohm|uF|nF|F|mH|H|kHz|Hz|mm2|mm²|mm|m))?\\b" }
+  ]
+}
