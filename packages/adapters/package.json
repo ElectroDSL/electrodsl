@@ -1,7 +1,7 @@
 {
-  "name": "@electrodsl/language-service",
+  "name": "@electrodsl/adapters",
   "version": "0.5.0",
-  "description": "Editor-neutral language intelligence for ElectroDSL",
+  "description": "Import and export adapter framework for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -11,11 +11,10 @@
   },
   "dependencies": {
     "@electrodsl/ast": "workspace:*",
-    "@electrodsl/formatter": "workspace:*",
-    "@electrodsl/parser": "workspace:*",
-    "@electrodsl/validator": "workspace:*"
+    "@electrodsl/ir": "workspace:*"
   },
   "devDependencies": {
+    "@electrodsl/parser": "workspace:*",
     "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

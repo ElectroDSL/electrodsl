@@ -1,26 +1,18 @@
 {
-  "name": "@electrodsl/integration",
+  "name": "@electrodsl/language-server",
   "version": "0.5.0",
+  "description": "Language Server Protocol transport for ElectroDSL",
   "type": "module",
-
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
+  "bin": { "electrodsl-language-server": "./dist/index.js" },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "test": "vitest"
   },
-
-"dependencies": {
-  "@electrodsl/parser": "workspace:*",
-  "@electrodsl/graph": "workspace:*",
-  "@electrodsl/layout": "workspace:*",
-  "@electrodsl/diagram": "workspace:*",
-  "@electrodsl/renderer-svg": "workspace:*",
-  "@electrodsl/library": "workspace:*"
-},
-
+  "dependencies": { "@electrodsl/language-service": "workspace:*" },
   "devDependencies": {
+    "@types/node": "^26.1.1",
     "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

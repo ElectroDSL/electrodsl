@@ -6,7 +6,7 @@ The format follows Keep a Changelog.
 
 ---
 
-## [0.5.0-dev.1] - 2026-08-31
+## [0.5.0] - 2026-09-01
 
 ### Added
 
@@ -15,13 +15,17 @@ The format follows Keep a Changelog.
 - Versioned package manifest model, validation, schema, and deterministic resolver
 - Public RFC governance process and proposal template
 - ElectroDSL 0.5 conformance fixture
+- Standard stdio Language Server Protocol transport
+- VS Code language and syntax-highlighting scaffold
+- Transitive dependency lockfiles with SHA-256 integrity verification
+- Adapter registry with canonical JSON and round-trippable CSV netlists
+- AI generation prompts, validation, explanations, and conservative optimization hints
+- CLI commands for LSP, import/export, AI prompts, reviews, and explanations
 
 ### Fixed
 
 - AI schema generator now emits valid, deterministic, parseable ElectroDSL 0.5
 - Engineering constructs correctly inherit into language version 0.5
-
-Status: Development preview; v0.5 remains in progress.
 
 ---
 

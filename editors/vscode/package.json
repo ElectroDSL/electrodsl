@@ -1,0 +1,22 @@
+{
+  "name": "electrodsl-vscode",
+  "displayName": "ElectroDSL",
+  "description": "Language support for ElectroDSL electrical schematics",
+  "version": "0.5.0",
+  "publisher": "electrodsl",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{
+      "id": "electrodsl",
+      "aliases": ["ElectroDSL", "edsl"],
+      "extensions": [".edsl"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "electrodsl",
+      "scopeName": "source.electrodsl",
+      "path": "./syntaxes/electrodsl.tmLanguage.json"
+    }]
+  }
+}

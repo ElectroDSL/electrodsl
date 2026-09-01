@@ -11,6 +11,14 @@ export interface ElectroDSLPackageManifest {
 }
 
 export interface PackageDiagnostic { code: string; message: string }
+export interface PackageLockfile {
+    schema: "electrodsl-lock/0.5";
+    packages: Record<string, {
+        version: string;
+        integrity: string;
+        dependencies: Record<string, string>;
+    }>;
+}
 const namePattern = /^(?:@[a-z0-9-]+\/)?[a-z0-9-]+$/;
 const versionPattern = /^(\d+)\.(\d+)\.(\d+)$/;
 
@@ -53,4 +61,51 @@ export class PackageRegistry {
         const found = this.packages.get(name)?.find(item => compatible(item.version, range));
         return found ? structuredClone(found) : undefined;
     }
+
+    createLockfile(dependencies: Record<string, string>): PackageLockfile {
+        const locked: PackageLockfile["packages"] = {};
+        const resolving = new Set<string>();
+        const visit = (name: string, range: string): void => {
+            if (resolving.has(name)) throw new Error(`Dependency cycle detected at '${name}'`);
+            const existing = locked[name];
+            if (existing) {
+                if (!compatible(existing.version, range)) throw new Error(`Version conflict for '${name}': ${existing.version} does not satisfy ${range}`);
+                return;
+            }
+            const manifest = this.resolve(name, range);
+            if (!manifest) throw new Error(`Unable to resolve package '${name}' with range '${range}'`);
+            resolving.add(name);
+            const childDependencies = manifest.dependencies ?? {};
+            locked[name] = {
+                version: manifest.version,
+                integrity: manifestIntegrity(manifest),
+                dependencies: Object.fromEntries(Object.entries(childDependencies).sort(([a], [b]) => a.localeCompare(b)))
+            };
+            for (const [child, childRange] of Object.entries(childDependencies).sort(([a], [b]) => a.localeCompare(b))) visit(child, childRange);
+            resolving.delete(name);
+        };
+        for (const [name, range] of Object.entries(dependencies).sort(([a], [b]) => a.localeCompare(b))) visit(name, range);
+        return { schema: "electrodsl-lock/0.5", packages: Object.fromEntries(Object.entries(locked).sort(([a], [b]) => a.localeCompare(b))) };
+    }
+
+    verifyLockfile(lockfile: PackageLockfile): PackageDiagnostic[] {
+        const diagnostics: PackageDiagnostic[] = [];
+        for (const [name, entry] of Object.entries(lockfile.packages)) {
+            const manifest = this.resolve(name, entry.version);
+            if (!manifest) diagnostics.push({ code: "P2001", message: `Locked package '${name}@${entry.version}' is unavailable` });
+            else if (manifestIntegrity(manifest) !== entry.integrity) diagnostics.push({ code: "P2002", message: `Integrity mismatch for '${name}@${entry.version}'` });
+        }
+        return diagnostics;
+    }
 }
+
+function stable(value: unknown): string {
+    if (Array.isArray(value)) return `[${value.map(stable).join(",")}]`;
+    if (value && typeof value === "object") return `{${Object.entries(value).sort(([a], [b]) => a.localeCompare(b)).map(([key, item]) => `${JSON.stringify(key)}:${stable(item)}`).join(",")}}`;
+    return JSON.stringify(value);
+}
+
+export function manifestIntegrity(manifest: ElectroDSLPackageManifest): string {
+    return `sha256-${createHash("sha256").update(stable(manifest)).digest("base64")}`;
+}
+import { createHash } from "node:crypto";

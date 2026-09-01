@@ -41,14 +41,17 @@ Status: Complete
 
 ## Version 0.5 — Tooling and ecosystem
 
-- Language service and editor diagnostics foundation ✅
-- Package manifests and versioned resolution foundation ✅
-- Import/export adapters
+- Language service and editor diagnostics ✅
+- Package manifests and versioned resolution ✅
+- Language Server Protocol transport ✅
+- VS Code language extension scaffold ✅
+- Package lockfiles and integrity verification ✅
+- Import/export adapters ✅
 - RFC-based language governance ✅
 - Valid AI-to-ElectroDSL generation ✅
-- Natural-language validation, optimization, and explanation
+- Natural-language validation, optimization, and explanation ✅
 
-Status: In Progress (`0.5.0-dev.1`)
+Status: Complete
 
 ## Version 1.0 — Stable open standard
 

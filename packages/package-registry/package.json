@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/package-registry",
-  "version": "0.5.0-dev.1",
+  "version": "0.5.0",
   "description": "Versioned package manifests and deterministic resolution for ElectroDSL libraries",
   "type": "module",
   "main": "./dist/index.js",
@@ -10,6 +10,7 @@
     "test": "vitest"
   },
   "devDependencies": {
+    "@types/node": "^26.1.1",
     "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

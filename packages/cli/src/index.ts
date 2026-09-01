@@ -23,6 +23,9 @@ import { format } from "@electrodsl/formatter";
 import { serializeCanonicalIR } from "@electrodsl/ir";
 import { ElectroDSLSyntaxError } from "@electrodsl/parser";
 import { ElectroDSLLanguageService } from "@electrodsl/language-service";
+import { startLanguageServer } from "@electrodsl/language-server";
+import { createDefaultAdapterRegistry } from "@electrodsl/adapters";
+import { buildGenerationPrompt, explainDesign, reviewDesign } from "@electrodsl/ai-tools";
 
 
 const args = process.argv.slice(2);
@@ -55,6 +58,56 @@ else if (command === "diagnose") {
     else if (diagnostics.length === 0) console.log("✓ No diagnostics");
     else for (const diagnostic of diagnostics) console.log(`${diagnostic.code}: ${diagnostic.message}`);
     if (diagnostics.some(diagnostic => diagnostic.severity === "error")) process.exitCode = 1;
+
+}
+
+else if (command === "lsp") {
+
+    startLanguageServer();
+
+}
+
+else if (command === "explain") {
+
+    const file = requiredFile(args[1], "edsl explain <file.edsl>");
+    console.log(JSON.stringify(explainDesign(readFileSync(file, "utf8")), null, 2));
+
+}
+
+else if (command === "review") {
+
+    const file = requiredFile(args[1], "edsl review <file.edsl>");
+    const symbols = new LibrarySymbolProvider(resolve("packages/library/library"));
+    const review = reviewDesign(readFileSync(file, "utf8"), symbols);
+    console.log(JSON.stringify(review, null, 2));
+    if (!review.valid) process.exitCode = 1;
+
+}
+
+else if (command === "ai-prompt") {
+
+    const requirement = args.slice(1).join(" ").trim();
+    if (!requirement) requiredFile(undefined, 'edsl ai-prompt "<requirement>"');
+    const symbols = new LibrarySymbolProvider(resolve("packages/library/library"));
+    console.log(buildGenerationPrompt(requirement, symbols.listSymbols()));
+
+}
+
+else if (command === "import") {
+
+    const file = requiredFile(args[1], "edsl import <file> --format netlist-csv [--output file.edsl]");
+    const format = readOption(args.slice(2), "--format");
+    const adapter = format ? createDefaultAdapterRegistry().get(format) : undefined;
+    if (!adapter?.import) {
+        console.error(`Import adapter '${format ?? ""}' is unavailable.`);
+        process.exit(1);
+    }
+    const imported = adapter.import(readFileSync(file, "utf8"));
+    const output = readOption(args.slice(2), "--output");
+    if (output) {
+        writeFileSync(output, imported, "utf8");
+        console.log(`Imported ${output}`);
+    } else process.stdout.write(imported);
 
 }
 
@@ -100,11 +153,11 @@ else if (command === "format" || command === "fmt") {
 
 else if (command === "export") {
 
-    const file = requiredFile(args[1], "edsl export <file.edsl> --format svg");
+    const file = requiredFile(args[1], "edsl export <file.edsl> --format svg|json|netlist-csv");
     const format = readOption(args.slice(2), "--format");
 
-    if (format !== "svg" && format !== "json") {
-        console.error("Supported export formats are svg and json.");
+    if (format !== "svg" && format !== "json" && format !== "netlist-csv") {
+        console.error("Supported export formats are svg, json, and netlist-csv.");
         process.exit(1);
     }
 
@@ -115,6 +168,14 @@ else if (command === "export") {
     if (format === "json") {
         const output = outputPath(file, ".json");
         writeFileSync(output, serializeCanonicalIR(document), "utf-8");
+        console.log(`Exported ${output}`);
+        process.exit(0);
+    }
+
+    if (format === "netlist-csv") {
+        const output = outputPath(file, ".csv");
+        const adapter = createDefaultAdapterRegistry().get("netlist-csv")!;
+        writeFileSync(output, adapter.export(document), "utf-8");
         console.log(`Exported ${output}`);
         process.exit(0);
     }
@@ -142,9 +203,14 @@ Commands:
   edsl validate <file.edsl>
   edsl check <file.edsl>
   edsl diagnose <file.edsl> [--json]
+  edsl lsp --stdio
+  edsl explain <file.edsl>
+  edsl review <file.edsl>
+  edsl ai-prompt "<requirement>"
+  edsl import <file> --format netlist-csv [--output file.edsl]
   edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
-  edsl export <file.edsl> --format svg|json
+  edsl export <file.edsl> --format svg|json|netlist-csv
 `);
 
 }

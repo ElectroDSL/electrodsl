@@ -2,16 +2,18 @@
 
 ElectroDSL is an open, AI-friendly language and TypeScript toolchain for describing, validating, laying out, and rendering electrical schematics.
 
-## ElectroDSL 0.5 development preview
+## ElectroDSL 0.5
 
-The first `0.5.0-dev.1` milestone adds shared editor intelligence, machine-readable diagnostics, versioned package manifests and resolution, an RFC governance process, and valid AI-schema source generation.
+Version 0.5 adds shared editor intelligence and LSP, machine-readable diagnostics, versioned packages with integrity lockfiles, canonical JSON and CSV adapters, RFC governance, and safety-bounded AI generation/review/explanation tools.
 
 ```powershell
 pnpm build
 node packages/cli/dist/index.js diagnose examples/v04-motor-control.edsl --json
+node packages/cli/dist/index.js export examples/v04-motor-control.edsl --format netlist-csv
+node packages/cli/dist/index.js review examples/v04-motor-control.edsl
 ```
 
-See [the v0.5 development guide](docs/10-v0.5-development.md). Version 0.5 is in progress; the stable engineering-language release remains 0.4.
+See [the v0.5 tooling and ecosystem guide](docs/10-v0.5-development.md).
 
 ## ElectroDSL 0.4
 

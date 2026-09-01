@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electrodsl.org/schema/lock/0.5",
+  "title": "ElectroDSL Package Lockfile 0.5",
+  "type": "object",
+  "required": ["schema", "packages"],
+  "properties": {
+    "schema": { "const": "electrodsl-lock/0.5" },
+    "packages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["version", "integrity", "dependencies"],
+        "properties": {
+          "version": { "type": "string" },
+          "integrity": { "type": "string", "pattern": "^sha256-[A-Za-z0-9+/]+={0,2}$" },
+          "dependencies": { "type": "object", "additionalProperties": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,17 @@
+circuit,kind,id,type,from,to,properties
+@module:IndicatorBranch,port,LINE,port,,,{}
+@module:IndicatorBranch,port,RETURN,port,,,{}
+@module:IndicatorBranch,component,L1,IEC-LAMP,,,"{""designation"":""=CONTROL+DOOR-L1"",""voltage"":""230 V"",""tag"":""Motor Running""}"
+@module:IndicatorBranch,conductor,WI1,conductor,LINE,L1.L,"{""size"":""1.5 mm2"",""phase"":""L1""}"
+@module:IndicatorBranch,conductor,WI2,conductor,L1.N,RETURN,"{""size"":""1.5 mm2"",""phase"":""N""}"
+Supply Sheet,port,CONTROL_POWER,port,,,{}
+Supply Sheet,port,CONTROL_RETURN,port,,,{}
+Supply Sheet,component,F1,IEC-FUSE,,,"{""designation"":""=POWER+PANEL-F1"",""rating"":""10 A""}"
+Supply Sheet,conductor,W1,conductor,F1.2,CONTROL_POWER,"{""size"":""1.5 mm2"",""phase"":""L1"",""cable"":""C1""}"
+Supply Sheet,conductor,W2,conductor,CONTROL_RETURN,F1.1,"{""size"":""1.5 mm2"",""phase"":""N"",""cable"":""C1""}"
+Door Sheet,port,CONTROL_POWER,port,,,{}
+Door Sheet,port,CONTROL_RETURN,port,,,{}
+Door Sheet,instance,RUN_LAMP,IndicatorBranch,,,{}
+Door Sheet,cable,C1,cable,,,"{""cores"":""4"",""size"":""1.5 mm2"",""length"":""8 m""}"
+Door Sheet,conductor,W3,conductor,CONTROL_POWER,RUN_LAMP.LINE,"{""size"":""1.5 mm2"",""phase"":""L1"",""cable"":""C1""}"
+Door Sheet,bus,RETURN_BUS,bus,,,"{""phases"":""N,PE"",""__members"":[""RUN_LAMP.RETURN"",""CONTROL_RETURN""]}"
