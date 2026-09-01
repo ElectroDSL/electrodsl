@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schemas/electrodsl-quality-0.9.schema.json", "title": "ElectroDSL 0.9 Quality Result", "type": "object",
+  "required": ["schema", "valid", "project", "errors", "warnings"], "properties": { "schema": { "const": "electrodsl-quality/0.9" }, "valid": { "type": "boolean" }, "project": { "type": "string" }, "errors": { "type": "array" }, "warnings": { "type": "array" } }, "additionalProperties": false
+}

@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/project",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@electrodsl/analysis": "workspace:*",
+    "@electrodsl/ci": "workspace:*",
     "@electrodsl/ast": "workspace:*",
     "@electrodsl/integration": "workspace:*",
+    "@electrodsl/ir": "workspace:*",
     "@electrodsl/library": "workspace:*",
     "@electrodsl/parser": "workspace:*",
     "@electrodsl/reports": "workspace:*",

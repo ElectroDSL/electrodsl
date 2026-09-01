@@ -28,6 +28,7 @@ import { startLanguageServer } from "@electrodsl/language-server";
 import { createDefaultAdapterRegistry } from "@electrodsl/adapters";
 import { buildGenerationPrompt, explainDesign, reviewDesign } from "@electrodsl/ai-tools";
 import { buildProject, checkProject, ProjectValidationError, verifyProjectBuild } from "@electrodsl/project";
+import { qualityToJUnit, qualityToSarif } from "@electrodsl/ci";
 import { generateProductionReport, reportCsvFiles } from "@electrodsl/reports";
 import { mkdirSync } from "node:fs";
 
@@ -143,9 +144,13 @@ else if (command === "project" && args[1] === "build") {
 
 else if (command === "project" && args[1] === "check") {
 
-    const directory = requiredFile(args[2], "edsl project check <directory> [--json]");
+    const directory = requiredFile(args[2], "edsl project check <directory> [--format text|json|sarif|junit]");
     const result = checkProject(directory);
-    if (args.includes("--json")) console.log(JSON.stringify(result, null, 2));
+    const outputFormat = args.includes("--json") ? "json" : readOption(args.slice(3), "--format") ?? "text";
+    if (!["text", "json", "sarif", "junit"].includes(outputFormat)) throw new Error(`Unsupported project check format '${outputFormat}'`);
+    if (outputFormat === "json") console.log(JSON.stringify(result, null, 2));
+    else if (outputFormat === "sarif") process.stdout.write(qualityToSarif(result));
+    else if (outputFormat === "junit") process.stdout.write(qualityToJUnit(result));
     else if (result.valid) console.log(`✓ ${result.project} passed the project quality gate`);
     else for (const diagnostic of result.errors) console.error(`${diagnostic.code}: ${diagnostic.message}${diagnostic.source ? ` (${diagnostic.source})` : ""}`);
     if (!result.valid) process.exitCode = 1;
@@ -261,7 +266,7 @@ Commands:
   edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
   edsl project build <directory>
-  edsl project check <directory> [--json]
+  edsl project check <directory> [--format text|json|sarif|junit]
   edsl project verify <directory>
   edsl report <file.edsl> [--output directory]
   edsl export <file.edsl> --format svg|json|netlist-csv

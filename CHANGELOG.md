@@ -6,6 +6,22 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.9.0] - 2026-09-01
+
+### Added
+
+- SARIF 2.1 quality diagnostics for static-analysis platforms
+- JUnit XML quality reports for CI systems
+- Canonical combined-project JSON interchange artifact
+- CLI quality format selection for text, JSON, SARIF, and JUnit
+- CI reference-project build, verification, and artifact upload
+- Versioned v0.9 project, quality, and artifact schemas
+
+### Changed
+
+- Production builds include all interchange outputs in the verified artifact manifest
+- Language, engineering, and integrity rules recognize ElectroDSL 0.9
+
 ## [0.8.0] - 2026-09-01
 
 ### Added

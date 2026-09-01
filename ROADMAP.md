@@ -80,6 +80,15 @@ Status: Complete
 
 Status: Complete
 
+## Version 0.9 — Interoperability and CI
+
+- SARIF and JUnit quality interchange ✅
+- Canonical combined-project export ✅
+- Verified interoperability artifacts ✅
+- End-to-end CI reference workflow ✅
+
+Status: Complete
+
 ## Version 1.0 — Stable open standard
 
 - Stable language and IR compatibility contract

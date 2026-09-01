@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schemas/electrodsl-artifacts-0.9.schema.json", "title": "ElectroDSL 0.9 Artifact Manifest", "type": "object",
+  "required": ["schema", "project", "sources", "artifacts"], "properties": { "schema": { "const": "electrodsl-artifacts/0.9" }, "project": { "type": "object", "required": ["name", "version"] }, "sources": { "type": "array" }, "artifacts": { "type": "array" } }, "additionalProperties": false
+}
