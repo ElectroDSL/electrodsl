@@ -1,0 +1,23 @@
+{
+  "name": "@electrodsl/project",
+  "version": "0.6.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@electrodsl/ast": "workspace:*",
+    "@electrodsl/integration": "workspace:*",
+    "@electrodsl/parser": "workspace:*",
+    "@electrodsl/reports": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "tsup": "^8.5.1",
+    "typescript": "^5.7.3",
+    "vitest": "^4.1.10"
+  }
+}

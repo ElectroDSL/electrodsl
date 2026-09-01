@@ -26,6 +26,9 @@ import { ElectroDSLLanguageService } from "@electrodsl/language-service";
 import { startLanguageServer } from "@electrodsl/language-server";
 import { createDefaultAdapterRegistry } from "@electrodsl/adapters";
 import { buildGenerationPrompt, explainDesign, reviewDesign } from "@electrodsl/ai-tools";
+import { buildProject, verifyProjectBuild } from "@electrodsl/project";
+import { generateProductionReport, reportCsvFiles } from "@electrodsl/reports";
+import { mkdirSync } from "node:fs";
 
 
 const args = process.argv.slice(2);
@@ -129,6 +132,41 @@ else if (command === "build") {
 
 }
 
+else if (command === "project" && args[1] === "build") {
+
+    const directory = requiredFile(args[2], "edsl project build <directory>");
+    const manifest = buildProject(directory);
+    console.log(`Built ${manifest.artifacts.length} verified artifacts for ${manifest.project.name}`);
+
+}
+
+else if (command === "project" && args[1] === "verify") {
+
+    const directory = requiredFile(args[2], "edsl project verify <directory>");
+    const result = verifyProjectBuild(directory);
+    if (result.valid) console.log("✓ Project artifacts are current and verified");
+    else {
+        for (const error of result.errors) console.error(`${error.code}: ${error.message}${error.path ? ` (${error.path})` : ""}`);
+        process.exitCode = 1;
+    }
+
+}
+
+else if (command === "report") {
+
+    const file = requiredFile(args[1], "edsl report <file.edsl> [--output directory]");
+    const report = generateProductionReport(parseFile(file));
+    const directory = readOption(args.slice(2), "--output");
+    if (!directory) console.log(JSON.stringify(report, null, 2));
+    else {
+        mkdirSync(directory, { recursive: true });
+        writeFileSync(resolve(directory, "report.json"), `${JSON.stringify(report, null, 2)}\n`, "utf8");
+        for (const [name, content] of Object.entries(reportCsvFiles(report))) writeFileSync(resolve(directory, name), content, "utf8");
+        console.log(`Wrote production reports to ${resolve(directory)}`);
+    }
+
+}
+
 else if (command === "format" || command === "fmt") {
 
     const file = requiredFile(args[1], "edsl format <file.edsl> [--check|--write]");
@@ -210,6 +248,9 @@ Commands:
   edsl import <file> --format netlist-csv [--output file.edsl]
   edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
+  edsl project build <directory>
+  edsl project verify <directory>
+  edsl report <file.edsl> [--output directory]
   edsl export <file.edsl> --format svg|json|netlist-csv
 `);
 

@@ -1,24 +1,17 @@
 {
-  "name": "@electrodsl/diagram",
+  "name": "@electrodsl/reports",
   "version": "0.6.0",
+  "description": "Production schedules and documentation reports for ElectroDSL projects",
   "type": "module",
-
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "test": "vitest"
   },
-
-
-  "dependencies": {
-    "@electrodsl/graph": "workspace:*",
-    "@electrodsl/layout": "workspace:*"
-  },
-
-
+  "dependencies": { "@electrodsl/ast": "workspace:*" },
   "devDependencies": {
+    "@electrodsl/parser": "workspace:*",
     "tsup": "^8.5.1",
     "typescript": "^5.7.3",
     "vitest": "^4.1.10"

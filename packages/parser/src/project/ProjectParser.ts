@@ -23,11 +23,15 @@ export class ProjectParser {
                 document => document.project.circuits
             );
 
+        const modules = loaded.documents.flatMap(document => document.project.modules ?? []);
+
         return {
             kind: NodeKind.Project,
             name: loaded.manifest.name,
             version: loaded.manifest.version,
-            circuits
+            circuits,
+            modules,
+            sourceFiles: loaded.manifest.circuits
         } satisfies ProjectNode;
 
     }

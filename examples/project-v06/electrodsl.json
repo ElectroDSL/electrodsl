@@ -1,0 +1,9 @@
+{
+  "schema": "electrodsl-project/0.6",
+  "name": "Motor Panel Production Set",
+  "version": "1.0.0",
+  "language": "0.6",
+  "circuits": ["supply.edsl", "control.edsl"],
+  "output": { "directory": "build", "format": "svg" },
+  "reports": true
+}

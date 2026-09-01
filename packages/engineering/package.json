@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/engineering",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Typed engineering values and SI-unit normalization for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",

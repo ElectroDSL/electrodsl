@@ -1,0 +1,11 @@
+EDSL 0.6
+
+PROJECT "Version 0.6 Conformance" {
+    CIRCUIT "Production" {
+        COMPONENT F1 : IEC-FUSE { rating = "6A" }
+        COMPONENT X1 : IEC-TERMINAL { tag = "Outgoing" }
+        CONDUCTOR W1 : F1.2 -> X1.1 { size = "1.5 mm2" phase = "L1" cable = "C1" }
+        CABLE C1 { cores = "3" size = "1.5 mm2" }
+        PORT OUT;
+    }
+}

@@ -1,5 +1,6 @@
 # ElectroDSL Specification
 
+- [ElectroDSL 0.6 production workflow](11-v0.6-production.md)
 - [ElectroDSL 0.5 tooling and ecosystem](10-v0.5-development.md)
 - [ElectroDSL 0.4 engineering specification](09-v0.4-specification.md)
 - [ElectroDSL 0.3 normative specification](08-v0.3-specification.md)

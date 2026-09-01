@@ -12,9 +12,11 @@ export class ProjectLoader {
         projectDirectory: string
     ): LoadedProject {
 
+        const projectRoot = path.resolve(projectDirectory);
+
         const manifestPath =
             path.join(
-                projectDirectory,
+                projectRoot,
                 "electrodsl.json"
             );
 
@@ -26,17 +28,11 @@ export class ProjectLoader {
                 )
             ) as ProjectManifest;
 
-        const documents =
-            manifest.circuits.map(file =>
+        this.validateManifest(manifest);
 
-                parseFile(
-                    path.join(
-                        projectDirectory,
-                        file
-                    )
-                )
-
-            );
+        const documents = manifest.circuits.map(file =>
+            parseFile(this.resolveInside(projectRoot, file))
+        );
 
         return {
 
@@ -46,6 +42,24 @@ export class ProjectLoader {
 
         };
 
+    }
+
+    private validateManifest(manifest: ProjectManifest): void {
+        if (manifest.schema && manifest.schema !== "electrodsl-project/0.6") throw new Error(`Unsupported project schema '${manifest.schema}'`);
+        if (!manifest.name || !manifest.version) throw new Error("Project name and version are required");
+        if (!Array.isArray(manifest.circuits) || manifest.circuits.length === 0) throw new Error("Project requires at least one circuit source");
+        if (manifest.circuits.some(file => typeof file !== "string" || !file.trim())) throw new Error("Project circuit sources must be non-empty strings");
+        if (new Set(manifest.circuits).size !== manifest.circuits.length) throw new Error("Project circuit sources must be unique");
+        if (manifest.language && manifest.language !== "0.6") throw new Error(`Unsupported project language '${manifest.language}'`);
+        if (manifest.output && (typeof manifest.output.directory !== "string" || !manifest.output.directory.trim() || manifest.output.format !== "svg")) throw new Error("Project output requires a directory and SVG format");
+    }
+
+    private resolveInside(root: string, requested: string): string {
+        const resolved = path.resolve(root, requested);
+        const relative = path.relative(root, resolved);
+        if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) throw new Error(`Project path escapes its directory: '${requested}'`);
+        if (path.extname(resolved).toLowerCase() !== ".edsl") throw new Error(`Project source must use .edsl: '${requested}'`);
+        return resolved;
     }
 
 }

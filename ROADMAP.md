@@ -53,6 +53,15 @@ Status: Complete
 
 Status: Complete
 
+## Version 0.6 — Production documentation
+
+- Safe multi-file project builds ✅
+- BOM and conductor, cable, terminal, and cross-reference schedules ✅
+- Deterministic artifact manifests and integrity verification ✅
+- Project schemas, conformance coverage, and end-to-end example ✅
+
+Status: Complete
+
 ## Version 1.0 — Stable open standard
 
 - Stable language and IR compatibility contract

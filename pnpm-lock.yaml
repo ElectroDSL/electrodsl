@@ -125,9 +125,15 @@ importers:
       '@electrodsl/parser':
         specifier: workspace:*
         version: link:../parser
+      '@electrodsl/project':
+        specifier: workspace:*
+        version: link:../project
       '@electrodsl/renderer-svg':
         specifier: workspace:*
         version: link:../renderer-svg
+      '@electrodsl/reports':
+        specifier: workspace:*
+        version: link:../reports
       '@electrodsl/validator':
         specifier: workspace:*
         version: link:../validator
@@ -383,6 +389,34 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
+  packages/project:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@electrodsl/integration':
+        specifier: workspace:*
+        version: link:../integration
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@electrodsl/reports':
+        specifier: workspace:*
+        version: link:../reports
+    devDependencies:
+      '@types/node':
+        specifier: ^26.1.1
+        version: 26.1.1
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
   packages/render-model:
     devDependencies:
       tsup:
@@ -413,6 +447,25 @@ importers:
         specifier: workspace:*
         version: link:../render-model
     devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
+  packages/reports:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+    devDependencies:
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)

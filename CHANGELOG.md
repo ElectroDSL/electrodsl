@@ -6,6 +6,20 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.6.0] - 2026-09-01
+
+### Added
+
+- Safe multi-file project manifests and SVG production builds
+- Project-wide BOM, conductor, cable, terminal, and cross-reference reports in JSON and CSV
+- Deterministic SHA-256 artifact manifests and build verification
+- `project build`, `project verify`, and `report` CLI workflows
+- ElectroDSL 0.6 schemas, conformance fixture, and complete production example
+
+### Changed
+
+- Language and engineering validation now recognize ElectroDSL 0.6
+
 ## [0.5.0] - 2026-09-01
 
 ### Added

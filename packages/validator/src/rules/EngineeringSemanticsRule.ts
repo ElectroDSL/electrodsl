@@ -15,7 +15,7 @@ export class EngineeringSemanticsRule implements ValidationRule {
         const errors: ValidationError[] = [];
         const modules = new Map((document.project.modules ?? []).map(module => [module.name, module]));
 
-        const supportsEngineering = document.version === "0.4" || document.version === "0.5";
+        const supportsEngineering = ["0.4", "0.5", "0.6"].includes(document.version);
         if (!supportsEngineering && (document.project.modules?.length ?? 0) > 0) {
             errors.push({ code: "E2200", message: "Module declarations require EDSL 0.4 or later", severity: "error" });
         }
