@@ -6,6 +6,55 @@ The format follows Keep a Changelog.
 
 ---
 
+## [1.0.0] - 2026-09-01
+
+### Added
+
+- Stable `@electrodsl/core` public API façade
+- Explicit 0.1–1.0 language compatibility contract
+- `version` and `compatibility` CLI commands
+- Stable 1.0 project, IR, report, connectivity, quality, and artifact schemas
+- ElectroDSL 1.0 conformance fixture and production reference project
+- Normative semantic-versioning, schema, diagnostics, and governance guarantees
+
+### Changed
+
+- Production outputs use stable 1.0 schema identifiers for 1.0 projects
+- SARIF identifies the stable 1.0 toolchain
+- CI validates the 1.0 reference project
+
+## [0.9.0] - 2026-09-01
+
+### Added
+
+- SARIF 2.1 quality diagnostics for static-analysis platforms
+- JUnit XML quality reports for CI systems
+- Canonical combined-project JSON interchange artifact
+- CLI quality format selection for text, JSON, SARIF, and JUnit
+- CI reference-project build, verification, and artifact upload
+- Versioned v0.9 project, quality, and artifact schemas
+
+### Changed
+
+- Production builds include all interchange outputs in the verified artifact manifest
+- Language, engineering, and integrity rules recognize ElectroDSL 0.9
+
+## [0.8.0] - 2026-09-01
+
+### Added
+
+- Electrical integrity validation for self-loops and duplicate paths
+- Cable declaration and core-allocation checks
+- Isolated-component and dangling cross-sheet-port warnings
+- Deterministic project connectivity analysis
+- Verified `connectivity.json` production artifact
+- Versioned 0.8 project, artifact, quality, and connectivity schemas
+
+### Changed
+
+- CLI validation now reports warnings without returning a failing exit code
+- Project quality gates apply the v0.8 integrity rules before generation
+
 ## [0.7.0] - 2026-09-01
 
 ### Added

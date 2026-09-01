@@ -1,0 +1,11 @@
+EDSL 0.8
+PROJECT "Motor Panel Integrity Set" {
+    CIRCUIT "Supply" {
+        COMPONENT F1 : IEC-FUSE { rating = "10A" }
+        COMPONENT R1 : IEC-RESISTOR { resistance = "1 kohm" }
+        PORT CONTROL_POWER;
+        CABLE C1 { cores = "3" size = "1.5 mm2" length = "2 m" }
+        CONDUCTOR W1 : F1.2 -> R1.1 { cable = "C1" size = "1.5 mm2" phase = "L1" }
+        CONDUCTOR W2 : R1.2 -> CONTROL_POWER { cable = "C1" size = "1.5 mm2" phase = "L1" }
+    }
+}

@@ -6,7 +6,7 @@ export interface CableRow { circuit: string; id: string; cores?: string; size?: 
 export interface TerminalRow { circuit: string; endpoint: string; connectedTo: string; kind: "connection" | "conductor" | "net" | "bus" }
 export interface CrossReferenceRow { name: string; kind: "port" | "module"; locations: string[] }
 export interface ProductionReport {
-    schema: "electrodsl-report/0.6";
+    schema: "electrodsl-report/0.6" | "electrodsl-report/1.0";
     project: string;
     bom: BomRow[];
     conductors: ConductorRow[];
@@ -81,7 +81,7 @@ export function generateProductionReport(document: DocumentNode): ProductionRepo
     ].sort((a, b) => a.kind.localeCompare(b.kind) || a.name.localeCompare(b.name));
 
     return {
-        schema: "electrodsl-report/0.6", project: document.project.name,
+        schema: document.version === "1.0" ? "electrodsl-report/1.0" : "electrodsl-report/0.6", project: document.project.name,
         bom: [...bomGroups.values()].map(item => ({ ...item, references: item.references.sort() })).sort((a, b) => a.type.localeCompare(b.type)),
         conductors: conductors.sort(byCircuitId), cables: cables.sort(byCircuitId),
         terminals: terminals.sort((a, b) => a.circuit.localeCompare(b.circuit) || a.endpoint.localeCompare(b.endpoint) || a.connectedTo.localeCompare(b.connectedTo)),

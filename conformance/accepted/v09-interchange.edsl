@@ -1,0 +1,8 @@
+EDSL 0.9
+PROJECT "Version 0.9 Conformance" {
+    CIRCUIT "Interchange" {
+        COMPONENT F1 : IEC-FUSE { rating = "6A" }
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" }
+        CONDUCTOR W1 : F1.2 -> L1.L { size = "1.5 mm2" phase = "L1" }
+    }
+}

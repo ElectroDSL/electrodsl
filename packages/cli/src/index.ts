@@ -11,6 +11,7 @@ import { parseFile } from "@electrodsl/parser";
 import { compile } from "@electrodsl/integration";
 import {
     DuplicateComponentIdRule,
+    ElectricalIntegrityRule,
     ElectricalReferenceRule,
     EngineeringSemanticsRule,
     LanguageVersionRule,
@@ -27,6 +28,8 @@ import { startLanguageServer } from "@electrodsl/language-server";
 import { createDefaultAdapterRegistry } from "@electrodsl/adapters";
 import { buildGenerationPrompt, explainDesign, reviewDesign } from "@electrodsl/ai-tools";
 import { buildProject, checkProject, ProjectValidationError, verifyProjectBuild } from "@electrodsl/project";
+import { qualityToJUnit, qualityToSarif } from "@electrodsl/ci";
+import { checkLanguageCompatibility, LANGUAGE_VERSION, SUPPORTED_LANGUAGE_VERSIONS, TOOLCHAIN_VERSION } from "@electrodsl/core";
 import { generateProductionReport, reportCsvFiles } from "@electrodsl/reports";
 import { mkdirSync } from "node:fs";
 
@@ -41,6 +44,24 @@ if (command === "parse") {
     const document = readDocument(args[1], "edsl parse <file.edsl>");
 
     console.log(JSON.stringify(document, null, 2));
+
+}
+
+else if (command === "version") {
+
+    const information = { toolchain: TOOLCHAIN_VERSION, language: LANGUAGE_VERSION, supportedLanguageVersions: SUPPORTED_LANGUAGE_VERSIONS };
+    if (args.includes("--json")) console.log(JSON.stringify(information, null, 2));
+    else console.log(`ElectroDSL toolchain ${TOOLCHAIN_VERSION} (language ${LANGUAGE_VERSION})`);
+
+}
+
+else if (command === "compatibility") {
+
+    const version = requiredFile(args[1], "edsl compatibility <language-version> [--json]");
+    const result = checkLanguageCompatibility(version);
+    if (args.includes("--json")) console.log(JSON.stringify(result, null, 2));
+    else console.log(`${result.compatible ? "✓" : "✗"} ${result.message}`);
+    if (!result.compatible) process.exitCode = 1;
 
 }
 
@@ -142,9 +163,13 @@ else if (command === "project" && args[1] === "build") {
 
 else if (command === "project" && args[1] === "check") {
 
-    const directory = requiredFile(args[2], "edsl project check <directory> [--json]");
+    const directory = requiredFile(args[2], "edsl project check <directory> [--format text|json|sarif|junit]");
     const result = checkProject(directory);
-    if (args.includes("--json")) console.log(JSON.stringify(result, null, 2));
+    const outputFormat = args.includes("--json") ? "json" : readOption(args.slice(3), "--format") ?? "text";
+    if (!["text", "json", "sarif", "junit"].includes(outputFormat)) throw new Error(`Unsupported project check format '${outputFormat}'`);
+    if (outputFormat === "json") console.log(JSON.stringify(result, null, 2));
+    else if (outputFormat === "sarif") process.stdout.write(qualityToSarif(result));
+    else if (outputFormat === "junit") process.stdout.write(qualityToJUnit(result));
     else if (result.valid) console.log(`✓ ${result.project} passed the project quality gate`);
     else for (const diagnostic of result.errors) console.error(`${diagnostic.code}: ${diagnostic.message}${diagnostic.source ? ` (${diagnostic.source})` : ""}`);
     if (!result.valid) process.exitCode = 1;
@@ -248,6 +273,8 @@ ElectroDSL CLI
 
 Commands:
 
+  edsl version [--json]
+  edsl compatibility <language-version> [--json]
   edsl parse <file.edsl>
   edsl validate <file.edsl>
   edsl check <file.edsl>
@@ -260,7 +287,7 @@ Commands:
   edsl format <file.edsl> [--check|--write]
   edsl build <file.edsl>
   edsl project build <directory>
-  edsl project check <directory> [--json]
+  edsl project check <directory> [--format text|json|sarif|junit]
   edsl project verify <directory>
   edsl report <file.edsl> [--output directory]
   edsl export <file.edsl> --format svg|json|netlist-csv
@@ -321,6 +348,7 @@ function validate(
         new DuplicateComponentIdRule(),
         new ElectricalReferenceRule(symbols),
         new EngineeringSemanticsRule(),
+        new ElectricalIntegrityRule(),
         new NetDefinitionRule(),
         new RoutePreferenceRule()
     ]).validate(document);
@@ -334,7 +362,7 @@ function validate(
         console.log(`${error.code}: ${error.message}`);
     }
 
-    process.exit(1);
+    if (result.errors.some(error => error.severity === "error")) process.exit(1);
 
 }
 

@@ -1,0 +1,11 @@
+{
+  "name": "@electrodsl/analysis",
+  "version": "1.0.0",
+  "description": "Electrical connectivity analysis for ElectroDSL",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": { "build": "tsup src/index.ts --format esm,cjs --dts", "test": "vitest" },
+  "dependencies": { "@electrodsl/ast": "workspace:*" },
+  "devDependencies": { "@electrodsl/parser": "workspace:*", "tsup": "^8.5.1", "typescript": "^5.7.3", "vitest": "^4.1.10" }
+}

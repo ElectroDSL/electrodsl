@@ -1,7 +1,7 @@
 import { format } from "@electrodsl/formatter";
 import { ElectroDSLSyntaxError, parse } from "@electrodsl/parser";
 import {
-    DuplicateComponentIdRule, ElectricalReferenceRule, EngineeringSemanticsRule,
+    DuplicateComponentIdRule, ElectricalIntegrityRule, ElectricalReferenceRule, EngineeringSemanticsRule,
     LanguageVersionRule, NetDefinitionRule, RoutePreferenceRule, Validator
 } from "@electrodsl/validator";
 
@@ -34,7 +34,7 @@ export class ElectroDSLLanguageService {
             const document = parse(source);
             const rules = [
                 new LanguageVersionRule(), new DuplicateComponentIdRule(),
-                new EngineeringSemanticsRule(), new NetDefinitionRule(), new RoutePreferenceRule()
+                new EngineeringSemanticsRule(), new ElectricalIntegrityRule(), new NetDefinitionRule(), new RoutePreferenceRule()
             ];
             const validator = this.symbols
                 ? new Validator([...rules, new ElectricalReferenceRule(this.symbols)])

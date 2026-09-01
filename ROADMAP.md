@@ -71,11 +71,29 @@ Status: Complete
 
 Status: Complete
 
+## Version 0.8 — Electrical integrity
+
+- Duplicate and self-loop electrical path validation ✅
+- Conductor-to-cable allocation and cable capacity checks ✅
+- Isolated component and cross-sheet port diagnostics ✅
+- Verified project connectivity analysis ✅
+
+Status: Complete
+
+## Version 0.9 — Interoperability and CI
+
+- SARIF and JUnit quality interchange ✅
+- Canonical combined-project export ✅
+- Verified interoperability artifacts ✅
+- End-to-end CI reference workflow ✅
+
+Status: Complete
+
 ## Version 1.0 — Stable open standard
 
-- Stable language and IR compatibility contract
-- Multiple independent implementations
-- Open governance and extension process
-- Production editor, renderer, library, and interchange ecosystem
+- Stable language, public API, and IR compatibility contract ✅
+- Executable conformance kit for independent implementations ✅
+- Open RFC governance and extension process ✅
+- Production validation, renderer, library, reporting, and interchange toolchain ✅
 
-Status: Future
+Status: Complete

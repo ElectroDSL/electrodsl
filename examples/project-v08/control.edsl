@@ -1,0 +1,10 @@
+EDSL 0.8
+PROJECT "Motor Panel Integrity Set" {
+    CIRCUIT "Control" {
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" tag = "Run" }
+        COMPONENT R2 : IEC-RESISTOR { resistance = "1 kohm" }
+        PORT CONTROL_POWER;
+        CONDUCTOR W3 : CONTROL_POWER -> R2.1 { size = "1.5 mm2" phase = "L1" }
+        CONDUCTOR W4 : R2.2 -> L1.L { size = "1.5 mm2" phase = "L1" }
+    }
+}

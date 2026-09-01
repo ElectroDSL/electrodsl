@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/cli",
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "ElectroDSL command line tools",
   "type": "module",
   "bin": {
@@ -22,6 +22,8 @@
     "@electrodsl/language-server": "workspace:*",
     "@electrodsl/adapters": "workspace:*",
     "@electrodsl/ai-tools": "workspace:*",
+    "@electrodsl/ci": "workspace:*",
+    "@electrodsl/core": "workspace:*",
     "@electrodsl/project": "workspace:*",
     "@electrodsl/reports": "workspace:*"
   },

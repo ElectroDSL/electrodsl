@@ -2,6 +2,7 @@ import type { CircuitNode, DocumentNode, PropertyNode } from "@electrodsl/ast";
 import { parseEngineeringValue, type EngineeringValue } from "@electrodsl/engineering";
 
 export const CANONICAL_IR_SCHEMA = "https://electrodsl.org/schema/ir/0.4";
+export const STABLE_IR_SCHEMA = "https://electrodsl.org/schema/ir/1.0";
 
 export interface CanonicalEndpoint { component: string; terminal?: string }
 export interface CanonicalProperties { source: Record<string, string>; normalized: Record<string, EngineeringValue> }
@@ -21,7 +22,7 @@ export interface CanonicalCircuit {
     presentation: { routes: Array<{ connection: number; preference: "auto" | "above" | "below" }> };
 }
 export interface CanonicalIR {
-    $schema: typeof CANONICAL_IR_SCHEMA;
+    $schema: typeof CANONICAL_IR_SCHEMA | typeof STABLE_IR_SCHEMA;
     language: { name: "ElectroDSL"; version: string };
     project: {
         name: string;
@@ -72,7 +73,7 @@ function circuit(body: CircuitNode): CanonicalCircuit {
 
 export function toCanonicalIR(document: DocumentNode): CanonicalIR {
     return {
-        $schema: CANONICAL_IR_SCHEMA,
+        $schema: document.version === "1.0" ? STABLE_IR_SCHEMA : CANONICAL_IR_SCHEMA,
         language: { name: "ElectroDSL", version: document.version },
         project: {
             name: document.project.name,

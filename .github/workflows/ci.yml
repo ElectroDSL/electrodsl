@@ -34,10 +34,27 @@ jobs:
           version: 11
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Workspace
         run: pnpm build
 
       - name: Run Tests
         run: pnpm test
+
+      - name: Check 1.0 Reference Project
+        run: node packages/cli/dist/index.js project check examples/project-v1.0 --format sarif > quality.sarif
+
+      - name: Build and Verify 1.0 Reference Project
+        run: |
+          node packages/cli/dist/index.js project build examples/project-v1.0
+          node packages/cli/dist/index.js project verify examples/project-v1.0
+
+      - name: Upload Quality Interchange Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: electrodsl-quality
+          path: |
+            quality.sarif
+            examples/project-v1.0/build/quality.junit.xml
+            examples/project-v1.0/build/project.json

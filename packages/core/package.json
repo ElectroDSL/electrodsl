@@ -1,0 +1,15 @@
+{
+  "name": "@electrodsl/core",
+  "version": "1.0.0",
+  "description": "Stable public API for the ElectroDSL 1.0 toolchain",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js", "require": "./dist/index.cjs" } },
+  "scripts": { "build": "tsup src/index.ts --format esm,cjs --dts", "test": "vitest" },
+  "dependencies": {
+    "@electrodsl/analysis": "workspace:*", "@electrodsl/ast": "workspace:*", "@electrodsl/formatter": "workspace:*", "@electrodsl/integration": "workspace:*",
+    "@electrodsl/ir": "workspace:*", "@electrodsl/parser": "workspace:*", "@electrodsl/reports": "workspace:*", "@electrodsl/validator": "workspace:*"
+  },
+  "devDependencies": { "tsup": "^8.5.1", "typescript": "^5.7.3", "vitest": "^4.1.10" }
+}

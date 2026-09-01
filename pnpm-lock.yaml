@@ -84,6 +84,25 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
+  packages/analysis:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+    devDependencies:
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
   packages/ast:
     devDependencies:
       tsup:
@@ -92,6 +111,18 @@ importers:
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+
+  packages/ci:
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
   packages/cli:
     dependencies:
@@ -104,6 +135,12 @@ importers:
       '@electrodsl/ast':
         specifier: workspace:*
         version: link:../ast
+      '@electrodsl/ci':
+        specifier: workspace:*
+        version: link:../ci
+      '@electrodsl/core':
+        specifier: workspace:*
+        version: link:../core
       '@electrodsl/formatter':
         specifier: workspace:*
         version: link:../formatter
@@ -147,6 +184,43 @@ importers:
       typescript:
         specifier: ^5.7.3
         version: 5.7.3
+
+  packages/core:
+    dependencies:
+      '@electrodsl/analysis':
+        specifier: workspace:*
+        version: link:../analysis
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+      '@electrodsl/formatter':
+        specifier: workspace:*
+        version: link:../formatter
+      '@electrodsl/integration':
+        specifier: workspace:*
+        version: link:../integration
+      '@electrodsl/ir':
+        specifier: workspace:*
+        version: link:../ir
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
+      '@electrodsl/reports':
+        specifier: workspace:*
+        version: link:../reports
+      '@electrodsl/validator':
+        specifier: workspace:*
+        version: link:../validator
+    devDependencies:
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
   packages/diagram:
     dependencies:
@@ -391,12 +465,21 @@ importers:
 
   packages/project:
     dependencies:
+      '@electrodsl/analysis':
+        specifier: workspace:*
+        version: link:../analysis
       '@electrodsl/ast':
         specifier: workspace:*
         version: link:../ast
+      '@electrodsl/ci':
+        specifier: workspace:*
+        version: link:../ci
       '@electrodsl/integration':
         specifier: workspace:*
         version: link:../integration
+      '@electrodsl/ir':
+        specifier: workspace:*
+        version: link:../ir
       '@electrodsl/library':
         specifier: workspace:*
         version: link:../library

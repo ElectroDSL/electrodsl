@@ -16,8 +16,9 @@ describe("production project builds", () => {
         writeFileSync(join(root, "main.edsl"), source("Main"));
         writeFileSync(join(root, "control.edsl"), source("Control"));
         const manifest = buildProject(root);
-        expect(manifest.schema).toBe("electrodsl-artifacts/0.7");
+        expect(manifest.schema).toBe("electrodsl-artifacts/1.0");
         expect(manifest.artifacts.map(item => item.path)).toContain("quality.json");
+        expect(manifest.artifacts.map(item => item.path)).toEqual(expect.arrayContaining(["quality.sarif", "quality.junit.xml", "project.json"]));
         expect(manifest.artifacts.map(item => item.path)).toContain("reports/bom.csv");
         expect(verifyProjectBuild(root)).toEqual({ valid: true, errors: [] });
         expect(buildProject(root)).toEqual(manifest);
@@ -27,8 +28,8 @@ describe("production project builds", () => {
 
     it("blocks generation when project-wide quality checks fail", () => {
         const root = mkdtempSync(join(tmpdir(), "electrodsl-project-")); roots.push(root);
-        writeFileSync(join(root, "electrodsl.json"), JSON.stringify({ schema: "electrodsl-project/0.7", name: "Demo", version: "1.0.0", language: "0.7", circuits: ["main.edsl"] }));
-        writeFileSync(join(root, "main.edsl"), source("Main").replace("EDSL 0.6", "EDSL 0.7").replace('PROJECT "Demo"', 'PROJECT "Wrong"'));
+        writeFileSync(join(root, "electrodsl.json"), JSON.stringify({ schema: "electrodsl-project/0.8", name: "Demo", version: "1.0.0", language: "0.8", circuits: ["main.edsl"] }));
+        writeFileSync(join(root, "main.edsl"), source("Main").replace("EDSL 0.6", "EDSL 0.8").replace('PROJECT "Demo"', 'PROJECT "Wrong"'));
         expect(checkProject(root).errors).toContainEqual(expect.objectContaining({ code: "P4001", source: "main.edsl" }));
         expect(() => buildProject(root)).toThrow(ProjectValidationError);
     });

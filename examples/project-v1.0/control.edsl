@@ -1,0 +1,10 @@
+EDSL 1.0
+PROJECT "ElectroDSL Stable Motor Panel" {
+    CIRCUIT "Control" {
+        COMPONENT R2 : IEC-RESISTOR { resistance = "1 kohm" }
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" }
+        PORT CONTROL_POWER;
+        CONDUCTOR W3 : CONTROL_POWER -> R2.1 { size = "1.5 mm2" phase = "L1" }
+        CONDUCTOR W4 : R2.2 -> L1.L { size = "1.5 mm2" phase = "L1" }
+    }
+}
