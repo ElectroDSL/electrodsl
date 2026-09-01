@@ -6,6 +6,21 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.7.0] - 2026-09-01
+
+### Added
+
+- Mandatory project-wide engineering quality gate before production builds
+- Human-readable and JSON `project check` command for local development and CI
+- Project identity, language consistency, and duplicate circuit/module diagnostics
+- Versioned quality report included in verified build artifacts
+- Project, artifact, and quality JSON schemas for 0.7
+
+### Changed
+
+- Production builds now fail before writing outputs when validation errors exist
+- Language and engineering validation recognize ElectroDSL 0.7
+
 ## [0.6.0] - 2026-09-01
 
 ### Added

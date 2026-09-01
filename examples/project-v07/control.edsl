@@ -1,0 +1,9 @@
+EDSL 0.7
+PROJECT "Motor Panel Quality Set" {
+    CIRCUIT "Control" {
+        COMPONENT X2 : IEC-RESISTOR { resistance = "1 kohm" tag = "Control input" }
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" tag = "Run" }
+        CONDUCTOR W2 : X2.1 -> L1.L { size = "1.5 mm2" phase = "L1" length = "1 m" }
+        PORT CONTROL_POWER;
+    }
+}

@@ -1,6 +1,6 @@
 export interface ProjectManifest {
 
-    schema?: "electrodsl-project/0.6";
+    schema?: "electrodsl-project/0.6" | "electrodsl-project/0.7";
 
     name: string;
 

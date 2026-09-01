@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://electrodsl.org/schemas/electrodsl-quality-0.7.schema.json",
+  "title": "ElectroDSL 0.7 Quality Result",
+  "type": "object",
+  "required": ["schema", "valid", "project", "errors", "warnings"],
+  "properties": {
+    "schema": { "const": "electrodsl-quality/0.7" },
+    "valid": { "type": "boolean" },
+    "project": { "type": "string" },
+    "errors": { "type": "array", "items": { "$ref": "#/$defs/diagnostic" } },
+    "warnings": { "type": "array", "items": { "$ref": "#/$defs/diagnostic" } }
+  },
+  "$defs": { "diagnostic": { "type": "object", "required": ["code", "message", "severity"], "properties": { "code": { "type": "string" }, "message": { "type": "string" }, "severity": { "enum": ["error", "warning"] }, "source": { "type": "string" }, "line": { "type": "integer" }, "column": { "type": "integer" } } } },
+  "additionalProperties": false
+}

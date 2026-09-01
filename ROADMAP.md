@@ -62,6 +62,15 @@ Status: Complete
 
 Status: Complete
 
+## Version 0.7 — Project quality gates
+
+- Mandatory validation before production generation ✅
+- Cross-file project identity and naming checks ✅
+- CI-friendly structured diagnostics ✅
+- Verified quality reports in every production build ✅
+
+Status: Complete
+
 ## Version 1.0 — Stable open standard
 
 - Stable language and IR compatibility contract

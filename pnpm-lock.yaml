@@ -397,12 +397,18 @@ importers:
       '@electrodsl/integration':
         specifier: workspace:*
         version: link:../integration
+      '@electrodsl/library':
+        specifier: workspace:*
+        version: link:../library
       '@electrodsl/parser':
         specifier: workspace:*
         version: link:../parser
       '@electrodsl/reports':
         specifier: workspace:*
         version: link:../reports
+      '@electrodsl/validator':
+        specifier: workspace:*
+        version: link:../validator
     devDependencies:
       '@types/node':
         specifier: ^26.1.1

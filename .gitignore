@@ -6,6 +6,7 @@ node_modules/
 dist/
 coverage/
 examples/project-v06/build/
+examples/project-v07/build/
 
 # Logs
 *.log

@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/package-registry",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Versioned package manifests and deterministic resolution for ElectroDSL libraries",
   "type": "module",
   "main": "./dist/index.js",

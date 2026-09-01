@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/ai-tools",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Safe generation prompts, review, explanation, and optimization hints for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",
