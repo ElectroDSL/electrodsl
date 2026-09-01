@@ -71,6 +71,15 @@ Status: Complete
 
 Status: Complete
 
+## Version 0.8 — Electrical integrity
+
+- Duplicate and self-loop electrical path validation ✅
+- Conductor-to-cable allocation and cable capacity checks ✅
+- Isolated component and cross-sheet port diagnostics ✅
+- Verified project connectivity analysis ✅
+
+Status: Complete
+
 ## Version 1.0 — Stable open standard
 
 - Stable language and IR compatibility contract

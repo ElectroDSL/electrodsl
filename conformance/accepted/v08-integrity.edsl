@@ -1,0 +1,9 @@
+EDSL 0.8
+PROJECT "Version 0.8 Conformance" {
+    CIRCUIT "Integrity" {
+        COMPONENT F1 : IEC-FUSE { rating = "6A" }
+        COMPONENT L1 : IEC-LAMP { voltage = "230V" }
+        CABLE C1 { cores = "2" size = "1.5 mm2" }
+        CONDUCTOR W1 : F1.2 -> L1.L { cable = "C1" size = "1.5 mm2" phase = "L1" }
+    }
+}

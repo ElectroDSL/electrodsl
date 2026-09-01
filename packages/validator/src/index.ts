@@ -8,3 +8,4 @@ export * from "./rules/ElectricalReferenceRule.js";
 export * from "./rules/NetDefinitionRule.js";
 export * from "./rules/RoutePreferenceRule.js";
 export * from "./rules/EngineeringSemanticsRule.js";
+export * from "./rules/ElectricalIntegrityRule.js";

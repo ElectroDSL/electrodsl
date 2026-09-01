@@ -84,6 +84,25 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
 
+  packages/analysis:
+    dependencies:
+      '@electrodsl/ast':
+        specifier: workspace:*
+        version: link:../ast
+    devDependencies:
+      '@electrodsl/parser':
+        specifier: workspace:*
+        version: link:../parser
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(postcss@8.5.16)(tsx@4.23.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(vite@8.1.4(@types/node@26.1.1)(esbuild@0.28.1)(tsx@4.23.0))
+
   packages/ast:
     devDependencies:
       tsup:
@@ -391,6 +410,9 @@ importers:
 
   packages/project:
     dependencies:
+      '@electrodsl/analysis':
+        specifier: workspace:*
+        version: link:../analysis
       '@electrodsl/ast':
         specifier: workspace:*
         version: link:../ast

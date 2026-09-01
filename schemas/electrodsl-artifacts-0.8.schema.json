@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schemas/electrodsl-artifacts-0.8.schema.json", "title": "ElectroDSL 0.8 Artifact Manifest", "type": "object",
+  "required": ["schema", "project", "sources", "artifacts"], "properties": { "schema": { "const": "electrodsl-artifacts/0.8" }, "project": { "type": "object", "required": ["name", "version"] }, "sources": { "type": "array", "items": { "$ref": "#/$defs/file" } }, "artifacts": { "type": "array", "items": { "allOf": [{ "$ref": "#/$defs/file" }, { "required": ["mediaType"] }] } } },
+  "$defs": { "file": { "type": "object", "required": ["path", "sha256"], "properties": { "path": { "type": "string" }, "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }, "mediaType": { "type": "string" } } } }, "additionalProperties": false
+}

@@ -1,5 +1,6 @@
 # ElectroDSL Specification
 
+- [ElectroDSL 0.8 electrical integrity](13-v0.8-integrity.md)
 - [ElectroDSL 0.7 project quality gates](12-v0.7-quality.md)
 - [ElectroDSL 0.6 production workflow](11-v0.6-production.md)
 - [ElectroDSL 0.5 tooling and ecosystem](10-v0.5-development.md)

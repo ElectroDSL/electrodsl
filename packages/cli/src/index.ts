@@ -11,6 +11,7 @@ import { parseFile } from "@electrodsl/parser";
 import { compile } from "@electrodsl/integration";
 import {
     DuplicateComponentIdRule,
+    ElectricalIntegrityRule,
     ElectricalReferenceRule,
     EngineeringSemanticsRule,
     LanguageVersionRule,
@@ -321,6 +322,7 @@ function validate(
         new DuplicateComponentIdRule(),
         new ElectricalReferenceRule(symbols),
         new EngineeringSemanticsRule(),
+        new ElectricalIntegrityRule(),
         new NetDefinitionRule(),
         new RoutePreferenceRule()
     ]).validate(document);
@@ -334,7 +336,7 @@ function validate(
         console.log(`${error.code}: ${error.message}`);
     }
 
-    process.exit(1);
+    if (result.errors.some(error => error.severity === "error")) process.exit(1);
 
 }
 

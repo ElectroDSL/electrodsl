@@ -6,6 +6,22 @@ The format follows Keep a Changelog.
 
 ---
 
+## [0.8.0] - 2026-09-01
+
+### Added
+
+- Electrical integrity validation for self-loops and duplicate paths
+- Cable declaration and core-allocation checks
+- Isolated-component and dangling cross-sheet-port warnings
+- Deterministic project connectivity analysis
+- Verified `connectivity.json` production artifact
+- Versioned 0.8 project, artifact, quality, and connectivity schemas
+
+### Changed
+
+- CLI validation now reports warnings without returning a failing exit code
+- Project quality gates apply the v0.8 integrity rules before generation
+
 ## [0.7.0] - 2026-09-01
 
 ### Added

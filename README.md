@@ -2,6 +2,19 @@
 
 ElectroDSL is an open, AI-friendly language and TypeScript toolchain for describing, validating, laying out, and rendering electrical schematics.
 
+## ElectroDSL 0.8
+
+Version 0.8 adds electrical-integrity rules and a verified project connectivity analysis.
+
+```powershell
+pnpm build
+node packages/cli/dist/index.js project check examples/project-v08 --json
+node packages/cli/dist/index.js project build examples/project-v08
+node packages/cli/dist/index.js project verify examples/project-v08
+```
+
+See [the v0.8 electrical-integrity guide](docs/13-v0.8-integrity.md).
+
 ## ElectroDSL 0.7
 
 Version 0.7 makes project-wide engineering validation mandatory before production outputs are generated and adds CI-readable quality reports.
