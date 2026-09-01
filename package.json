@@ -1,6 +1,6 @@
 {
   "name": "electrodsl",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "private": true,
   "description": "ElectroDSL - Open Standard for Electrical Schematics",
   "packageManager": "pnpm@11.10.0",

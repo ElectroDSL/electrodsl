@@ -91,9 +91,9 @@ Status: Complete
 
 ## Version 1.0 — Stable open standard
 
-- Stable language and IR compatibility contract
-- Multiple independent implementations
-- Open governance and extension process
-- Production editor, renderer, library, and interchange ecosystem
+- Stable language, public API, and IR compatibility contract ✅
+- Executable conformance kit for independent implementations ✅
+- Open RFC governance and extension process ✅
+- Production validation, renderer, library, reporting, and interchange toolchain ✅
 
-Status: Future
+Status: Complete

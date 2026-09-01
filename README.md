@@ -2,6 +2,20 @@
 
 ElectroDSL is an open, AI-friendly language and TypeScript toolchain for describing, validating, laying out, and rendering electrical schematics.
 
+## ElectroDSL 1.0
+
+ElectroDSL 1.0 freezes the stable language, schema, CLI, and public API contracts while retaining compatibility with language versions 0.1–0.9.
+
+```powershell
+pnpm build
+node packages/cli/dist/index.js version
+node packages/cli/dist/index.js project check examples/project-v1.0 --format sarif
+node packages/cli/dist/index.js project build examples/project-v1.0
+node packages/cli/dist/index.js project verify examples/project-v1.0
+```
+
+Programmatic users should depend on `@electrodsl/core`. See [the ElectroDSL 1.0 stable standard](docs/15-v1.0-stable-standard.md).
+
 ## ElectroDSL 0.9
 
 Version 0.9 adds SARIF, JUnit XML, canonical project interchange, and a production CI workflow.

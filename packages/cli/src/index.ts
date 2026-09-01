@@ -29,6 +29,7 @@ import { createDefaultAdapterRegistry } from "@electrodsl/adapters";
 import { buildGenerationPrompt, explainDesign, reviewDesign } from "@electrodsl/ai-tools";
 import { buildProject, checkProject, ProjectValidationError, verifyProjectBuild } from "@electrodsl/project";
 import { qualityToJUnit, qualityToSarif } from "@electrodsl/ci";
+import { checkLanguageCompatibility, LANGUAGE_VERSION, SUPPORTED_LANGUAGE_VERSIONS, TOOLCHAIN_VERSION } from "@electrodsl/core";
 import { generateProductionReport, reportCsvFiles } from "@electrodsl/reports";
 import { mkdirSync } from "node:fs";
 
@@ -43,6 +44,24 @@ if (command === "parse") {
     const document = readDocument(args[1], "edsl parse <file.edsl>");
 
     console.log(JSON.stringify(document, null, 2));
+
+}
+
+else if (command === "version") {
+
+    const information = { toolchain: TOOLCHAIN_VERSION, language: LANGUAGE_VERSION, supportedLanguageVersions: SUPPORTED_LANGUAGE_VERSIONS };
+    if (args.includes("--json")) console.log(JSON.stringify(information, null, 2));
+    else console.log(`ElectroDSL toolchain ${TOOLCHAIN_VERSION} (language ${LANGUAGE_VERSION})`);
+
+}
+
+else if (command === "compatibility") {
+
+    const version = requiredFile(args[1], "edsl compatibility <language-version> [--json]");
+    const result = checkLanguageCompatibility(version);
+    if (args.includes("--json")) console.log(JSON.stringify(result, null, 2));
+    else console.log(`${result.compatible ? "✓" : "✗"} ${result.message}`);
+    if (!result.compatible) process.exitCode = 1;
 
 }
 
@@ -254,6 +273,8 @@ ElectroDSL CLI
 
 Commands:
 
+  edsl version [--json]
+  edsl compatibility <language-version> [--json]
   edsl parse <file.edsl>
   edsl validate <file.edsl>
   edsl check <file.edsl>

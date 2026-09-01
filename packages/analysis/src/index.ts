@@ -2,7 +2,7 @@ import type { CircuitNode, DocumentNode, EndpointNode } from "@electrodsl/ast";
 
 export interface CircuitConnectivity { circuit: string; components: number; electricalPaths: number; nets: number; buses: number; isolatedComponents: string[] }
 export interface PortConnectivity { name: string; circuits: string[]; connectedCircuits: string[]; dangling: boolean }
-export interface ConnectivityAnalysis { schema: "electrodsl-connectivity/0.8"; project: string; circuits: CircuitConnectivity[]; ports: PortConnectivity[]; totals: { components: number; electricalPaths: number; isolatedComponents: number; danglingPorts: number } }
+export interface ConnectivityAnalysis { schema: "electrodsl-connectivity/0.8" | "electrodsl-connectivity/1.0"; project: string; circuits: CircuitConnectivity[]; ports: PortConnectivity[]; totals: { components: number; electricalPaths: number; isolatedComponents: number; danglingPorts: number } }
 
 const endpointName = (endpoint: EndpointNode) => endpoint.pin ? `${endpoint.component}.${endpoint.pin}` : endpoint.component;
 
@@ -35,7 +35,7 @@ export function analyzeConnectivity(document: DocumentNode): ConnectivityAnalysi
         };
     }).sort((a, b) => a.circuit.localeCompare(b.circuit));
     const ports = [...portMap].map(([name, entries]) => ({ name, circuits: entries.map(item => item.circuit).sort(), connectedCircuits: entries.filter(item => item.connected).map(item => item.circuit).sort(), dangling: entries.length < 2 || entries.some(item => !item.connected) })).sort((a, b) => a.name.localeCompare(b.name));
-    return { schema: "electrodsl-connectivity/0.8", project: document.project.name, circuits, ports, totals: {
+    return { schema: document.version === "1.0" ? "electrodsl-connectivity/1.0" : "electrodsl-connectivity/0.8", project: document.project.name, circuits, ports, totals: {
         components: circuits.reduce((sum, item) => sum + item.components, 0), electricalPaths: circuits.reduce((sum, item) => sum + item.electricalPaths, 0),
         isolatedComponents: circuits.reduce((sum, item) => sum + item.isolatedComponents.length, 0), danglingPorts: ports.filter(item => item.dangling).length
     } };

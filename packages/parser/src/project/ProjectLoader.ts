@@ -45,12 +45,12 @@ export class ProjectLoader {
     }
 
     private validateManifest(manifest: ProjectManifest): void {
-        if (manifest.schema && !["electrodsl-project/0.6", "electrodsl-project/0.7", "electrodsl-project/0.8", "electrodsl-project/0.9"].includes(manifest.schema)) throw new Error(`Unsupported project schema '${manifest.schema}'`);
+        if (manifest.schema && !["electrodsl-project/0.6", "electrodsl-project/0.7", "electrodsl-project/0.8", "electrodsl-project/0.9", "electrodsl-project/1.0"].includes(manifest.schema)) throw new Error(`Unsupported project schema '${manifest.schema}'`);
         if (!manifest.name || !manifest.version) throw new Error("Project name and version are required");
         if (!Array.isArray(manifest.circuits) || manifest.circuits.length === 0) throw new Error("Project requires at least one circuit source");
         if (manifest.circuits.some(file => typeof file !== "string" || !file.trim())) throw new Error("Project circuit sources must be non-empty strings");
         if (new Set(manifest.circuits).size !== manifest.circuits.length) throw new Error("Project circuit sources must be unique");
-        if (manifest.language && !["0.6", "0.7", "0.8", "0.9"].includes(manifest.language)) throw new Error(`Unsupported project language '${manifest.language}'`);
+        if (manifest.language && !["0.6", "0.7", "0.8", "0.9", "1.0"].includes(manifest.language)) throw new Error(`Unsupported project language '${manifest.language}'`);
         if (manifest.output && (typeof manifest.output.directory !== "string" || !manifest.output.directory.trim() || manifest.output.format !== "svg")) throw new Error("Project output requires a directory and SVG format");
     }
 

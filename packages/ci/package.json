@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/ci",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "SARIF and JUnit interoperability for ElectroDSL quality results",
   "type": "module",
   "main": "dist/index.js",

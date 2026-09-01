@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schemas/electrodsl-connectivity-1.0.schema.json", "title": "ElectroDSL 1.0 Connectivity", "type": "object",
+  "required": ["schema", "project", "circuits", "ports", "totals"], "properties": { "schema": { "const": "electrodsl-connectivity/1.0" }, "project": { "type": "string" }, "circuits": { "type": "array" }, "ports": { "type": "array" }, "totals": { "type": "object" } }, "additionalProperties": false
+}

@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schemas/electrodsl-report-1.0.schema.json", "title": "ElectroDSL 1.0 Production Report", "type": "object",
+  "required": ["schema", "project", "bom", "conductors", "cables", "terminals", "crossReferences"], "properties": { "schema": { "const": "electrodsl-report/1.0" }, "project": { "type": "string" }, "bom": { "type": "array" }, "conductors": { "type": "array" }, "cables": { "type": "array" }, "terminals": { "type": "array" }, "crossReferences": { "type": "array" } }, "additionalProperties": false
+}

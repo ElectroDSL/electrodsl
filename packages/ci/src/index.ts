@@ -10,7 +10,7 @@ export function qualityToSarif(quality: QualityResultLike): string {
         message: { text: item.message },
         ...(item.source ? { locations: [{ physicalLocation: { artifactLocation: { uri: item.source }, ...(item.line ? { region: { startLine: item.line, ...(item.column ? { startColumn: item.column } : {}) } } : {}) } }] } : {})
     }));
-    return `${JSON.stringify({ version: "2.1.0", $schema: "https://json.schemastore.org/sarif-2.1.0.json", runs: [{ tool: { driver: { name: "ElectroDSL", semanticVersion: "0.9.0", informationUri: "https://github.com/ElectroDSL/electrodsl", rules } }, automationDetails: { id: quality.project }, results }] }, null, 2)}\n`;
+    return `${JSON.stringify({ version: "2.1.0", $schema: "https://json.schemastore.org/sarif-2.1.0.json", runs: [{ tool: { driver: { name: "ElectroDSL", semanticVersion: "1.0.0", informationUri: "https://github.com/ElectroDSL/electrodsl", rules } }, automationDetails: { id: quality.project }, results }] }, null, 2)}\n`;
 }
 
 export function qualityToJUnit(quality: QualityResultLike): string {

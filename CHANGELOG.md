@@ -6,6 +6,23 @@ The format follows Keep a Changelog.
 
 ---
 
+## [1.0.0] - 2026-09-01
+
+### Added
+
+- Stable `@electrodsl/core` public API façade
+- Explicit 0.1–1.0 language compatibility contract
+- `version` and `compatibility` CLI commands
+- Stable 1.0 project, IR, report, connectivity, quality, and artifact schemas
+- ElectroDSL 1.0 conformance fixture and production reference project
+- Normative semantic-versioning, schema, diagnostics, and governance guarantees
+
+### Changed
+
+- Production outputs use stable 1.0 schema identifiers for 1.0 projects
+- SARIF identifies the stable 1.0 toolchain
+- CI validates the 1.0 reference project
+
 ## [0.9.0] - 2026-09-01
 
 ### Added

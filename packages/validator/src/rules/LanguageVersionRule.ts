@@ -4,7 +4,7 @@ import type { ValidationRule } from "./ValidationRule.js";
 
 export class LanguageVersionRule implements ValidationRule {
     validate(document: DocumentNode): ValidationError[] {
-        if (!["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9"].includes(document.version)) {
+        if (!["0.1", "0.2", "0.3", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9", "1.0"].includes(document.version)) {
             return [{
                 code: "E2000",
                 message: `Unsupported ElectroDSL version: ${document.version}`,

@@ -8,7 +8,7 @@ const props = (items: PropertyNode[]) => Object.fromEntries(items.map(item => [i
 
 export class ElectricalIntegrityRule implements ValidationRule {
     validate(document: DocumentNode): ValidationError[] {
-        if (!["0.8", "0.9"].includes(document.version)) return [];
+        if (!["0.8", "0.9", "1.0"].includes(document.version)) return [];
         const diagnostics: ValidationError[] = [];
         const portLocations = new Map<string, Array<{ circuit: string; connected: boolean }>>();
         for (const circuit of document.project.circuits) this.validateCircuit(circuit, diagnostics, portLocations);

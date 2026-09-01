@@ -1,0 +1,9 @@
+{
+  "schema": "electrodsl-project/1.0",
+  "name": "ElectroDSL Stable Motor Panel",
+  "version": "1.0.0",
+  "language": "1.0",
+  "circuits": ["supply.edsl", "control.edsl"],
+  "output": { "directory": "build", "format": "svg" },
+  "reports": true
+}

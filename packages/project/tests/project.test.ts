@@ -16,7 +16,7 @@ describe("production project builds", () => {
         writeFileSync(join(root, "main.edsl"), source("Main"));
         writeFileSync(join(root, "control.edsl"), source("Control"));
         const manifest = buildProject(root);
-        expect(manifest.schema).toBe("electrodsl-artifacts/0.9");
+        expect(manifest.schema).toBe("electrodsl-artifacts/1.0");
         expect(manifest.artifacts.map(item => item.path)).toContain("quality.json");
         expect(manifest.artifacts.map(item => item.path)).toEqual(expect.arrayContaining(["quality.sarif", "quality.junit.xml", "project.json"]));
         expect(manifest.artifacts.map(item => item.path)).toContain("reports/bom.csv");

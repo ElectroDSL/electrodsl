@@ -14,4 +14,9 @@ describe("ElectroDSL language service", () => {
         expect(service.hover("port")?.documentation).toContain("cross-sheet");
         expect(service.format('EDSL 0.5 PROJECT "P" { CIRCUIT "C" {} }')).toContain('    CIRCUIT "C" {');
     });
+
+    it("exposes stable electrical-integrity warnings", () => {
+        const diagnostics = service.diagnose('EDSL 1.0 PROJECT "P" { CIRCUIT "C" { COMPONENT R1 : IEC-RESISTOR {} } }');
+        expect(diagnostics).toContainEqual(expect.objectContaining({ code: "E2304", severity: "warning" }));
+    });
 });

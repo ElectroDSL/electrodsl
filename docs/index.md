@@ -1,5 +1,6 @@
 # ElectroDSL Specification
 
+- [ElectroDSL 1.0 stable standard](15-v1.0-stable-standard.md)
 - [ElectroDSL 0.9 interoperability and CI](14-v0.9-interoperability.md)
 - [ElectroDSL 0.8 electrical integrity](13-v0.8-integrity.md)
 - [ElectroDSL 0.7 project quality gates](12-v0.7-quality.md)

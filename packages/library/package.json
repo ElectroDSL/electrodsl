@@ -1,6 +1,6 @@
 {
   "name": "@electrodsl/library",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Reusable electrical component definitions for ElectroDSL",
   "type": "module",
   "main": "./dist/index.js",

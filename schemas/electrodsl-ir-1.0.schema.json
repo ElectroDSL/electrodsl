@@ -1,0 +1,4 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "$id": "https://electrodsl.org/schema/ir/1.0", "title": "ElectroDSL 1.0 Canonical IR", "type": "object",
+  "required": ["$schema", "language", "project"], "properties": { "$schema": { "const": "https://electrodsl.org/schema/ir/1.0" }, "language": { "type": "object", "required": ["name", "version"], "properties": { "name": { "const": "ElectroDSL" }, "version": { "const": "1.0" } } }, "project": { "type": "object", "required": ["name", "modules", "circuits"] } }, "additionalProperties": false
+}
